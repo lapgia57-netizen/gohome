@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sóng Điện Từ - Vật Lý 12</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Tahoma, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8fbff;
+            margin: 0;
+            padding: 20px;
+        }
+        h1, h2, h3 {
+            color: #1e40af;
+        }
+        h1 {
+            text-align: center;
+            color: #1e40af;
+            margin-bottom: 10px;
+        }
+        .container {
+            max-width: 1000px;
+            margin: auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 16px;
+        }
+        th, td {
+            border: 1px solid #2563eb;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #3b82f6;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f0f7ff;
+        }
+        .formula {
+            background: #ecfdf5;
+            padding: 15px;
+            border-left: 5px solid #10b981;
+            margin: 15px 0;
+            font-family: "Courier New", monospace;
+            border-radius: 6px;
+        }
+        .example {
+            background: #fffbeb;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 1px solid #f59e0b;
+        }
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            color: #666;
+            font-size: 14px;
+        }
+        @media (max-width: 768px) {
+            table, thead, tbody, th, td, tr {
+                display: block;
+            }
+            th, td {
+                text-align: right;
+                position: relative;
+                padding-left: 50%;
+            }
+            th::before, td::before {
+                content: attr(data-label);
+                position: absolute;
+                left: 10px;
+                width: 45%;
+                font-weight: bold;
+                text-align: left;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>SÓNG ĐIỆN TỪ</h1>
+        <p style="text-align:center; font-size:18px; color:#1e40af;">
+            Là sóng do dao động của <strong>điện trường (E)</strong> và <strong>từ trường (B)</strong> vuông góc với nhau và vuông góc với phương truyền sóng.
+        </p>
+
+        <h2>1. Đặc điểm chính</h2>
+        <ul>
+            <li>Là <strong>sóng ngang</strong> (E ⊥ B ⊥ phương truyền sóng)</li>
+            <li>Tốc độ trong chân không: <strong>c = 3×10⁸ m/s</strong> (hằng số ánh sáng)</li>
+            <li>Tốc độ trong môi trường: <strong>v = c / √(εᵣ μᵣ) &lt; c</strong></li>
+            <li>Mang năng lượng, động lượng và mômen động lượng</li>
+            <li>Tuân theo các hiện tượng: giao thoa, nhiễu xạ, phản xạ, khúc xạ, phân cực, nguyên lý chồng chất…</li>
+        </ul>
+
+        <h2>2. Phương trình sóng điện từ (từ phương trình Maxwell)</h2>
+        <div class="formula">
+            ∇²E = ε₀μ₀ ∂²E/∂t²<br>
+            ∇²B = ε₀μ₀ ∂²B/∂t²<br><br>
+            ⇒ Tốc độ sóng: <strong>c = 1/√(ε₀μ₀) = 3×10⁸ m/s</strong><br>
+            → Maxwell (1865) chứng minh ánh sáng là sóng điện từ.
+        </div>
+
+        <h2>3. Phổ sóng điện từ</h2>
+        <p>(Sắp xếp theo tần số tăng dần – bước sóng giảm dần)</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Tên sóng</th>
+                    <th>Bước sóng λ</th>
+                    <th>Tần số f</th>
+                    <th>Ứng dụng chính</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td data-label="Tên sóng">Sóng radio</td>
+                    <td data-label="Bước sóng">> 1 mm (thường m đến km)</td>
+                    <td data-label="Tần số">< 300 GHz</td>
+                    <td data-label="Ứng dụng">Radio, TV, Wi-Fi, 4G/5G, radar</td>
+                </tr>
+                <tr>
+                    <td data-label="Tên sóng">Sóng viba (microwave)</td>
+                    <td data-label="Bước sóng">1 mm – 1 m</td>
+                    <td data-label="Tần số">300 MHz – 300 GHz</td>
+                    <td data-label="Ứng dụng">Lò vi sóng, GPS, radar, 5G mmWave</td>
+                </tr>
+                <tr>
+                    <td data-label="Tên sóng">Hồng ngoại (IR)</td>
+                    <td data-label="Bước sóng">700 nm – 1 mm</td>
+                    <td data-label="Tần số">300 GHz – 430 THz</td>
+                    <td data-label="Ứng dụng">Điều khiển từ xa, chụp nhiệt, sưởi ấm</td>
+                </tr>
+                <tr>
+                    <td data-label="Tên sóng"><strong>Ánh sáng nhìn thấy</strong></td>
+                    <td data-label="Bước sóng">400–700 nm</td>
+                    <td data-label="Tần số">430–750 THz</td>
+                    <td data-label="Ứng dụng">Thị giác, nhiếp ảnh, chiếu sáng</td>
+                </tr>
+                <tr>
+                    <td data-label="Tên sóng">Tia cực tím (UV)</td>
+                    <td data-label="Bước sóng">10–400 nm</td>
+                    <td data-label="Tần số">750 THz – 30 PHz</td>
+                    <td data-label="Ứng dụng">Khử trùng, thuộc da, quang phổ</td>
+                </tr>
+                <tr>
+                    <td data-label="Tên sóng">Tia X (X-ray)</td>
+                    <td data-label="Bước sóng">0,01–10 nm</td>
+                    <td data-label="Tần số">30 PHz – 30 EHz</td>
+                    <td data-label="Ứng dụng">Chụp X-quang y tế, kiểm tra hành lý</td>
+                </tr>
+                <tr>
+                    <td data-label="Tên sóng">Tia gamma (γ)</td>
+                    <td data-label="Bước sóng">< 0,01 nm</td>
+                    <td data-label="Tần số">> 30 EHz</td>
+                    <td data-label="Ứng dụng">Xạ trị ung thư, thiên văn gamma, phản ứng hạt nhân</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>4. Năng lượng photon</h2>
+        <div class="formula">
+            E = h·f = hc / λ<br><br>
+            h = 6,626 × 10⁻³⁴ J·s (hằng số Planck)<br>
+            hc ≈ 1240 eV·nm (rất tiện để tính nhanh bằng eV)
+        </div>
+        <p>⇒ Tia gamma, tia X có năng lượng photon keV–MeV → có khả năng <strong>ion hóa</strong>, nguy hiểm sinh học.<br>
+        ⇒ Ánh sáng nhìn thấy chỉ ≈ 1,8 – 3,1 eV.</p>
+
+        <h2>5. Một số hiện tượng quan trọng</h2>
+        <ul>
+            <li>Phân cực (tuyến tính, tròn, elip)</li>
+            <li>Hiệu ứng Doppler điện từ</li>
+            <li>Áp suất bức xạ (dùng trong buồm mặt trời)</li>
+            <li>Hiệu ứng Compton</li>
+            <li>Hiệu ứng quang điện</li>
+        </ul>
+
+        <h2>6. Ví dụ bài tập thường gặp (lớp 12)</h2>
+
+        <div class="example">
+            <strong>Câu 1:</strong> Sóng điện từ truyền trong chân không có λ = 600 nm. Tính tần số, chu kỳ và năng lượng photon.<br><br>
+            <strong>Giải:</strong><br>
+            f = c/λ = 3×10⁸ / (600×10⁻⁹) = <strong>5×10¹⁴ Hz</strong><br>
+            T = 1/f ≈ <strong>2×10⁻¹⁵ s</strong><br>
+            E = hc/λ ≈ 1240 / 600 ≈ <strong>2,07 eV</strong> (hoặc 3,31×10⁻¹⁹ J)
+        </div>
+
+        <div class="example">
+            <strong>Câu 2:</strong> Sóng radio phát từ trạm có f = 100 MHz. Bước sóng trong không khí là bao nhiêu?<br><br>
+            <strong>Giải:</strong><br>
+            λ = c/f = 3×10⁸ / (100×10⁶) = <strong>3 m</strong>
+        </div>
+
+        <footer>
+            Trang tóm tắt Sóng điện từ – Vật lý 12<br>
+            Cập nhật: 11/12/2025 | Làm bằng ❤️ cho các bạn ôn thi THPT Quốc gia
+        </footer>
+    </div>
+</body>
+  </html>
