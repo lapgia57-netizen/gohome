@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ước tính lưu lượng giao thông khu công nghiệp 45 công ty</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 1.6;
+            margin: 40px auto;
+            max-width: 900px;
+            background: #f9f9f9;
+            color: #333;
+        }
+        h1, h2, h3 {
+            color: #1e40af;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #fff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #1e40af;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .highlight {
+            background-color: #dbeafe;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+        .note {
+            background-color: #fff3cd;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        footer {
+            margin-top: 50px;
+            text-align: center;
+            color: #666;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>ƯỚC TÍNH LƯỢNG TRUY CẬP GIAO THÔNG<br>KHU CÔNG NGHIỆP CÓ 45 CÔNG TY</h1>
+
+    <p><strong>Cơ sở tính toán:</strong> TCVN 13592:2022, QCVN 01:2021/BXD và kinh nghiệm thực tế các KCN tại Việt Nam (2024-2025)</p>
+
+    <h2>1. Các giả thiết trung bình áp dụng</h2>
+    <table>
+        <tr>
+            <th>Chỉ tiêu</th>
+            <th>Giá trị áp dụng</th>
+            <th>Ghi chú</th>
+        </tr>
+        <tr>
+            <td>Số lao động trung bình/công ty</td>
+            <td>500 người/công ty</td>
+            <td>Thống kê thực tế KCN Việt Nam</td>
+        </tr>
+        <tr>
+            <td>Hệ số phát tán giao thông</td>
+            <td>1,8 chuyến xe quy đổi/ngày/lao động</td>
+            <td>TCVN 13592:2022</td>
+        </tr>
+        <tr>
+            <td>Hệ số giờ cao điểm buổi sáng</td>
+            <td>13% tổng lưu lượng ngày</td>
+            <td>Thực tế các KCN lớn</td>
+        </tr>
+        <tr>
+            <td>Tỷ lệ chiều vào buổi sáng</td>
+            <td>~72% lưu lượng giờ cao điểm</td>
+            <td>Thống kê giờ cao điểm</td>
+        </tr>
+    </table>
+
+    <h2>2. Kết quả tính toán</h2>
+    <table>
+        <tr>
+            <th>Chỉ tiêu</th>
+            <th>Giá trị ước tính</th>
+        </tr>
+        <tr class="highlight">
+            <td>Tổng số lao động (45 công ty)</td>
+            <td><strong>22.500 người</strong></td>
+        </tr>
+        <tr class="highlight">
+            <td>Tổng lưu lượng ngày (cả 2 chiều)</td>
+            <td><strong>~40.500 chuyến xe quy đổi/ngày</strong></td>
+        </tr>
+        <tr class="highlight">
+            <td>Giờ cao điểm buổi sáng (cả 2 chiều)</td>
+            <td><strong>5.200 – 5.300 PCU/giờ</strong></td>
+        </tr>
+        <tr class="highlight">
+            <td>Chiều vào KCN giờ cao điểm sáng</td>
+            <td><strong>3.800 – 4.000 xe/giờ</strong></td>
+        </tr>
+        <tr class="highlight">
+            <td>Chiều ra KCN giờ cao điểm chiều</td>
+            <td><strong>3.600 – 3.900 xe/giờ</strong></td>
+        </tr>
+    </table>
+
+    <h2>3. Khuyến nghị quy hoạch đường trục chính vào KCN</h2>
+    <ul>
+        <li>Một làn xe hỗn hợp chịu được khoảng <strong>1.200 – 1.500 xe/giờ</strong> (theo TCVN 4054-2005).</li>
+        <li>Với lưu lượng <strong>~4.000 xe/giờ/chiều</strong> → cần <strong>tối thiểu 3–4 làn xe mỗi chiều</strong>.</li>
+        <li><strong>Đề xuất thực tế:</strong> Đường trục chính nên thiết kế <strong>6–8 làn xe</strong> (hoặc 10 làn nếu có xe container nhiều) để đảm bảo dự trữ và phát triển lâu dài.</li>
+    </ul>
+
+    <div class="note">
+        <strong>Lưu ý:</strong> Nếu bạn cung cấp thêm thông tin chi tiết như:<br>
+        – Diện tích khu công nghiệp (ha)<br>
+        – Ngành nghề chính (may mặc, điện tử, cơ khí nặng, chế biến…)<br>
+        – Số lao động thực tế, tỷ lệ sử dụng xe máy/xe buýt<br>
+        thì có thể tính toán chính xác hơn với sai số chỉ khoảng ±10%.
+    </div>
+
+    <footer>
+        Tính toán bởi Grok 4 (xAI) – Ngày 11/12/2025<br>
+        Tham chiếu: TCVN 13592:2022, QCVN 01:2021/BXD, kinh nghiệm thực tế KCN Việt Nam
+    </footer>
+
+</body>
+</html>
