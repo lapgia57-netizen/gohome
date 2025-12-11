@@ -1,142 +1,198 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Đếm ngược 730 ngày - Kết thúc 16/10/2026</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Đếm ngược đến 16/10/2026</title>
   <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-      background-size: 400% 400%;
-      animation: gradient 15s ease infinite;
-      height: 100vh;
-      margin: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: white;
+    :root {
+      --primary: #6e48aa8;
+      --dark: #1a1a2e;
+      --light: #eee;
+      --accent: #e94560;
     }
 
-    @keyframes gradient {
-      0% {background-position: 0% 50%;}
-      50% {background-position: 100% 50%;}
-      100% {background-position: 0% 50%;}
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: linear-gradient(135deg, #0f0f23, #16213e, #1e2a3a);
+      color: var(--light);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      overflow-x: hidden;
     }
 
     .container {
+      background: rgba(20, 25, 45, 0.75);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-radius: 24px;
+      padding: 2.5rem 2rem;
+      width: 100%;
+      max-width: 900px;
       text-align: center;
-      background: rgba(0, 0, 0, 0.4);
-      padding: 40px 60px;
-      border-radius: 20px;
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
-      backdrop-filter: blur(10px);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     h1 {
-      font-size: 2.8rem;
-      margin-bottom: 30px;
-      margin-bottom: 10px;
+      font-size: clamp(1.8rem, 5vw, 3rem);
+      margin-bottom: 0.5rem;
+      background: linear-gradient(90deg, #fff, var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 700;
     }
 
-    p {
-      font-size: 1.3rem;
-      margin-bottom: 40px;
+    .subtitle {
+      font-size: clamp(1rem, 3vw, 1.3rem);
       opacity: 0.9;
+      margin-bottom: 2rem;
+      color: #ccc;
     }
 
     .countdown {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      flex-wrap: wrap;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin: 2rem 0;
     }
 
-    .time-block {
-      background: rgba(255, 255, 255, 0.2);
-      padding: 20px;
-      border-radius: 15px;
-      min-width: 120px;
+    .block {
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 1.2rem 0.5rem;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .block:hover {
+      transform: translateY(-8px);
     }
 
     .number {
-      font-size: 3.5rem;
-      font-weight: bold;
+      font-size: clamp(2.5rem, 8vw, 4.5rem);
+      font-weight: 800;
       line-height: 1;
+      color: var(--accent);
+      text-shadow: 0 0 20px rgba(233, 69, 96, 0.5);
     }
 
     .label {
-      font-size: 1.1rem;
-      margin-top: 8px;
+      font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+      margin-top: 0.5rem;
       text-transform: uppercase;
       letter-spacing: 2px;
+      opacity: 0.8;
     }
 
-    .finish {
-      margin-top: 40px;
-      font-size: 1.5rem;
-      font-weight: bold;
+    .message {
+      margin-top: 2rem;
+      font-size: 1.1rem;
+      opacity: 0.85;
+    }
+
+    .finished {
+      font-size: 2rem !important;
       color: #ff0;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+
+    /* Mobile */
+    @media (max-width: 640px) {
+      .container {
+        padding: 2rem 1.2rem;
+        margin: 10px;
+      }
+
+      .countdown {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+      }
+
+      .block {
+        padding: 1rem 0.5rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .countdown {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>Đếm ngược 730 ngày</h1>
-    <p>Từ 16/10/2024 → Kết thúc ngày <strong>16/10/2026</strong></p>
+    <h1>730 ngày kết thúc</h1>
+    <p class="subtitle">Từ 16/10/2024 → <strong>16/10/2026</strong></p>
 
     <div class="countdown" id="countdown">
-      <div class="time-block">
+      <div class="block">
         <div class="number" id="days">0</div>
         <div class="label">Ngày</div>
       </div>
-      <div class="time-block">
-        <div class="number" id="hours">0</div>
+      <div class="block">
+        <div class="number" id="hours">00</div>
         <div class="label">Giờ</div>
       </div>
-      <div class="time-block">
-        <div class="number" id="minutes">0</div>
+      <div class="block">
+        <div class="number" id="minutes">00</div>
         <div class="label">Phút</div>
       </div>
-      <div class="time-block">
-        <div class="number" id="seconds">0</div>
+      <div class="block">
+        <div class="number" id="seconds">00</div>
         <div class="label">Giây</div>
       </div>
     </div>
 
-    <div class="finish">
-      Còn lại đến ngày 16/10/2026
-    </div>
+    <p class="message" id="message">Còn lại đến ngày đích 16/10/2026</p>
   </div>
 
   <script>
-    // Ngày đích: 16 tháng 10 năm 2026, 00:00:00
-    const targetDate = new Date("2026-10-16T00:00:00").getTime();
+    const target = new Date("2026-10-16T00:00:00").getTime();
 
-    function updateCountdown() {
+    function update() {
       const now = new Date().getTime();
-      const distance = targetDate - now;
+      const diff = target - now;
 
-      if (distance <= 0) {
-        document.getElementById("countdown").innerHTML = "<h2>ĐÃ HẾT HẠN!</h2>";
-        document.querySelector(".finish").textContent = "Đã đến ngày 16/10/2026 🎉";
+      if (diff <= 0) {
+        document.getElementById("countdown").innerHTML = `
+          <div style="grid-column: 1 / -1; padding: 3rem; font-size: 2.5rem; color: #ff0;">
+            ĐÃ ĐẾN NGÀY 16/10/2026 🎉
+          </div>`;
+        document.getElementById("message").classList.add("finished");
+        document.getElementById("message").textContent = "Chúc mừng! Hành trình 730 ngày đã hoàn thành!";
         return;
       }
 
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
       document.getElementById("days").textContent = days;
-      document.getElementById("hours").textContent = hours.toString().padStart(2, '0');
-      document.getElementById("minutes").textContent = minutes.toString().padStart(2, '0');
-      document.getElementById("seconds").textContent = seconds.toString().padStart(2, '0');
+      document.getElementById("hours").textContent = hours.toString().padStart(2, "0");
+      document.getElementById("minutes").textContent = minutes.toString().padStart(2, "0");
+      document.getElementById("seconds").textContent = seconds.toString().padStart(2, "0");
     }
 
-    // Cập nhật ngay lập tức và mỗi giây
-    updateCountdown();
-    setInterval(updateCountdown, 1000);
+    update();
+    setInterval(update, 1000);
   </script>
 </body>
 </html>
