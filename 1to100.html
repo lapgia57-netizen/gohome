@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Danh sách tuổi 1-100 | Project Đổi Đời</title>
+  <meta name="description" content="Dữ liệu mẫu tuổi từ 1 đến 100 - Firebase Realtime Database"/>
+
+  <!-- Tailwind CSS CDN (nhẹ, nhanh, không cần cài đặt) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen">
+
+  <div class="container mx-auto px-4 py-8 max-w-6xl">
+
+    <!-- Header -->
+    <div class="text-center mb-10">
+      <h1 class="text-4xl md:text-5xl font-bold text-indigo-800 mb-3">
+        Danh sách tuổi từ 1 → 100
+      </h1>
+      <p class="text-gray-600 text-lg">Dữ liệu được tải trực tiếp từ Firebase Realtime Database</p>
+      <div class="flex justify-center gap-4 mt-6">
+        <button id="btnNap" class="bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-8 rounded-lg shadow-lg transition transform hover:scale-105">
+          Nạp lại dữ liệu mẫu (1-100)
+        </button>
+        <button id="btnReload" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-8 rounded-lg shadow-lg transition">
+          Tải lại dữ liệu
+        </button>
+      </div>
+    </div>
+
+    <!-- Thông báo trạng thái -->
+    <div id="status" class="text-center font-medium text-lg mb-6"></div>
+
+    <!-- Loading -->
+    <div id="loading" class="text-center py-20">
+      <div class="inline-block animate-spin rounded-full h-12 w-12 border-4 border-indigo-600 border-t-transparent"></div>
+      <p class="mt-4 text-gray-700">Đang tải dữ liệu từ Firebase...</p>
+    </div>
+
+    <!-- Bảng dữ liệu -->
+    <div id="dataContainer" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5 hidden">
+      <!-- Dữ liệu sẽ được chèn bằng JavaScript -->
+    </div>
+
+    <!-- Không có dữ liệu -->
+    <div id="empty" class="text-center py-20 text-gray-500 text-xl hidden">
+      Không có dữ liệu. Nhấn nút <strong>Nạp lại dữ liệu mẫu</strong> để tạo dữ liệu từ 1 đến 100 tuổi.
+    </div>
+
+  </div>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+
+  <script>
+    // Cấu hình Firebase của bạn
+    const firebaseConfig = {
+      databaseURL: "https://project-doidoi-default-rtdb.asia-southeast1.firebasedatabase.app"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+    const refTuoi = db.ref('tuoi');
+
+    const statusEl = document.getElementById('status');
+    const loadingEl = document.getElementById('loading');
+    const dataContainer = document.getElementById('dataContainer');
+    const emptyEl = document.getElementById('empty');
+
+    // Hàm hiển thị dữ liệu
+    function renderData(snapshot) {
+      dataContainer.innerHTML = '';
+      loadingEl.classList.add('hidden');
+
+      if (!snapshot.exists()) {
+        emptyEl.classList.remove('hidden');
+        return;
+      }
+
+      emptyEl.classList.add('hidden');
+      dataContainer.classList.remove('hidden');
+
+      const data = snapshot.val();
+      const ages = Object.keys(data).map(key => ({ id: key, ...data[key] })).sort((a,b) => a.tuoi - b.tuoi);
+
+      ages.forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'bg-white rounded-xl shadow-md hover:shadow-xl transition transform hover:-translate-y-1 p-6 text-center border border-gray-100';
+        card.innerHTML = `
+          <div class="text-5xl font-bold text-indigo-600 mb-2">${item.tuoi}</div>
+          <div class="text-gray-800 font-semibold text-lg">${item.ten || 'Người ' + item.tuoi + ' tuổi'}</div>
+          <div class="text-sm text-gray-500 mt-2">${item.moTa || 'Dữ liệu mẫu'}</div>
+          <div class="text-xs text-gray-400 mt-3">
+            ${new Date(item.thoiGianNap || Date.now()).toLocaleDateString('vi-VN')}
+          </div>
+        `;
+        dataContainer.appendChild(card);
+      });
+
+      statusEl.textContent = `Đã tải thành công ${ages.length} bản ghi!`;
+      statusEl.className = 'text-center font-medium text-green-600 text-lg mb-6';
+    }
+
+    // Load dữ liệu khi mở trang
+    function loadData() {
+      loadingEl.classList.remove('hidden');
+      dataContainer.classList.add('hidden');
+      emptyEl.classList.add('hidden');
+      statusEl.textContent = '';
+
+      refTuoi.once('value').then(renderData).catch(err => {
+        loadingEl.classList.add('hidden');
+        statusEl.textContent = 'Lỗi kết nối: ' + err.message;
+        statusEl.className = 'text-red-600';
+      });
+    }
+
+    // Nạp dữ liệu mẫu 1-100
+    document.getElementById('btnNap').addEventListener('click', () => {
+      if (!confirm('Bạn có chắc muốn ghi đè dữ liệu hiện tại bằng mẫu 1-100 tuổi không?')) return;
+
+      const btn = document.getElementById('btnNap');
+      btn.disabled = true;
+      btn.textContent = 'Đang nạp...';
+      statusEl.textContent = 'Đang nạp dữ liệu mẫu...';
+
+      const data = {};
+      for (let i = 1; i <= 100; i++) {
+        data[i] = {
+          tuoi: i,
+          ten: `Người ${i} tuổi`,
+          moTa: `Dữ liệu mẫu cho người ${i} tuổi`,
+          thoiGianNap: new Date().toISOString()
+        };
+      }
+
+      refTuoi.set(data)
+        .then(() => {
+          statusEl.textContent = 'Nạp dữ liệu mẫu thành công!';
+          statusEl.className = 'text-green-600';
+          loadData();
+        })
+        .catch(err => {
+          statusEl.textContent = 'Lỗi: ' + err.message;
+          statusEl.className = 'text-red-600';
+        })
+        .finally(() => {
+          btn.disabled = false;
+          btn.textContent = 'Nạp lại dữ liệu mẫu (1-100)';
+        });
+    });
+
+    // Nút tải lại
+    document.getElementById('btnReload').addEventListener('click', loadData);
+
+    // Tự động load khi mở trang
+    loadData();
+  </script>
+</body>
+</html>
