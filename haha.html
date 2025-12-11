@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tính Tuổi Đến 100 - Nhập Năm Sinh Tự Động</title>
+  <title>Tính Tuổi Đến 100 - Đồng bộ Firebase</title>
   <style>
     :root {
       --primary: #4a00e0;
@@ -44,7 +44,7 @@
       display: flex;
       max-width: 500px;
       margin: 0 auto;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      box-shadow: 0 5px 15px rgba(0,0,0,0,0.1);
       border-radius: 12px;
       overflow: hidden;
     }
@@ -72,6 +72,7 @@
       grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
       gap: 25px;
       padding: 30px;
+      min-height: 200px;
     }
     .card {
       background: white;
@@ -97,9 +98,27 @@
       font-size: 1.1em;
     }
     .year {
-      { font-size: 3.5em; font-weight: bold; background: linear-gradient(45deg, #ff6b6b, #feca57); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin: 10px 0; }
-    .period      { background: #f1f2f6; padding: 14px; border-radius: 10px; margin: 12px 0; font-weight: 500; font-size: 1.05em; }
-    .total       { margin-top: 20px; font-weight: bold; color: #0984e3; font-size: 1.1em; }
+      font-size: 3.5em; 
+      font-weight: bold; 
+      background: linear-gradient(45deg, #ff6b6b, #feca57); 
+      -webkit-background-clip: text; 
+      -webkit-text-fill-color: transparent; 
+      margin: 10px 0; 
+    }
+    .period { 
+      background: #f1f2f6; 
+      padding: 14px; 
+      border-radius: 10px; 
+      margin: 12px 0; 
+      font-weight: 500; 
+      font-size: 1.05em; 
+    }
+    .total { 
+      margin-top: 20px; 
+      font-weight: bold; 
+      color: #0984e3; 
+      font-size: 1.1em; 
+    }
 
     footer {
       text-align: center;
@@ -107,7 +126,7 @@
       background: #2d3436;
       color: #fff;
     }
-    .save-btn {
+    .save-btn, .refresh-btn {
       background: var(--success);
       color: white;
       border: none;
@@ -115,7 +134,10 @@
       border-radius: 8px;
       font-size: 1.1em;
       cursor: pointer;
-      margin-top: 10px;
+      margin: 10px 8px;
+    }
+    .refresh-btn {
+      background: #0984e3;
     }
     .status {
       margin-top: 15px;
@@ -126,6 +148,14 @@
     }
     .success { background: #d5f4e6; color: #00b894; }
     .error   { background: #fadbd8; color: #e74c3c; }
+    .info    { background: #d6eaf8; color: #2980b9; }
+
+    .loading {
+      text-align: center;
+      padding: 40px;
+      font-size: 1.3em;
+      color: #666;
+    }
 
     @media (max-width: 600px) {
       .input-group { flex-direction: column; }
@@ -138,7 +168,7 @@
   <div class="container">
     <header>
       <h1>Tính Tuổi Đến 100 Tuổi</h1>
-      <p class="subtitle">Nhập năm sinh → Tự động tính đến 2018 • 2044 • 100 tuổi</p>
+      <p class="subtitle">Đồng bộ tự động với Firebase • Cập nhật tháng 12/2025</p>
     </header>
 
     <div class="input-section">
@@ -146,28 +176,79 @@
         <input type="number" id="birthYear" placeholder="Nhập năm sinh (ví dụ: 1995)" min="1900" max="2025">
         <button class="add" onclick="addYear()">Thêm</button>
       </div>
-      <p style="margin-top: 15px; color: #666;">Nhấn Enter hoặc nút Thêm để tính</p>
+      <p style="margin-top: 15px; color: #666;">Nhấn Enter hoặc nút Thêm để thêm năm sinh</p>
     </div>
 
     <div class="cards" id="cards">
-      <!-- Các thẻ sẽ được thêm tự động bằng JavaScript -->
+      <div class="loading" id="loading">Đang tải dữ liệu từ Firebase...</div>
     </div>
 
     <footer>
-      <p>Cập nhật tháng 12/2025 • Tuổi tính theo năm dương lịch (±1 tùy ngày sinh)</p>
-      <button class="save-btn" onclick="saveToFirebase()">Lưu tất cả dữ liệu vào Firebase</button>
+      <p>Tuổi tính theo năm dương lịch (±1 tùy ngày sinh chính xác)</p>
+      <button class="refresh-btn" onclick="loadFromFirebase(true)">Tải lại từ Firebase</button>
+      <button class="save-btn" onclick="saveToFirebase()" id="saveBtn" style="display:none">Lưu tất cả lên Firebase</button>
       <div id="status" class="status"></div>
     </footer>
   </div>
 
   <script>
     const cardsContainer = document.getElementById('cards');
+    const loadingEl = document.getElementById('loading');
+    const saveBtn = document.getElementById('saveBtn');
+    const statusEl = document.getElementById('status');
+
+    // Đổi thành URL Firebase Realtime Database của bạn (phải bật rule đọc/ghi public hoặc có auth)
     const firebaseUrl = 'https://project-doidoi-default-rtdb.asia-southeast1.firebasedatabase.app/calculations.json';
 
     // Cho phép nhấn Enter
     document.getElementById('birthYear').addEventListener('keypress', e => {
       if (e.key === 'Enter') addYear();
     });
+
+    function showStatus(message, type = 'info') {
+      statusEl.textContent = message;
+      statusEl.className = 'status ' + type;
+      statusEl.style.display = 'block';
+      setTimeout(() => { statusEl.style.display = 'none'; }, 5000);
+    }
+
+    function calculateAgeData(year) {
+      const age2018 = 2018 - year;
+      const age2044 =  = 2044 - year;
+      const to100     = year + 100;
+      const remaining = to100 - 2044;
+
+      return {
+        age2018: `2018: <strong>${age2018} tuổi</strong>`,
+        age2044: `2044: <strong>${age2044} tuổi</strong> (+26 năm từ 2018)`,
+        remaining: `Còn lại đến 100 tuổi: <strong>${remaining} năm</strong> (năm ${to100})`,
+        total: `Tổng hành trình: ${year} → ${to100} = 100 năm`
+      };
+    }
+
+    function createCard(year) {
+      const data = calculateAgeData(year);
+
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.setAttribute('data-year', year);
+
+      card.innerHTML = `
+        <button class="delete" onclick="deleteCard(this)">×</button>
+        <div class="year">${year}</div>
+        <div class="period">${data.age2018}</div>
+        <div class="period">${data.age2044}</div>
+        <div class="period">${data.remaining}</div>
+        <div class="total">${data.total}</div>
+      `;
+
+      return card;
+    }
+
+    function deleteCard(btn) {
+      btn.parentElement.remove();
+      updateSaveButton();
+    }
 
     function addYear() {
       const input = document.getElementById('birthYear');
@@ -178,60 +259,42 @@
         return;
       }
 
-      // Tránh trùng
       if (document.querySelector(`[data-year="${year}"]`)) {
-        alert('Năm sinh này đã được thêm!');
+        alert('Năm sinh này đã tồn tại!');
+        input.value = '';
         return;
       }
 
-      const age2018 = 2018 - year;
-      const age2044 = 2044 - year;
-      const to100 = year + 100;
-
-      const card = document.createElement('div');
-      card.className = 'card';
-      card.setAttribute('data-year', year);
-
-      card.innerHTML = `
-        <button class="delete" onclick="this.parentElement.remove(); updateSaveButton()">×</button>
-        <div class="year">${year}</div>
-        <div class="period">2018: <strong>${age2018} tuổi</strong></div>
-        <div class="period">2044: <strong>${age2044} tuổi</strong> (+${2044-2018} năm từ 2018)</div>
-        <div class="period">Còn lại đến 100 tuổi: <strong>${to100 - 2044} năm</strong> (năm ${to100})</div>
-        <div class="total">Tổng hành trình: ${year} → ${to100} = 100 năm</div>
-      `;
-
-      cardsContainer.prepend(card); // Thêm lên đầu
+      const card = createCard(year);
+      cardsContainer.prepend(card);
       input.value = '';
       updateSaveButton();
+      showStatus(`Đã thêm năm ${year}`, 'success');
     }
 
     function updateSaveButton() {
-      const hasCards = cardsContainer.children.length > 0;
-      document.querySelector('.save-btn').style.display = hasCards ? 'inline-block' : 'none';
+      const hasCards = cardsContainer.children.length > 0 && cardsContainer.children[0].className !== 'loading';
+      saveBtn.style.display = hasCards ? 'inline-block' : 'none';
     }
 
-    async function saveToFirebase() {
-      const statusEl = document.getElementById('status');
-      statusEl.style.display = 'none';
-      statusEl.className = 'status';
-
+    // === LƯU LÊN FIREBASE ===
+    async function saveToFirebase = async () => {
       if (cardsContainer.children.length === 0) {
-        statusEl.textContent = 'Chưa có dữ liệu để lưu!';
-        statusEl.className += ' error';
-        statusEl.style.display = 'block';
+        showStatus('Không có dữ liệu để lưu!', 'error');
         return;
       }
 
-      const data = {};
+      const dataToSave = {};
       document.querySelectorAll('.card').forEach(card => {
-        const year = card.querySelector('.year').textContent;
-        const lines = card.querySelectorAll('.period');
-        data[year] = {
-          age2018: lines[0].textContent,
-          age2044: lines[1].textContent,
-          remainingTo100: lines[2].textContent,
-          total: card.querySelector('.total').textContent
+        const year = card.getAttribute('data-year');
+        const periods = card.querySelectorAll('.period');
+        const total = card.querySelector('.total').textContent;
+
+        dataToSave[year] = {
+          age2018: periods[0].innerHTML,
+          age2044: periods[1].innerHTML,
+          remainingTo100: periods[2].innerHTML,
+          total: total
         };
       });
 
@@ -239,30 +302,71 @@
         const res = await fetch(firebaseUrl, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ lastUpdated: new Date().toISOString(), data })
+          body: JSON.stringify({
+            lastUpdated: new Date.now(),
+            data: dataToSave
+          })
         });
 
         if (res.ok) {
-          statusEl.textContent = 'Đã lưu thành công lên Firebase!';
-          statusEl.className += ' success';
+          showStatus('Đã lưu thành công lên Firebase!', 'success');
         } else {
           throw new Error('HTTP ' + res.status);
         }
       } catch (err) {
-        statusEl.textContent = 'Lỗi: ' + err.message + ' (kiểm tra quyền Firebase)';
-        statusEl.className += ' error';
+        showStatus('Lỗi khi lưu: ' + err.message, 'error');
       }
-      statusEl.style.display = 'block';
+    };
+
+    // === TẢI DỮ LIỆU TỪ FIREBASE ===
+    async function loadFromFirebase(force = false) {
+      if (!force) loadingEl.style.display = 'block';
+
+      try {
+        const res = await fetch(firebaseUrl + '?t=' + Date.now()); // tránh cache
+        if (!res.ok) throw new Error('Không thể kết nối Firebase');
+
+        const json = await res.json();
+
+        // Xóa hết card cũ (trừ loading)
+        document.querySelectorAll('.card').forEach(c => c.remove());
+
+        if (json && json.data) {
+          const years = Object.keys(json.data).map(Number).sort((a,b) => b - a); // mới nhất lên đầu
+
+          years.forEach(year => {
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.setAttribute('data-year', year);
+
+            const item = json.data[year];
+            card.innerHTML = `
+              <button class="delete" onclick="deleteCard(this)">×</button>
+              <div class="year">${year}</div>
+              <div class="period">${item.age2018 || ''}</div>
+              <div class="period">${item.age2044 || ''}</div>
+              <div class="period">${item.remainingTo100 || ''}</div>
+              <div class="total">${item.total || ''}</div>
+            `;
+            cardsContainer.appendChild(card);
+          });
+
+          showStatus(`Đã tải ${years.length} bản ghi từ Firebase (cập nhật lúc ${new Date(json.lastUpdated || Date.now()).toLocaleString('vi')})`, 'info');
+        } else {
+          showStatus('Firebase trống – bạn có thể thêm dữ liệu mới', 'info');
+        }
+      } catch (err) {
+        showStatus('Lỗi tải dữ liệu: ' + err.message + ' (kiểm tra rule Firebase)', 'error');
+      } finally {
+        loadingEl.style.display = 'none';
+        updateSaveButton();
+      }
     }
 
-    // Khởi tạo: thêm vài ví dụ mặc định
+    // Tự động tải khi mở trang + mỗi 15 giây kiểm tra cập nhật
     window.onload = () => {
-      [1968, 1974, 1999, 2005].forEach(y => {
-        document.getElementById('birthYear').value = y;
-        addYear();
-      });
-      document.getElementById('birthYear').value = '';
-      updateSaveButton();
+      loadFromFirebase();
+      setInterval(() => loadFromFirebase(), 15000); // cập nhật mỗi 15s
     };
   </script>
 </body>
