@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tính tuổi đến 100 - 1968 • 1974 • 1999 • 2005</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      margin: 0;
+      padding: 20px;
+      color: #333;
+      min-height: 100vh;
+    }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      overflow: hidden;
+    }
+    header {
+      background: #4a00e0;
+      color: white;
+      text-align: center;
+      padding: 30px 20px;
+    }
+    h1 { margin: 0; font-size: 2.2em; }
+    .subtitle { font-size: 1.1em; opacity: 0.9; margin-top: 8px; }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      padding: 30px;
+    }
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 25px;
+      text-align: center;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+    }
+    .card:hover {
+      transform: translateY(-8px);
+    }
+    .year {
+      font-size: 3em;
+      font-weight: bold;
+      background: linear-gradient(45deg, #ff6b6b, #feca57);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin: 10px 0;
+    }
+    .age {
+      font-size: 1.8em;
+      margin: 15px 0;
+      color: #2d3436;
+    }
+    .period {
+      background: #f1f2f6;
+      padding: 12px;
+      border-radius: 8px;
+      margin: 12px 0;
+      font-weight: 500;
+    }
+    .total {
+      margin-top: 20px;
+      font-size: 1.1em;
+      color: #0984e3;
+      font-weight: bold;
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #2d3436;
+      color: #fff;
+      font-size: 0.9em;
+    }
+    .save-btn {
+      background: #00b894;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1em;
+      margin: 10px;
+      transition: background 0.3s;
+    }
+    .save-btn:hover {
+      background: #00a085;
+    }
+    .status {
+      margin-top: 10px;
+      padding: 8px;
+      border-radius: 4px;
+      font-weight: bold;
+    }
+    .success { background: #d5f4e6; color: #00b894; }
+    .error { background: #fadbd8; color: #e17055; }
+    @media (max-width: 480px) {
+      h1 { font-size: 1.8em; }
+      .year { font-size: 2.5em; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Tính Tuổi Đến 100</h1>
+      <p class="subtitle">Từ năm sinh → 2018 → 2044 → Tròn 100 tuổi</p>
+    </header>
+
+    <div class="cards" id="cards">
+      <!-- Năm 1968 -->
+      <div class="card">
+        <div class="year">1968</div>
+        <div class="age">Năm 2018: 50 tuổi</div>
+        <div class="period">1968 → 2018: <strong>50 năm</strong></div>
+        <div class="period">2018 → 2044: <strong>26 năm</strong> (76 tuổi)</div>
+        <div class="period">2044 → 2068 (100 tuổi): <strong>24 năm</strong></div>
+        <div class="total">Tổng: 1968 → 2068 = 100 năm</div>
+      </div>
+
+      <!-- Năm 1974 -->
+      <div class="card">
+        <div class="year">1974</div>
+        <div class="age">Năm 2018: 44 tuổi</div>
+        <div class="period">1974 → 2018: <strong>44 năm</strong></div>
+        <div class="period">2018 → 2044: <strong>26 năm</strong> (70 tuổi)</div>
+        <div class="period">2044 → 2074 (100 tuổi): <strong>30 năm</strong></div>
+        <div class="total">Tổng: 1974 → 2074 = 100 năm</div>
+      </div>
+
+      <!-- Năm 1999 -->
+      <div class="card">
+        <div class="year">1999</div>
+        <div class="age">Năm 2018: 19 tuổi</div>
+        <div class="period">1999 → 2018: <strong>19 năm</strong></div>
+        <div class="period">2018 → 2044: <strong>26 năm</strong> (45 tuổi)</div>
+        <div class="period">2044 → 2099 (100 tuổi): <strong>55 năm</strong></div>
+        <div class="total">Tổng: 1999 → 2099 = 100 năm</div>
+      </div>
+
+      <!-- Năm 2005 (ví dụ mới) -->
+      <div class="card">
+        <div class="year">2005</div>
+        <div class="age">Năm 2018: 13 tuổi</div>
+        <div class="period">2005 → 2018: <strong>13 năm</strong></div>
+        <div class="period">2018 → 2044: <strong>26 năm</strong> (39 tuổi)</div>
+        <div class="period">2044 → 2105 (100 tuổi): <strong>61 năm</strong></div>
+        <div class="total">Tổng: 2005 → 2105 = 100 năm</div>
+      </div>
+    </div>
+
+    <footer>
+      Cập nhật tháng 12/2025 • Tính theo năm dương lịch hoàn chỉnh<br>
+      Tuổi chính xác có thể ±1 tùy ngày sinh trong năm<br>
+      <button class="save-btn" onclick="saveData()">Lưu dữ liệu vào Firebase</button>
+      <div id="status" class="status" style="display: none;"></div>
+    </footer>
+  </div>
+
+  <script>
+    const firebaseUrl = 'https://project-doidoi-default-rtdb.asia-southeast1.firebasedatabase.app/calculations.json';
+
+    async function saveData() {
+      const statusEl = document.getElementById('status');
+      statusEl.style.display = 'none';
+      statusEl.className = 'status';
+
+      // Thu thập dữ liệu từ các card
+      const cards = document.querySelectorAll('.card');
+      const data = {};
+      cards.forEach(card => {
+        const year = card.querySelector('.year').textContent.trim();
+        const periods = Array.from(card.querySelectorAll('.period strong')).map(el => el.textContent.trim());
+        data[year] = {
+          to2018: periods[0],
+          to2044: periods[1],
+          to100: periods[2],
+          total: card.querySelector('.total').textContent.trim()
+        };
+      });
+
+      try {
+        const response = await fetch(firebaseUrl, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+
+        if (response.ok) {
+          statusEl.textContent = 'Đã lưu dữ liệu thành công!';
+          statusEl.classList.add('success');
+        } else {
+          throw new Error(`Lỗi HTTP: ${response.status}`);
+        }
+      } catch (error) {
+        statusEl.textContent = `Lỗi lưu dữ liệu: ${error.message}. Kiểm tra quyền database!`;
+        statusEl.classList.add('error');
+      }
+      statusEl.style.display = 'block';
+    }
+  </script>
+</body>
+</html>
