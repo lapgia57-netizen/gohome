@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Links</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      margin: 0;
+      padding: 20px;
+      min-height: 100vh;
+      color: #333;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 16px;
+      padding: 30px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    }
+    h1 {
+      text-align: center;
+      color: #5a67d8;
+      margin-bottom: 30px;
+    }
+    .form {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+    }
+    input[type="text"] {
+      flex: 1;
+      padding: 14px;
+      border: 2px solid #e2e8f0;
+      border-radius: 8px;
+      font-size: 16px;
+      min-width: 250px;
+    }
+    button {
+      padding: 14px 24px;
+      background: #667eea;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: 0.3s;
+    }
+    button:hover { background: #5a67d8; }
+    
+    .links {
+      display: grid;
+      gap: 16px;
+    }
+    .link-item {
+      background: #f8fafc;
+      padding: 18px;
+      border-radius: 12px;
+      border-left: 5px solid #667eea;
+      transition: all 0.3s;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    }
+    .link-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+    .link-item a {
+      color: #2d3748;
+      text-decoration: none;
+      font-size: 18px;
+      font-weight: 500;
+    }
+    .link-item a:hover {
+      color: #667eea;
+    }
+    .link-item small {
+      color: #718096;
+      display: block;
+      margin-top: 6px;
+      font-size: 14px;
+    }
+    .empty {
+      text-align: center;
+      color: #718096;
+      font-size: 18px;
+      padding: 40px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>My Favorite Links</h1>
+    
+    <div class="form">
+      <input type="text" id="title" placeholder="Tên website (ví dụ: Google)" />
+      <input type="text" id="url" placeholder="https://example.com" />
+      <button onclick="addLink()">Thêm Link</button>
+    </div>
+    
+    <div id="linksList" class="links"></div>
+  </div>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+
+  <script>
+    // Cấu hình Firebase của bạn
+    const firebaseConfig = {
+      databaseURL: "https://unityvina-1fc51-default-rtdb.asia-southeast1.firebasedatabase.app/"
+    };
+
+    // Khởi tạo Firebase
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+    const linksRef = db.ref("links");
+
+    // Hiển thị danh sách link (xáo trộn mỗi lần tải)
+    function renderLinks() {
+      linksRef.once("value").then(snapshot => {
+        const data = snapshot.val();
+        const linksList = document.getElementById("linksList");
+        linksList.innerHTML = "";
+
+        if (!data || Object.keys(data).length === 0) {
+          linksList.innerHTML = `<div class="empty">Chưa có link nào. Hãy thêm link đầu tiên!</div>`;
+          return;
+        }
+
+        // Chuyển object thành mảng và xáo trộn
+        let linksArray = Object.keys(data).map(key => ({
+          id: key,
+          ...data[key]
+        }));
+
+        // Xáo trộn ngẫu nhiên mỗi lần tải
+        linksArray = linksArray.sort(() => Math.random() - 0.5);
+
+        linksArray.forEach(link => {
+          const div = document.createElement("div");
+          div.className = "link-item";
+          div.innerHTML = `
+            <a href="${link.url}" target="_blank">${link.title || link.url}</a>
+            <small>${link.url}</small>
+          `;
+          linksList.appendChild(div);
+        });
+      });
+    }
+
+    // Thêm link mới
+    function addLink() {
+      const title = document.getElementById("title").value.trim();
+      const url = document.getElementById("url").value.trim();
+
+      if (!url) {
+        alert("Vui lòng nhập URL!");
+        return;
+      }
+
+      // Tự động thêm https:// nếu chưa có
+      const finalUrl = url.startsWith("http") ? url : "https://" + url;
+
+      linksRef.push({
+        title: title || finalUrl,
+        url: finalUrl,
+        timestamp: Date.now()
+      }).then(() => {
+        document.getElementById("title").value = "";
+        document.getElementById("url").value = "";
+        renderLinks();
+      }).catch(err => {
+        alert("Lỗi: " + err.message);
+      });
+    }
+
+    // Tải danh sách khi mở trang
+    renderLinks();
+
+    // Tự động reload danh sách mỗi 10 giây (để thấy thay đổi từ người khác nếu có)
+    setInterval(renderLinks, 10000);
+  </script>
+</body>
+</html>
