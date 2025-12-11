@@ -3,10 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Danh sách tuổi 1-100 | Project Đổi Đời</title>
-  <meta name="description" content="Dữ liệu mẫu tuổi từ 1 đến 100 - Firebase Realtime Database"/>
+  <title>Hành Trình Cuộc Đời 1-100 Tuổi | Project Đổi Đời</title>
+  <meta name="description" content="Khám phá sự phát triển thể chất, tâm lý, xã hội qua từng độ tuổi"/>
 
-  <!-- Tailwind CSS CDN (nhẹ, nhanh, không cần cài đặt) -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -19,45 +18,41 @@
   </script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
-<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen">
+<body class="bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 min-h-screen">
 
-  <div class="container mx-auto px-4 py-8 max-w-6xl">
+  <div class="container mx-auto px-4 py-8 max-w-7xl">
 
     <!-- Header -->
-    <div class="text-center mb-10">
-      <h1 class="text-4xl md:text-5xl font-bold text-indigo-800 mb-3">
-        Danh sách tuổi từ 1 → 100
+    <div class="text-center mb-12">
+      <h1 class="text-4xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600 mb-4">
+        Hành Trình Cuộc Đời Từ 1 → 100 Tuổi
       </h1>
-      <p class="text-gray-600 text-lg">Dữ liệu được tải trực tiếp từ Firebase Realtime Database</p>
-      <div class="flex justify-center gap-4 mt-6">
-        <button id="btnNap" class="bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-8 rounded-lg shadow-lg transition transform hover:scale-105">
-          Nạp lại dữ liệu mẫu (1-100)
+      <p class="text-xl text-gray-700">Khám phá sự phát triển kỳ diệu của con người qua từng năm tháng</p>
+      <div class="flex flex-wrap justify-center gap-4 mt-8">
+        <button id="btnNap" class="bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-bold py-4 px-10 rounded-xl shadow-xl transition transform hover:scale-105">
+          Nạp dữ liệu phát triển 1-100 tuổi (Mới nhất)
         </button>
-        <button id="btnReload" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-8 rounded-lg shadow-lg transition">
+        <button id="btnReload" class="bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white font-bold py-4 px-10 rounded-xl shadow-xl transition">
           Tải lại dữ liệu
         </button>
       </div>
     </div>
 
-    <!-- Thông báo trạng thái -->
-    <div id="status" class="text-center font-medium text-lg mb-6"></div>
+    <div id="status" class="text-center font-bold text-lg mb-8"></div>
 
-    <!-- Loading -->
     <div id="loading" class="text-center py-20">
-      <div class="inline-block animate-spin rounded-full h-12 w-12 border-4 border-indigo-600 border-t-transparent"></div>
-      <p class="mt-4 text-gray-700">Đang tải dữ liệu từ Firebase...</p>
+      <div class="inline-block animate-spin rounded-full h-16 w-16 border-8 border-purple-600 border-t-transparent"></div>
+      <p class="mt-6 text-2xl text-gray-700">Đang tải hành trình cuộc đời...</p>
     </div>
 
-    <!-- Bảng dữ liệu -->
-    <div id="dataContainer" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5 hidden">
-      <!-- Dữ liệu sẽ được chèn bằng JavaScript -->
+    <div id="dataContainer" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-6 hidden">
+      <!-- Dữ liệu sẽ hiện ở đây -->
     </div>
 
-    <!-- Không có dữ liệu -->
-    <div id="empty" class="text-center py-20 text-gray-500 text-xl hidden">
-      Không có dữ liệu. Nhấn nút <strong>Nạp lại dữ liệu mẫu</strong> để tạo dữ liệu từ 1 đến 100 tuổi.
+    <div id="empty" class="text-center py-32 text-3xl text-gray-500 hidden">
+      Chưa có dữ liệu.<br><br>
+      <span class="text-purple-600 font-bold">Nhấn nút xanh để bắt đầu hành trình 100 năm!</span>
     </div>
-
   </div>
 
   <!-- Firebase SDK -->
@@ -65,7 +60,7 @@
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
 
   <script>
-    // Cấu hình Firebase của bạn
+    // Firebase config của bạn
     const firebaseConfig = {
       databaseURL: "https://project-doidoi-default-rtdb.asia-southeast1.firebasedatabase.app"
     };
@@ -79,7 +74,60 @@
     const dataContainer = document.getElementById('dataContainer');
     const emptyEl = document.getElementById('empty');
 
-    // Hàm hiển thị dữ liệu
+    // DỮ LIỆU PHÁT TRIỂN THỰC TẾ TỪ 1 ĐẾN 100 TUỔI (ĐÃ ĐƯỢC VIẾT SẴN)
+    const duLieuPhatTrien = {
+      1: { tuoi:1, ten:"Bé 1 tuổi", giaiDoan:"Tập đi & nói bập bẹ", moTa:"Bắt đầu biết đi, nói từ đầu tiên, khám phá thế giới bằng mọi giác quan" },
+      2: { tuoi:2, ten:"Bé 2 tuổi", giaiDoan:"Khủng hoảng tuổi lên 2", moTa:"Hay nói KHÔNG, khẳng định bản thân, thích tự làm mọi thứ" },
+      5: { tuoi:5, ten:"Bé 5 tuổi", giaiDoan:"Tuổi mầm non vàng", moTa:"Tưởng tượng phong phú, chơi giả tưởng, chuẩn bị vào lớp 1" },
+      10: { tuoi:10, ten:"Thiếu nhi 10 tuổi", giaiDoan:"Tuổi học tiểu học", moTa:"Bạn bè quan trọng nhất, học tốt toán - tiếng Việt, thích thể thao" },
+      13: { tuoi:13, ten:"Tuổi dậy thì", giaiDoan:"Thiếu niên bắt đầu", moTa:"Dậy thì, thay đổi hình thể, cảm xúc thất thường, tìm bản sắc" },
+      18: { tuoi:18, ten:"Thanh niên 18", giaiDoan:"Trưởng thành pháp lý", moTa:"Thi đại học, yêu lần đầu, mơ ước lớn, đầy năng lượng" },
+      25: { tuoi:25, ten:"Tuổi 25 năng động", giaiDoan:"Xây dựng sự nghiệp", moTa:"Đi làm, thay đổi công việc, độc lập tài chính, du lịch" },
+      30: { tuoi:30, ten:"Tuổi 30 lập nghiệp", giaiDoan:"Đỉnh cao sự nghiệp", moTa:"Thăng tiến nhanh, kết hôn, sinh con đầu lòng" },
+      35: { tuoi:35, ten:"Tuổi 35 rực rỡ", giaiDoan:"Prime of life", moTa:"Nhiều người thành công nhất ở tuổi này, cân bằng công việc - gia đình" },
+      40: { tuoi:40, ten:"Khủng hoảng tuổi 40?", giaiDoan:"Trung niên chuyển giao", moTa:"Đánh giá lại cuộc đời, chăm cha mẹ già + con dậy thì" },
+      50: { tuoi:50, ten:"Tuổi 50 trải đời", giaiDoan:"Lãnh đạo đỉnh cao", moTa:"Trí tuệ kết tinh, kinh nghiệm dày dặn, thường giữ vị trí cao nhất" },
+      60: { tuoi:60, ten:"Nghỉ hưu năng động", giaiDoan:"Người cao tuổi trẻ", moTa:"Du lịch, học tập, chăm cháu, sống khỏe mạnh" },
+      70: { tuoi:70, ten:"Tuổi 70 bình an", giaiDoan:"Người cao tuổi", moTa:"Chấp nhận lão hóa, sống chậm lại, trân trọng từng ngày" },
+      80: { tuoi:80, ten:"Tuổi 80 thọ", giaiDoan:"Thượng thọ", moTa:"Minh mẫn hiếm có, kể chuyện xưa, là kho báu gia đình" },
+      90: { tuoi:90, ten:"90 năm một hành trình", giaiDoan:"Rất cao tuổi", moTa:"Hiếm ai đạt được, thường rất lạc quan, sống giản dị" },
+      100: { tuoi:100, ten:"Bách niên giai lão", giaiDoan:"Người trăm tuổi", moTa:"Huyền thoại sống! Gen tốt + lối sống lành mạnh + tình yêu thương" }
+    };
+
+    // Tạo dữ liệu đầy đủ từ 1 đến 100 (điền tự động các tuổi còn thiếu)
+    function taoDuLieuDayDu() {
+      const data = {};
+      for (let i = 1; i <= 100; i++) {
+        if (duLieuPhatTrien[i]) {
+          data[i] = { ...duLieuPhatTrien[i], thoiGianNap: new Date().toISOString() };
+        } else {
+          // Tự động sinh mô tả cho các tuổi không có sẵn
+          let giaiDoan = "";
+          if (i <= 2) giaiDoan = "Sơ sinh & tập đi";
+          else if (i <= 5) giaiDoan = "Tuổi mầm non";
+          else if (i <= 12) giaiDoan = "Tuổi tiểu học";
+          else if (i <= 19) giaiDoan = "Tuổi teen - dậy thì";
+          else if (i <= 29) giaiDoan = "Thanh niên";
+          else if (i <= 39) giaiDoan = "Trưởng thành đỉnh cao";
+          else if (i <= 49) giaiDoan = "Trung niên";
+          else if (i <= 64) giaiDoan = "Trung niên muộn";
+          else if (i <= 74) giaiDoan = "Nghỉ hưu năng động";
+          else if (i <= 84) giaiDoan = "Người cao tuổi";
+          else giaiDoan = "Thượng thọ";
+
+          data[i] = {
+            tuoi: i,
+            ten: i >= 100 ? `Người thọ ${i} tuổi` : `Người ${i} tuổi`,
+            giaiDoan,
+            moTa: i >= 100 ? `Huyền thoại sống! Đạt ${i} tuổi là kỳ tích` : `Đang trải qua giai đoạn ${giaiDoan.toLowerCase()}`,
+            thoiGianNap: new Date().toISOString()
+          };
+        }
+      }
+      return data;
+    }
+
+    // Hiển thị dữ liệu
     function renderData(snapshot) {
       dataContainer.innerHTML = '';
       loadingEl.classList.add('hidden');
@@ -93,63 +141,59 @@
       dataContainer.classList.remove('hidden');
 
       const data = snapshot.val();
-      const ages = Object.keys(data).map(key => ({ id: key, ...data[key] })).sort((a,b) => a.tuoi - b.tuoi);
+      const ages = Object.values(data).sort((a,b) => a.tuoi - b.tuoi);
 
       ages.forEach(item => {
         const card = document.createElement('div');
-        card.className = 'bg-white rounded-xl shadow-md hover:shadow-xl transition transform hover:-translate-y-1 p-6 text-center border border-gray-100';
+        const mauSac = item.tuoi <= 12 ? 'from-pink-400 to-rose-500' :
+                      item.tuoi <= 19 ? 'from-purple-400 to-purple-600' :
+                      item.tuoi <= 39 ? 'from-blue-400 to-indigo-600' :
+                      item.tuoi <= 64 ? 'from-emerald-400 to-teal-600' :
+                      'from-orange-400 to-red-600';
+
+        card.className = `bg-gradient-to-br ${mauSac} rounded-2xl shadow-xl hover:shadow-2xl transition-all transform hover:scale-105 p-6 text-white text-center`;
         card.innerHTML = `
-          <div class="text-5xl font-bold text-indigo-600 mb-2">${item.tuoi}</div>
-          <div class="text-gray-800 font-semibold text-lg">${item.ten || 'Người ' + item.tuoi + ' tuổi'}</div>
-          <div class="text-sm text-gray-500 mt-2">${item.moTa || 'Dữ liệu mẫu'}</div>
-          <div class="text-xs text-gray-400 mt-3">
-            ${new Date(item.thoiGianNap || Date.now()).toLocaleDateString('vi-VN')}
+          <div class="text-6xl font-black mb-3">${item.tuoi}</div>
+          <div class="text-xl font-bold mb-2">${item.ten}</div>
+          <div class="text-sm opacity-90 mb-3">${item.giaiDoan}</div>
+          <div class="text-xs leading-relaxed bg-white bg-opacity-20 rounded-lg px-3 py-2">
+            ${item.moTa}
           </div>
         `;
         dataContainer.appendChild(card);
       });
 
-      statusEl.textContent = `Đã tải thành công ${ages.length} bản ghi!`;
-      statusEl.className = 'text-center font-medium text-green-600 text-lg mb-6';
+      statusEl.innerHTML = `Đã tải <span class="text-green-600 font-bold">${ages.length}</span> giai đoạn cuộc đời!`;
+      statusEl.className = 'text-center font-bold text-2xl mb-8 text-purple-800';
     }
 
-    // Load dữ liệu khi mở trang
+    // Load dữ liệu
     function loadData() {
       loadingEl.classList.remove('hidden');
       dataContainer.classList.add('hidden');
       emptyEl.classList.add('hidden');
-      statusEl.textContent = '';
-
       refTuoi.once('value').then(renderData).catch(err => {
         loadingEl.classList.add('hidden');
-        statusEl.textContent = 'Lỗi kết nối: ' + err.message;
+        statusEl.textContent = 'Lỗi: ' + err.message;
         statusEl.className = 'text-red-600';
       });
     }
 
-    // Nạp dữ liệu mẫu 1-100
+    // Nạp dữ liệu mẫu CHI TIẾT
     document.getElementById('btnNap').addEventListener('click', () => {
-      if (!confirm('Bạn có chắc muốn ghi đè dữ liệu hiện tại bằng mẫu 1-100 tuổi không?')) return;
+      if (!confirm('Nạp dữ liệu HÀNH TRÌNH CUỘC ĐỜI 1-100 TUỔI (chi tiết khoa học)?\nDữ liệu hiện tại sẽ bị ghi đè.')) return;
 
       const btn = document.getElementById('btnNap');
       btn.disabled = true;
-      btn.textContent = 'Đang nạp...';
-      statusEl.textContent = 'Đang nạp dữ liệu mẫu...';
+      btn.innerHTML = 'Đang nạp hành trình 100 năm...';
+      statusEl.textContent = 'Đang viết lại câu chuyện cuộc đời...';
 
-      const data = {};
-      for (let i = 1; i <= 100; i++) {
-        data[i] = {
-          tuoi: i,
-          ten: `Người ${i} tuổi`,
-          moTa: `Dữ liệu mẫu cho người ${i} tuổi`,
-          thoiGianNap: new Date().toISOString()
-        };
-      }
+      const dataDayDu = taoDuLieuDayDu();
 
-      refTuoi.set(data)
+      refTuoi.set(dataDayDu)
         .then(() => {
-          statusEl.textContent = 'Nạp dữ liệu mẫu thành công!';
-          statusEl.className = 'text-green-600';
+          statusEl.innerHTML = 'Nạp thành công! Hành trình 100 năm đã bắt đầu!';
+          statusEl.className = 'text-green-600 font-bold text-2xl';
           loadData();
         })
         .catch(err => {
@@ -158,15 +202,12 @@
         })
         .finally(() => {
           btn.disabled = false;
-          btn.textContent = 'Nạp lại dữ liệu mẫu (1-100)';
+          btn.innerHTML = 'Nạp dữ liệu phát triển 1-100 tuổi (Mới nhất)';
         });
     });
 
-    // Nút tải lại
     document.getElementById('btnReload').addEventListener('click', loadData);
-
-    // Tự động load khi mở trang
-    loadData();
+    loadData(); // Tự động tải khi mở trang
   </script>
 </body>
 </html>
