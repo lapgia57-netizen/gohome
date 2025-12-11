@@ -4,60 +4,130 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lịch Trở Về Nhà 2026 - 1 Tháng/Lần</title>
+
+    <!-- Favicon con cua -->
+    <link rel="icon" href="crab.png" type="image/png">
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+
     <style>
         body {
-            font-family: Arial, Helvetica, sans-serif;
-            background: #f4f7f9;
-            margin: 40px auto;
-            max-width: 900px;
+            font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
+            background: linear-gradient(135deg, #e0f7fa, #ffffff);
+            margin: 0;
             padding: 20px;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        header {
+            background: #e91e63;
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
         }
         h1 {
-            text-align: center;
-            color: #2c3e50;
+            margin: 0;
+            font-size: 2.2em;
+        }
+        h1 small {
+            display: block;
+            font-size: 0.55em;
+            margin-top: 8px;
+            opacity: 0.9;
         }
         table {
             width: 100%;
             border-collapse: collapse;
-            background: white;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            border-radius: 10px;
-            overflow: hidden;
+            font-size: 0.95em;
         }
         th {
-            background: #3498db;
+            background: #e91e63;
             color: white;
-            padding: 15px;
-            text-align: center;
+            padding: 16px 10px;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+            z-index: 10;
         }
         td {
-            padding: 14px;
-            text-align: center;
+            padding: 14px 10px;
             border-bottom: 1px solid #eee;
+            vertical-align: middle;
         }
         tr:nth-child(even) {
-            background-color: #f8f9fa;
+            background-color: #fdf2f8;
         }
         tr:hover {
-            background-color: #e8f4fc;
+            background-color: #fce4ec;
+            transition: 0.3s;
         }
         .note {
-            margin-top: 30px;
-            padding: 15px;
+            margin: 30px;
+            padding: 20px;
             background: #fff3cd;
-            border-left: 5px solid #ffc107;
-            border-radius: 5px;
+            border-left: 6px solid #ffc107;
+            border-radius: 8px;
+            font-size: 0.95em;
+        }
+        .add-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #e91e63;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            font-size: 30px;
+            line-height: 60px;
+            text-align: center;
+            box-shadow: 0 6px 20px rgba(233,30,99,0.4);
+            cursor: pointer;
+            z-index: 100;
+            transition: 0.3s;
+        }
+        .add-btn:hover {
+            transform: scale(1.1);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 { font-size: 1.8em; }
+            table { font-size: 0.85em; }
+            th, td { padding: 10px 6px; }
+            .note { margin: 20px; padding: 15px; }
+            .add-btn { width: 55px; height: 55px; line-height: 55px; font-size: 28px; bottom: 20px; right: 20px; }
+        }
+        @media (max-width: 480px) {
+            table { display: block; overflow-x: auto; white-space: nowrap; }
+            th, td { min-width: 100px; }
         }
         @media print {
             body { background: white; }
+            .add-btn, header { display: none; }
+            .container { box-shadow: none; }
         }
     </style>
 </head>
 <body>
 
-    <h1>LỊCH TRỞ VỀ NHÀ NĂM 2026<br><small>1 tháng về 1 lần – cố định cuối tuần</small></h1>
+<div class="container">
+    <header>
+        <h1>LỊCH TRỞ VỀ NHÀ NĂM 2026
+            <small>1 tháng về 1 lần – cố định cuối tuần</small>
+        </h1>
+    </header>
 
-    <table>
+    <table id="lichTable">
         <thead>
             <tr>
                 <th>Tháng</th>
@@ -68,99 +138,89 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>Tháng 1/2026</td>
-                <td>Thứ 6, 23/01/2026</td>
-                <td>Chủ Nhật, 25/01/2026</td>
-                <td>Xe khách / Máy bay</td>
-                <td>Tết Dương lịch vừa qua, về sớm</td>
-            </tr>
-            <tr>
-                <td>Tháng 2/2026</td>
-                <td>Thứ 6, 13/02/2026</td>
-                <td>Thứ 2, 16/02/2026 (nghỉ bù Tết)</td>
-                <td>Xe khách giường nằm</td>
-                <td>Tết Nguyên Đán (dự kiến 17/02 ÂL)</td>
-            </tr>
-            <tr>
-                <td>Tháng 3/2026</td>
-                <td>Thứ 6, 20/03/2026</td>
-                <td>Chủ Nhật, 22/03/2026</td>
-                <td>Xe máy bay</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>Tháng 4/2026</td>
-                <td>Thứ 6, 17/04/2026</td>
-                <td>Thứ 3, 21/04/2026 (Giỗ Tổ + 30/4 gần)</td>
-                <td>Máy bay</td>
-                <td>Nghỉ dài 5 ngày</td>
-            </tr>
-            <tr>
-                <td>Tháng 5/2026</td>
-                <td>Thứ 6, 22/05/2026</td>
-                <td>Chủ Nhật, 24/05/2026</td>
-                <td>Xe khách</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>Tháng 6/2026</td>
-                <td>Thứ 6, 19/06/2026</td>
-                <td>Chủ Nhật, 21/06/2026</td>
-                <td>Xe máy bay</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>Tháng 7/2026</td>
-                <td>Thứ 6, 17/07/2026</td>
-                <td>Chủ Nhật, 19/07/2026</td>
-                <td>Xe khách</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>Tháng 8/2026</td>
-                <td>Thứ 6, 21/08/2026</td>
-                <td>Chủ Nhật, 23/08/2026</td>
-                <td>Xe khách</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>Tháng 9/2026</td>
-                <td>Thứ 3, 01/09/2026</td>
-                <td>Thứ 5, 03/09/2026</td>
-                <td>Máy bay</td>
-                <td>Nghỉ lễ 2/9</td>
-            </tr>
-            <tr>
-                <td>Tháng 10/2026</td>
-                <td>Thứ 6, 23/10/2026</td>
-                <td>Chủ Nhật, 25/10/2026</td>
-                <td>Xe khách</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>Tháng 11/2026</td>
-                <td>Thứ 6, 20/11/2026</td>
-                <td>Chủ Nhật, 22/11/2026</td>
-                <td>Xe khách</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>Tháng 12/2026</td>
-                <td>Thứ 6, 18/12/2026</td>
-                <td>Thứ 6, 01/01/2027 (nghỉ Tết dài)</td>
-                <td>Máy bay / Xe riêng</td>
-                <td>Về ăn Tết Dương lịch & chuẩn bị Tết ÂL</td>
-            </tr>
+            <!-- Dữ liệu sẽ được load từ Firebase -->
         </tbody>
     </table>
 
     <div class="note">
         <strong>Lưu ý:</strong><br>
-        • Lịch trên lấy mốc về nhà vào <strong>thứ 6 tuần thứ 3 hoặc thứ 4 của tháng</strong> để tránh trùng ngày lễ lớn.<br>
-        • Bạn có thể chỉnh sửa ngày, phương tiện, thêm chi phí vé xe/máy bay, giờ xe, số điện thoại nhà xe… tùy theo thực tế.<br>
-        • In ra dán lên tủ lạnh hoặc lưu trong điện thoại để nhắc nhở mua vé sớm nhé!
+        • Lịch được lấy tự động từ cơ sở dữ liệu, bạn có thể thêm/sửa trực tiếp bằng nút “+” ở góc dưới.<br>
+        • In trang này ra giấy để dán tủ lạnh hoặc lưu PDF đều rất đẹp!<br>
+        • Dữ liệu được đồng bộ realtime – mở trên nhiều thiết bị cũng thấy cùng một lịch.
     </div>
+</div>
+
+<!-- Nút thêm chuyến mới -->
+<div class="add-btn" onclick="openAddForm()">+</div>
+
+<script>
+  // ================== CẤU HÌNH FIREBASE CỦA BẠN ==================
+  const firebaseConfig = {
+    databaseURL: "https://project-doidoi-default-rtdb.asia-southeast1.firebasedatabase.app/"
+  };
+
+  // Khởi tạo Firebase
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.database();
+  const lichRef = db.ref("lich2026"); // bạn có thể đổi tên node nếu muốn
+
+  // Load dữ liệu và hiển thị
+  function renderTable(snapshot) {
+    const tbody = document.querySelector("#lichTable tbody");
+    tbody.innerHTML = ""; // xóa cũ
+
+    const data = snapshot.val();
+    if (!data) {
+      tbody.innerHTML = `<tr><td colspan="5">Chưa có dữ liệu. Hãy thêm chuyến đầu tiên!</td></tr>`;
+      return;
+    }
+
+    // Sắp xếp theo tháng (nếu key là số tháng)
+    Object.keys(data).sort((a,b) => a - b).forEach(key => {
+      const item = data[key];
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td><strong>${item.thang || ''}</strong></td>
+        <td>${item.ngayVe || ''}</td>
+        <td>${item.ngayQuay || ''}</td>
+        <td>${item.phuongTien || ''}</td>
+        <td>${item.ghiChu || ''}</td>
+      `;
+      tbody.appendChild(tr);
+    });
+  }
+
+  // Lắng nghe thay đổi realtime
+  lichRef.on("value", renderTable);
+
+  // ================== FORM THÊM MỚI ==================
+  function openAddForm() {
+    const thang = prompt("Tháng (ví dụ: Tháng 1/2026):");
+    if (!thang) return;
+
+    const ngayVe = prompt("Ngày về (ví dụ: Thứ 6, 23/01/2026):");
+    const ngayQuay = prompt("Ngày quay lại:");
+    const phuongTien = prompt("Phương tiện (Xe khách / Máy bay...):", "Xe khách");
+    const ghiChu = prompt("Ghi chú (có thể để trống):", "");
+
+    if (ngayVe && ngayQuay) {
+      // Lấy số tháng làm key để dễ sắp xếp
+      const monthNum = thang.match(/\d+/) ? thang.match(/\d+/)[0].padStart(2, '0') : Date.now();
+      const newRef = lichRef.push();
+      newRef.set({
+        thang: thang.trim(),
+        ngayVe: ngayVe.trim(),
+        ngayQuay: ngayQuay.trim(),
+        phuongTien: phuongTien.trim(),
+        ghiChu: ghiChu.trim()
+      }).then(() => alert("Đã thêm thành công!"))
+       .catch(err => alert("Lỗi: " + err.message));
+    }
+  }
+
+  // Load lần đầu
+  lichRef.once("value").then(renderTable);
+</script>
 
 </body>
 </html>
