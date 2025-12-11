@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Đếm ngược đến năm 2056</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            overflow: hidden;
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            text-align: center;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 30px 20px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            max-width: 90%;
+            width: 800px;
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            text-shadow: 0 0 20px rgba(255,255,255,0.8);
+        }
+
+        .countdown {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        @media (max-width: 600px) {
+            .countdown {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            h1 {
+                font-size: 2.2rem;
+            }
+        }
+
+        .time-box {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 20px 10px;
+            border-radius: 15px;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+
+        .number {
+            font-size: 3.5rem;
+            font-weight: bold;
+            line-height: 1;
+        }
+
+        .label {
+            font-size: 1rem;
+            margin-top: 8px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            opacity: 0.9;
+        }
+
+        .message {
+            margin-top: 30px;
+            font-size: 1.3rem;
+            opacity: 0.9;
+        }
+
+        .firework {
+            position: absolute;
+            color: #fff;
+            font-size: 2rem;
+            pointer-events: none;
+            animation: firework 1.5s ease-out forwards;
+        }
+
+        @keyframes firework {
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(-100vh); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>ĐẾM NGƯỢC ĐẾN NĂM 2056</h1>
+        <div class="countdown" id="countdown">
+            <div class="time-box"><div class="number" id="days">00</div><div class="label">Ngày</div></div>
+            <div class="time-box"><div class="number" id="hours">00</div><div class="label">Giờ</div></div>
+            <div class="time-box"><div class="number" id="minutes">00</div><div class="label">Phút</div></div>
+            <div class="time-box"><div class="number" id="seconds">00</div><div class="label">Giây</div></div>
+        </div>
+        <div class="message">Còn lại đến 01/01/2056 00:00:00 🚀</div>
+    </div>
+
+    <script>
+        const targetDate = new Date("January 1, 2056 00:00:00").getTime();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("days").textContent = days.toString().padStart(2, '0');
+            document.getElementById("hours").textContent = hours.toString().padStart(2, '0');
+            document.getElementById("minutes").textContent = minutes.toString().padStart(2, '0');
+            document.getElementById("seconds").textContent = seconds.toString().padStart(2, '0');
+
+            // Khi hết thời gian
+            if (distance < 0) {
+                document.querySelector(".countdown").innerHTML = "<h2>Chúc mừng năm 2056 đã đến! 🎉</h2>";
+                createFireworks();
+            }
+        }
+
+        // Tạo pháo hoa khi đến năm 2056
+        function createFireworks() {
+            setInterval(() => {
+                const fw = document.createElement("div");
+                fw.classList.add("firework");
+                fw.textContent = ["🎉", "✨", "🎊", "🔥", "🌟"][Math.floor(Math.random()*5)];
+                fw.style.left = Math.random() * 100 + "vw";
+                fw.style.top = Math.random() * 50 + "vh";
+                document.body.appendChild(fw);
+                setTimeout(() => fw.remove(), 2000);
+            }, 300);
+        }
+
+        // Cập nhật mỗi giây
+        setInterval(updateCountdown, 1000);
+        updateCountdown(); // Gọi lần đầu ngay lập tức
+    </script>
+</body>
+</html>
