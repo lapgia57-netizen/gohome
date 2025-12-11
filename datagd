@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hiển thị dữ liệu từ Firebase DB</title>
+    <style>
+        /* CSS Responsive */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #007bff;
+        }
+        #loading {
+            text-align: center;
+            font-style: italic;
+            color: #666;
+        }
+        #error {
+            text-align: center;
+            color: red;
+            display: none;
+        }
+        #data-container {
+            display: none; /* Ẩn ban đầu */
+        }
+        /* Render dạng Table responsive */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: #e9ecef;
+        }
+        /* Responsive: Trên mobile, chuyển sang block */
+        @media (max-width: 768px) {
+            table, thead, tbody, th, td, tr {
+                display: block;
+            }
+            thead tr {
+                position: absolute;
+                top: -9999px;
+                left: -9999px;
+            }
+            tr {
+                border: 1px solid #ccc;
+                margin-bottom: 10px;
+                padding: 10px;
+                border-radius: 4px;
+            }
+            td {
+                border: none;
+                position: relative;
+                padding-left: 50%;
+                padding-top: 10px;
+            }
+            td:before {
+                content: attr(data-label) ": ";
+                position: absolute;
+                left: 6px;
+                width: 45%;
+                padding-right: 10px;
+                white-space: nowrap;
+                font-weight: bold;
+            }
+        }
+        /* Nếu dữ liệu là list đơn giản, dùng ul/li */
+        .list-render {
+            list-style: none;
+            padding: 0;
+        }
+        .list-render li {
+            background: #f8f9fa;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 4px;
+            border-left: 4px solid #007bff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Dữ liệu từ Firebase Realtime Database</h1>
+        <div id="loading">Đang tải dữ liệu...</div>
+        <div id="error"></div>
+        <div id="data-container">
+            <!-- Dữ liệu sẽ render ở đây: table hoặc list -->
+        </div>
+    </div>
+
+    <script>
+        // JavaScript để fetch và render dữ liệu
+        const dbUrl = 'https://project-doidoi-default-rtdb.asia-southeast1.firebasedatabase.app/';
+        const loadingEl = document.getElementById('loading');
+        const errorEl = document.getElementById('error');
+        const containerEl = document.getElementById('data-container');
+
+        async function fetchData() {
+            try {
+                loadingEl.style.display = 'block';
+                const response = await fetch(dbUrl);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+                renderData(data);
+            } catch (error) {
+                console.error('Lỗi fetch dữ liệu:', error);
+                errorEl.textContent = `Lỗi: ${error.message}. Kiểm tra console để biết thêm.`;
+                errorEl.style.display = 'block';
+            } finally {
+                loadingEl.style.display = 'none';
+            }
+        }
+
+        function renderData(data) {
+            // Giả sử data là object với keys (ví dụ: {key1: {name: 'A', value: 1}, key2: {...}})
+            // Hoặc array trực tiếp. Điều chỉnh nếu cấu trúc khác.
+            containerEl.style.display = 'block';
+
+            if (Array.isArray(data)) {
+                // Nếu là array, render list
+                const ul = document.createElement('ul');
+                ul.className = 'list-render';
+                data.forEach((item, index) => {
+                    const li = document.createElement('li');
+                    li.innerHTML = `<strong>Item ${index + 1}:</strong> ${JSON.stringify(item, null, 2)}`;
+                    ul.appendChild(li);
+                });
+                containerEl.appendChild(ul);
+            } else if (typeof data === 'object' && data !== null) {
+                // Nếu là object, render table
+                const keys = Object.keys(data);
+                if (keys.length === 0) {
+                    containerEl.innerHTML = '<p>Không có dữ liệu.</p>';
+                    return;
+                }
+
+                const table = document.createElement('table');
+                const thead = document.createElement('thead');
+                const tbody = document.createElement('tbody');
+
+                // Header: Tên key và giá trị mẫu (hoặc fields chung)
+                const headerRow = document.createElement('tr');
+                headerRow.innerHTML = '<th>Key</th><th>Dữ liệu</th>';
+                thead.appendChild(headerRow);
+
+                keys.forEach(key => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td data-label="Key">${key}</td>
+                        <td data-label="Dữ liệu">${JSON.stringify(data[key], null, 2)}</td>
+                    `;
+                    tbody.appendChild(row);
+                });
+
+                table.appendChild(thead);
+                table.appendChild(tbody);
+                containerEl.appendChild(table);
+            } else {
+                // Scalar value
+                containerEl.innerHTML = `<p>Dữ liệu: ${JSON.stringify(data)}</p>`;
+            }
+        }
+
+        // Tự động fetch khi load trang
+        fetchData();
+    </script>
+</body>
+</html>
