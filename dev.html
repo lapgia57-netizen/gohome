@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>LCP - Quán Net Chat Lan</title>
-  <link rel="icon" href="https://raw.githubusercontent.com/lapgia57-netizen/LCP/main/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="https://raw.githubusercontent.com/lapgia57-netizen/gohome/main/favicon.ico" type="image/x-icon">
   <style>
     body { margin:0; font-family: system-ui; background:#0d1117; color:#c9d1d9; }
     .header { background:#010409; padding:20px; text-align:center; border-bottom:3px solid #f85149; }
@@ -43,7 +43,7 @@
           - <strong>File .html:</strong> Mở tab mới tại <code>https://lcp.lck.io.vn/[tên-file]</code> (render trực tiếp trên domain quán net).<br>
           - <strong>File khác:</strong> Mở raw content tại GitHub trong tab mới (xem nhanh Markdown/text).<br>
           <br>
-          <strong>Mẹo quán net:</strong> Tạo file `online/nick-cua-ban.html` với nội dung "đang cày rank" → click nó sẽ mở trang cá nhân đẹp trên domain!
+          <strong>Mẹo quán net:</strong> Tạo file <code>online/nick-cua-ban.html</code> với nội dung "đang cày rank" → click nó sẽ mở trang cá nhân đẹp trên domain!
         </div>
         <p><em>Chọn file từ cây bên trái để mở tab mới nhé!</em></p>
       </div>
@@ -54,10 +54,11 @@
   <div class="refresh">Cập nhật lần cuối: <span id="time"></span></div>
 
   <script>
+    // === THAY ĐỔI TẠI ĐÂY: repo mới
     const owner = "lapgia57-netizen";
-    const repo = "LCP";
+    const repo = "gohome";                                      // ← ĐÃ ĐỔI
     const api = `https://api.github.com/repos/${owner}/${repo}/git/trees/main?recursive=1`;
-    const customDomain = "https://lcp.lck.io.vn/";  // Domain để mở file HTML
+    const customDomain = "https://lcp.lck.io.vn/";               // Giữ nguyên domain render HTML đẹp
 
     async function loadRepo() {
       try {
@@ -71,22 +72,23 @@
         renderTree(data.tree);
         updateTime();
       } catch (e) {
-        document.getElementById("tree").innerHTML = "Lỗi kết nối GitHub API :(";
+        document.getElementById("tree").innerHTML = "Lỗi kết nối GitHub API :( <br>Repo có public không bro?";
+        console.error(e);
       }
     }
 
     function renderTree(items) {
       const ul = document.createElement("ul");
-      // Hiển thị folder nếu có sub-file
+
       const folders = {};
       items.filter(item => item.type === "blob").forEach(item => {
         const parts = item.path.split('/');
         let current = ul;
+
+        // Tạo folder
         for (let i = 0; i < parts.length - 1; i++) {
-          if (!folders[parts[i]]) {
-            folders[parts[i]] = { li: null, ul: null };
-          }
-          if (!folders[parts[i]].li) {
+          const folderName = parts.slice(0, i + 1).join('/');
+          if (!folders[folderName]) {
             const folderLi = document.createElement("li");
             folderLi.className = "folder";
             folderLi.textContent = parts[i] + "/";
@@ -94,24 +96,31 @@
               e.stopPropagation();
               toggleFolder(folderLi);
             };
+
             const subUl = document.createElement("ul");
-            subUl.className = "collapsed";
+            subUl.style.display = "none"; // collapsed mặc định
             folderLi.appendChild(subUl);
-            folders[parts[i]].li = folderLi;
-            folders[parts[i]].ul = subUl;
-            // Tìm parent và append
-            // Simplified: Append all top-level to ul
+
+            folders[folderName] = { li: folderLi, ul: subUl };
+
             if (i === 0) {
-              current.appendChild(folderLi);
+              ul.appendChild(folderLi);
+            } else {
+              // tìm parent folder
+              const parentName = parts.slice(0, i).join('/');
+              if (folders[parentName]) {
+                folders[parentName].ul.appendChild(folderLi);
+              }
             }
           }
-          current = folders[parts[i]].ul;
+          current = folders[folderName].ul;
         }
-        // Add file to last ul
+
+        // Thêm file
         const li = document.createElement("li");
         li.className = "file";
         li.textContent = parts[parts.length - 1];
-        li.title = item.path;  // Full path for tooltip
+        li.title = item.path;
         li.onclick = (e) => {
           e.stopPropagation();
           openFileInNewTab(item.path);
@@ -119,7 +128,7 @@
         current.appendChild(li);
       });
 
-      // Add root files (no folder)
+      // File nằm ở root
       items.filter(item => item.type === "blob" && !item.path.includes('/')).forEach(item => {
         const li = document.createElement("li");
         li.className = "file";
@@ -133,41 +142,34 @@
       container.appendChild(ul);
     }
 
-    // Chức năng mở tab mới theo loại file
     function openFileInNewTab(path) {
       let url;
       if (path.endsWith('.html')) {
-        // Mở trên custom domain
         url = customDomain + path;
       } else {
-        // Mở raw từ GitHub
         url = `https://raw.githubusercontent.com/${owner}/${repo}/main/${path}`;
       }
       window.open(url, '_blank');
     }
 
-    // Toggle folder (nếu cần expand sub)
     function toggleFolder(li) {
-      const subUl = li.querySelector('ul');
-      if (subUl) {
-        subUl.classList.toggle('collapsed');
-      }
+      const ul = li.querySelector("ul");
+      if (ul) ul.style.display = ul.style.display === "none" ? "block" : "none";
     }
 
     function updateTime() {
       document.getElementById("time").textContent = new Date().toLocaleString("vi-VN");
     }
 
-    // Tự động refresh mỗi 2 phút
+    // Load lần đầu + auto refresh mỗi 2 phút
     loadRepo();
     setInterval(loadRepo, 120000);
 
-    // Tìm kiếm realtime
+    // Tìm kiếm nhanh
     document.getElementById("search").addEventListener("input", (e) => {
       const term = e.target.value.toLowerCase();
-      document.querySelectorAll(".file, .folder").forEach(li => {
-        const text = li.textContent.toLowerCase();
-        li.style.display = text.includes(term) ? "" : "none";
+      document.querySelectorAll(".file, .folder").forEach(el => {
+        el.style.display = el.textContent.toLowerCase().includes(term) ? "" : "none";
       });
     });
   </script>
