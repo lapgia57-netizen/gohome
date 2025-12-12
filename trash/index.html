@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dọn Rác HTML - Công cụ phân tích file rác</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Công cụ dọn rác HTML</h1>
+        <p>Phát hiện và loại bỏ file HTML rác, spam, redirect, nội dung tự sinh...</p>
+    </header>
+
+    <div class="upload-box" id="dropArea">
+        <div class="upload-content">
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#3498db" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="17 8 12 3 7 8"></polyline>
+                <line x1="12" y1="3" x2="12" y2="15"></line>
+            </svg>
+            <p><strong>Kéo & thả file HTML vào đây</strong></p>
+            <p>hoặc</p>
+            <button type="button" class="btn-select" onclick="document.getElementById('fileInput').click()">
+                Chọn nhiều file
+            </button>
+            <input type="file" id="fileInput" multiple accept=".html,.htm" hidden>
+        </div>
+    </div>
+
+    <div id="result" class="result-hidden"></div>
+
+    <footer>
+        <small>Hoàn toàn chạy trong trình duyệt • Không upload file • An toàn 100%</small>
+    </footer>
+</div>
+
+<script src="cleanup.js"></script>
+</body>
+</html>
