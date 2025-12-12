@@ -1,0 +1,148 @@
+/* Reset cơ bản */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 20px;
+    color: #333;
+}
+
+/* Container chính */
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 16px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+
+/* Header */
+header {
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    color: white;
+    text-align: center;
+    padding: 30px 20px;
+}
+header h1 {
+    font-size: 2.2rem;
+    margin-bottom: 10px;
+}
+header p {
+    opacity: 0.9;
+    font-size: 1.1rem;
+}
+
+/* Upload box */
+.upload-box {
+    margin: 30px;
+    border: 3px dashed #3498db;
+    border-radius: 12px;
+    background: #f8fbff;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+.upload-box.dragover {
+    background: #eaf5ff;
+    border-color: #2980b9;
+    transform: scale(1.02);
+}
+.upload-content {
+    padding: 50px 20px;
+    text-align: center;
+}
+.upload-content svg {
+    margin-bottom: 20px;
+}
+.upload-content p {
+    margin: 10px 0;
+    color: #555;
+    font-size: 1.1rem;
+}
+.btn-select {
+    margin-top: 15px;
+    padding: 12px 30px;
+    background: #3498db;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.btn-select:hover {
+    background: #2980b9;
+    transform: translateY(-2px);
+}
+
+/* Kết quả */
+#result {
+    margin: 30px;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 12px;
+    border: 1px solid #eee;
+}
+#result h2 { margin-bottom: 15px; color: #2c3e50; }
+.summary {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin: 20px 0;
+    font-size: 1.1rem;
+}
+.summary div {
+    padding: 12px 20px;
+    border-radius: 8px;
+    flex: 1;
+    min-width: 200px;
+    text-align: center;
+}
+.clean { background: #d5efdb; color: #27ae60; }
+.trash { background: #fadbd8; color: #e74c3c; }
+
+.file-item {
+    padding: 14px;
+    margin: 10px 0;
+    border-radius: 8px;
+    border-left: 5px solid #ddd;
+    background: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+.file-item.trash {
+    border-left-color: #e74c3c;
+    background: #fff5f5;
+}
+.file-item.clean {
+    border-left-color: #27ae60;
+}
+.file-item strong {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 1.1em;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 25px;
+    background: #2c3e50;
+    color: #bdc3c7;
+    font-size: 0.9rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    header h1 { font-size: 1.8rem; }
+    header p { font-size: 1rem; }
+    .upload-content { padding: 40px 15px; }
+    .summary { flex-direction: column; }
+    #result, .upload-box { margin: 20px; }
+}
+
+@media (max-width: 480px) {
+    header { padding: 20px 15px; }
+    .upload-content p { font-size: 1rem; }
+    .btn-select { padding: 10px 25px; font-size: 0.95rem; }
+}
