@@ -1,0 +1,183 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background: #f8f9fa;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Header */
+.header {
+    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('../img/journey.jpg') center/cover no-repeat;
+    color: white;
+    text-align: center;
+    padding: 100px 0;
+}
+
+.header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 4rem;
+    margin-bottom: 10px;
+}
+
+.header p {
+    font-size: 1.4rem;
+    font-weight: 300;
+}
+
+/* Hero */
+.hero {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    text-align: center;
+    padding: 100px 0;
+    clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+}
+
+.hero h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+
+.btn-primary {
+    display: inline-block;
+    background: #ff6b6b;
+    color: white;
+    padding: 14px 32px;
+    border-radius: 50px;
+    text-decoration: none;
+    margin-top: 20px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.btn-primary:hover {
+    background: #ff5252;
+    transform: translateY(-3px);
+}
+
+/* Paths */
+.paths {
+    padding: 100px 0;
+    background: white;
+}
+
+.section-title {
+    text-align: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 2.8rem;
+    margin-bottom: 60px;
+    color: #2c3e50;
+}
+
+.path-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.path-card {
+    background: white;
+    padding: 40px 30px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    transition: 0.3s;
+}
+
+.path-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+}
+
+.path-card.featured {
+    border: 3px solid #667eea;
+    transform: scale(1.05);
+}
+
+.icon {
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+    color: #667eea;
+}
+
+.path-card h3 {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+    color: #2c3e50;
+}
+
+.quote {
+    display: block;
+    margin-top: 20px;
+    font-style: italic;
+    color: #667eea;
+    font-weight: 500;
+}
+
+.tips {
+    text-align: left;
+    margin-top: 15px;
+    padding-left: 20px;
+}
+
+.tips li {
+    margin: 8px 0;
+    color: #555;
+}
+
+/* Final Message */
+.message {
+    background: linear-gradient(rgba(102, 126, 234, 0.9), rgba(126, 75, 162, 0.9)), url('../img/education.jpg') center/cover;
+    color: white;
+    text-align: center;
+    padding: 120px 0;
+}
+
+.final-message h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.8rem;
+    margin-bottom: 20px;
+}
+
+.btn-secondary {
+    background: rgba(255,255,255,0.2);
+    border: 2px solid white;
+    color: white;
+    padding: 12px 30px;
+    border-radius: 50px;
+    text-decoration: none;
+    margin-top: 30px;
+    display: inline-block;
+    backdrop-filter: blur(10px);
+}
+
+/* Footer */
+.footer {
+    background: #2c3e50;
+    color: white;
+    text-align: center;
+    padding: 50px 0;
+    font-size: 1.1rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .header h1 { font-size: 2.8rem; }
+    .hero h2 { font-size: 2.3rem; }
+    .section-title { font-size: 2.3rem; }
+    .path-card.featured { transform: none; }
+      }
