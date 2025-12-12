@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tính Thời Gian Mua Xe</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            text-align: center;
+            padding: 50px;
+            background: linear-gradient(to bottom, #e0ffff, #add8e6); /* Giao diện cổ điển kiểu cũ */
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 30px;
+            border: 5px solid #000080;
+            border-radius: 10px;
+            box-shadow: 10px 10px 20px rgba(0,0,0,0.5);
+        }
+        h1 {
+            color: #000080;
+            text-shadow: 2px 2px #add8e6;
+        }
+        #result {
+            font-size: 24px;
+            margin-top: 20px;
+            color: #00008b;
+            font-weight: bold;
+        }
+        button {
+            background-color: #000080;
+            color: white;
+            padding: 10px 20px;
+            font-size: 18px;
+            border: 2px solid black;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0000cd;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Thời Gian Từ Ngày Mua Xe</h1>
+        <p>Ngày mua xe: 03/07/2025</p>
+        <p>Ngày hiện tại: <span id="currentDate"></span></p>
+        <button onclick="tinhThoiGian()">Tính Thời Gian</button>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        function tinhThoiGian() {
+            // Ngày mua xe cố định
+            const ngayMua = new Date(2025, 6, 3); // Tháng 7 (tháng tính từ 0)
+
+            // Ngày hiện tại (12/12/2025)
+            const hienTai = new Date(2025, 11, 12); // Tháng 12
+
+            // Tính chênh lệch mili giây
+            const diffTime = hienTai - ngayMua;
+            const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
+            // Tính năm, tháng, ngày (xấp xỉ, 1 tháng = 30 ngày)
+            let years = Math.floor(diffDays / 365);
+            let remainingDays = diffDays % 365;
+            let months = Math.floor(remainingDays / 30);
+            let days = remainingDays % 30;
+
+            // Hiển thị kết quả
+            let resultText = `Tổng số ngày: ${diffDays} ngày<br>`;
+            if (years > 0) {
+                resultText += `${years} năm, `;
+            }
+            resultText += `${months} tháng, ${days} ngày`;
+
+            document.getElementById('result').innerHTML = resultText;
+
+            // Hiển thị ngày hiện tại
+            document.getElementById('currentDate').innerText = hienTai.toLocaleDateString('vi-VN');
+        }
+
+        // Tự động tính khi tải trang
+        window.onload = tinhThoiGian;
+    </script>
+</body>
+</html>
