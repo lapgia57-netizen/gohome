@@ -55,17 +55,26 @@
 
     <script>
         function tinhThoiGian() {
-            // Ngày mua xe cố định
+            // Ngày mua xe cố định (3/7/2025)
             const ngayMua = new Date(2025, 6, 3); // Tháng 7 (tháng tính từ 0)
 
-            // Ngày hiện tại (12/12/2025)
-            const hienTai = new Date(2025, 11, 12); // Tháng 12
+            // Ngày hiện tại - lấy thời gian thực tế của người dùng
+            const hienTai = new Date();
+
+            // Hiển thị ngày hiện tại theo định dạng Việt Nam
+            document.getElementById('currentDate').innerText = hienTai.toLocaleDateString('vi-VN');
 
             // Tính chênh lệch mili giây
             const diffTime = hienTai - ngayMua;
+            
+            if (diffTime < 0) {
+                document.getElementById('result').innerHTML = "Chưa đến ngày mua xe đâu nhé! 😊";
+                return;
+            }
+
             const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
 
-            // Tính năm, tháng, ngày (xấp xỉ, 1 tháng = 30 ngày)
+            // Tính năm, tháng, ngày (xấp xỉ: 1 năm = 365 ngày, 1 tháng = 30 ngày)
             let years = Math.floor(diffDays / 365);
             let remainingDays = diffDays % 365;
             let months = Math.floor(remainingDays / 30);
@@ -76,16 +85,21 @@
             if (years > 0) {
                 resultText += `${years} năm, `;
             }
-            resultText += `${months} tháng, ${days} ngày`;
+            if (months > 0 || years > 0) {
+                resultText += `${months} tháng, `;
+            }
+            resultText += `${days} ngày`;
 
             document.getElementById('result').innerHTML = resultText;
-
-            // Hiển thị ngày hiện tại
-            document.getElementById('currentDate').innerText = hienTai.toLocaleDateString('vi-VN');
         }
 
         // Tự động tính khi tải trang
         window.onload = tinhThoiGian;
+
+        // Bonus: Cập nhật lại mỗi phút để ngày hiện tại luôn mới (nếu mở tab lâu)
+        setInterval(() => {
+            document.getElementById('currentDate').innerText = new Date().toLocaleDateString('vi-VN');
+        }, 60000);
     </script>
 </body>
 </html>
