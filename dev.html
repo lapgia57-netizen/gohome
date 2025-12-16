@@ -26,7 +26,7 @@
 </head>
 <body>
   <div class="header">
-    <h1>LCP – Chờ tại quán net</h1>
+    <h1>GO HOME</h1>
     <p>Đang có <span id="online">0</span> anh em trong quán • Click file để mở tab mới • Auto cập nhật mỗi 2 phút</p>
   </div>
 
@@ -56,9 +56,9 @@
   <script>
     // === THAY ĐỔI TẠI ĐÂY: repo mới
     const owner = "lapgia57-netizen";
-    const repo = "gohome";                                      // ← ĐÃ ĐỔI
+    const repo = "gohome";
     const api = `https://api.github.com/repos/${owner}/${repo}/git/trees/main?recursive=1`;
-    const customDomain = "https://back.iq920.fun/";             // ← ĐÃ ĐỔI domain render HTML đẹp
+    const customDomain = "https://back.iq920.fun/";
 
     async function loadRepo() {
       try {
@@ -79,13 +79,13 @@
 
     function renderTree(items) {
       const ul = document.createElement("ul");
-
       const folders = {};
+
       items.filter(item => item.type === "blob").forEach(item => {
         const parts = item.path.split('/');
         let current = ul;
 
-        // Tạo folder
+        // Tạo cấu trúc folder
         for (let i = 0; i < parts.length - 1; i++) {
           const folderName = parts.slice(0, i + 1).join('/');
           if (!folders[folderName]) {
@@ -106,7 +106,6 @@
             if (i === 0) {
               ul.appendChild(folderLi);
             } else {
-              // tìm parent folder
               const parentName = parts.slice(0, i).join('/');
               if (folders[parentName]) {
                 folders[parentName].ul.appendChild(folderLi);
@@ -116,7 +115,7 @@
           current = folders[folderName].ul;
         }
 
-        // Thêm file
+        // Thêm file vào vị trí đúng
         const li = document.createElement("li");
         li.className = "file";
         li.textContent = parts[parts.length - 1];
@@ -126,15 +125,6 @@
           openFileInNewTab(item.path);
         };
         current.appendChild(li);
-      });
-
-      // File nằm ở root
-      items.filter(item => item.type === "blob" && !item.path.includes('/')).forEach(item => {
-        const li = document.createElement("li");
-        li.className = "file";
-        li.textContent = item.path;
-        li.onclick = () => openFileInNewTab(item.path);
-        ul.appendChild(li);
       });
 
       const container = document.getElementById("tree");
