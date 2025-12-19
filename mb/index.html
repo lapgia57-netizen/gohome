@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bản đồ các tỉnh miền Bắc Việt Nam (Với phần thống kê theo khu vực)</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        h1 {
+            text-align: center;
+        }
+        .map-container {
+            width: 100%;
+            max-width: 900px;
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+            margin-bottom: 30px;
+        }
+        svg {
+            width: 100%;
+            height: auto;
+        }
+        .province {
+            fill: #a8d5ba;
+            stroke: #333;
+            stroke-width: 2;
+            stroke-dasharray: 5,5;
+            cursor: pointer;
+            transition: fill 0.3s;
+        }
+        .province:hover {
+            fill: #ffcc00;
+        }
+        .sea {
+            fill: #add8e6;
+        }
+        text {
+            font-size: 14px;
+            font-weight: bold;
+            text-anchor: middle;
+            pointer-events: none;
+            fill: #000;
+            stroke: #fff;
+            stroke-width: 2;
+            paint-order: stroke fill;
+        }
+        .tooltip {
+            position: absolute;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 8px;
+            border-radius: 4px;
+            font-size: 14px;
+            display: none;
+            pointer-events: none;
+            z-index: 10;
+        }
+        .stats-container {
+            width: 100%;
+            max-width: 900px;
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #a8d5ba;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .region-header {
+            background-color: #88b89a;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Bản đồ các tỉnh miền Bắc Việt Nam (Phiên bản sửa lỗi: Tên tỉnh rõ ràng hơn, biên giới nét đứt & thống kê theo khu vực)</h1>
+    <div class="map-container">
+        <svg viewBox="0 0 800 900" preserveAspectRatio="xMidYMid meet">
+            <!-- Biển (Vịnh Bắc Bộ) -->
+            <rect class="sea" x="500" y="0" width="300" height="600"/>
+
+            <!-- Tây Bắc Bộ -->
+            <path class="province" data-name="Điện Biên" d="M50 150 L20 100 L100 50 L180 80 L140 180 Z"/>
+            <text x="90" y="110">Điện Biên</text>
+
+            <path class="province" data-name="Lai Châu" d="M100 50 L180 20 L250 60 L200 100 L140 80 Z"/>
+            <text x="180" y="60">Lai Châu</text>
+
+            <path class="province" data-name="Sơn La" d="M140 180 L200 100 L280 120 L320 200 L240 250 Z"/>
+            <text x="240" y="170">Sơn La</text>
+
+            <path class="province" data-name="Lào Cai" d="M250 60 L320 40 L380 100 L320 140 Z"/>
+            <text x="310" y="90">Lào Cai</text>
+
+            <path class="province" data-name="Yên Bái" d="M320 140 L380 100 L440 160 L400 220 L340 200 Z"/>
+            <text x="370" y="170">Yên Bái</text>
+
+            <path class="province" data-name="Hòa Bình" d="M340 250 L400 220 L460 280 L420 340 Z"/>
+            <text x="400" y="280">Hòa Bình</text>
+
+            <!-- Đông Bắc Bộ -->
+            <path class="province" data-name="Hà Giang" d="M200 20 L300 10 L360 60 L280 100 Z"/>
+            <text x="280" y="50">Hà Giang</text>
+
+            <path class="province" data-name="Cao Bằng" d="M360 60 L460 40 L500 100 L420 140 Z"/>
+            <text x="430" y="90">Cao Bằng</text>
+
+            <path class="province" data-name="Bắc Kạn" d="M420 140 L480 120 L520 180 L460 200 Z"/>
+            <text x="470" y="160">Bắc Kạn</text>
+
+            <path class="province" data-name="Lạng Sơn" d="M500 100 L580 80 L600 160 L540 200 Z"/>
+            <text x="550" y="140">Lạng Sơn</text>
+
+            <path class="province" data-name="Tuyên Quang" d="M280 100 L360 60 L420 140 L360 180 Z"/>
+            <text x="350" y="130">Tuyên Quang</text>
+
+            <path class="province" data-name="Thái Nguyên" d="M420 200 L480 180 L520 240 L460 280 Z"/>
+            <text x="470" y="230">Thái Nguyên</text>
+
+            <path class="province" data-name="Phú Thọ" d="M340 200 L400 220 L440 280 L380 300 Z"/>
+            <text x="380" y="250">Phú Thọ</text>
+
+            <path class="province" data-name="Bắc Giang" d="M460 280 L520 240 L560 300 L500 340 Z"/>
+            <text x="510" y="290">Bắc Giang</text>
+
+            <path class="province" data-name="Quảng Ninh" d="M540 200 L620 180 L700 300 L620 400 Z"/>
+            <text x="620" y="280">Quảng Ninh</text>
+
+            <!-- Đồng bằng sông Hồng -->
+            <path class="province" data-name="Vĩnh Phúc" d="M380 300 L420 280 L460 340 L420 360 Z"/>
+            <text x="420" y="330">Vĩnh Phúc</text>
+
+            <path class="province" data-name="Hà Nội" d="M420 360 L460 340 L500 380 L460 420 Z"/>
+            <text x="460" y="380">Hà Nội</text>
+
+            <path class="province" data-name="Bắc Ninh" d="M500 340 L540 320 L580 380 L540 400 Z"/>
+            <text x="540" y="360">Bắc Ninh</text>
+
+            <path class="province" data-name="Hải Dương" d="M540 400 L580 380 L620 440 L580 480 Z"/>
+            <text x="580" y="430">Hải Dương</text>
+
+            <path class="province" data-name="Hải Phòng" d="M620 440 L660 420 L700 480 L660 520 Z"/>
+            <text x="650" y="470">Hải Phòng</text>
+
+            <path class="province" data-name="Hưng Yên" d="M460 420 L500 380 L540 440 L500 480 Z"/>
+            <text x="500" y="440">Hưng Yên</text>
+
+            <path class="province" data-name="Thái Bình" d="M500 480 L540 440 L580 500 L540 540 Z"/>
+            <text x="540" y="500">Thái Bình</text>
+
+            <path class="province" data-name="Hà Nam" d="M420 420 L460 380 L500 480 L460 520 Z"/>
+            <text x="460" y="460">Hà Nam</text>
+
+            <path class="province" data-name="Nam Định" d="M460 520 L500 480 L540 540 L500 580 Z"/>
+            <text x="500" y="540">Nam Định</text>
+
+            <path class="province" data-name="Ninh Bình" d="M400 500 L460 460 L500 580 L440 600 Z"/>
+            <text x="440" y="550">Ninh Bình</text>
+
+            <!-- Tooltip động -->
+            <script>
+                const provinces = document.querySelectorAll('.province');
+                const tooltip = document.createElement('div');
+                tooltip.className = 'tooltip';
+                document.body.appendChild(tooltip);
+
+                provinces.forEach(prov => {
+                    prov.addEventListener('mouseover', function(e) {
+                        const name = this.getAttribute('data-name');
+                        tooltip.textContent = name;
+                        tooltip.style.display = 'block';
+                        tooltip.style.left = e.pageX + 10 + 'px';
+                        tooltip.style.top = e.pageY + 10 + 'px';
+                        this.style.fill = '#ffcc00';
+                    });
+                    prov.addEventListener('mousemove', function(e) {
+                        tooltip.style.left = e.pageX + 10 + 'px';
+                        tooltip.style.top = e.pageY + 10 + 'px';
+                    });
+                    prov.addEventListener('mouseout', function() {
+                        tooltip.style.display = 'none';
+                        this.style.fill = '#a8d5ba';
+                    });
+                });
+            </script>
+        </svg>
+    </div>
+
+    <p style="text-align: center; margin-top: 20px;">Phiên bản sửa lỗi: Tăng độ dày viền trắng cho tên tỉnh để tránh bị che khuất bởi biên giới nét đứt. Hover chuột để highlight và xem tooltip. Đây vẫn là bản đồ SVG minh họa đơn giản (địa giới gần đúng), không thay thế bản đồ chính thức.</p>
+
+    <!-- Phần thống kê theo khu vực -->
+    <div class="stats-container">
+        <h2 style="text-align: center;">Thống kê các tỉnh miền Bắc Việt Nam (Dữ liệu tham khảo năm 2024)</h2>
+        <p style="text-align: center;">Diện tích (km²) và Dân số (người) - Nguồn: Tổng cục Thống kê Việt Nam và các nguồn chính thức (dữ liệu gần nhất từ Điều tra dân số giữa kỳ 2024).</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Khu vực / Tỉnh/Thành phố</th>
+                    <th>Diện tích (km²)</th>
+                    <th>Dân số (người)</th>
+                    <th>Mật độ dân số (người/km²)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Tây Bắc Bộ -->
+                <tr class="region-header"><td colspan="4">Tây Bắc Bộ</td></tr>
+                <tr><td>Điện Biên</td><td>9.541</td><td>599.000</td><td>~63</td></tr>
+                <tr><td>Lai Châu</td><td>9.069</td><td>460.000</td><td>~51</td></tr>
+                <tr><td>Sơn La</td><td>14.123</td><td>1.248.000</td><td>~88</td></tr>
+                <tr><td>Lào Cai</td><td>6.364</td><td>730.000</td><td>~115</td></tr>
+                <tr><td>Yên Bái</td><td>6.883</td><td>821.000</td><td>~119</td></tr>
+                <tr><td>Hòa Bình</td><td>4.590</td><td>854.000</td><td>~186</td></tr>
+
+                <!-- Đông Bắc Bộ -->
+                <tr class="region-header"><td colspan="4">Đông Bắc Bộ</td></tr>
+                <tr><td>Hà Giang</td><td>7.929</td><td>855.000</td><td>~108</td></tr>
+                <tr><td>Cao Bằng</td><td>6.700</td><td>530.000</td><td>~79</td></tr>
+                <tr><td>Bắc Kạn</td><td>4.860</td><td>329.000</td><td>~68</td></tr>
+                <tr><td>Lạng Sơn</td><td>8.310</td><td>782.000</td><td>~94</td></tr>
+                <tr><td>Tuyên Quang</td><td>5.868</td><td>785.000</td><td>~134</td></tr>
+                <tr><td>Thái Nguyên</td><td>3.527</td><td>1.287.000</td><td>~365</td></tr>
+                <tr><td>Phú Thọ</td><td>3.534</td><td>1.464.000</td><td>~414</td></tr>
+                <tr><td>Bắc Giang</td><td>3.851</td><td>1.804.000</td><td>~468</td></tr>
+                <tr><td>Quảng Ninh</td><td>6.178</td><td>1.320.000</td><td>~214</td></tr>
+
+                <!-- Đồng bằng sông Hồng -->
+                <tr class="region-header"><td colspan="4">Đồng bằng sông Hồng</td></tr>
+                <tr><td>Hà Nội</td><td>3.359</td><td>8.700.000 (ước)</td><td>~2.590</td></tr>
+                <tr><td>Hải Phòng</td><td>1.527</td><td>2.028.000</td><td>~1.328</td></tr>
+                <tr><td>Vĩnh Phúc</td><td>1.235</td><td>1.151.000</td><td>~932</td></tr>
+                <tr><td>Bắc Ninh</td><td>823</td><td>1.369.000</td><td>~1.663</td></tr>
+                <tr><td>Hải Dương</td><td>1.668</td><td>1.892.000</td><td>~1.134</td></tr>
+                <tr><td>Hưng Yên</td><td>930</td><td>1.253.000</td><td>~1.348</td></tr>
+                <tr><td>Thái Bình</td><td>1.586</td><td>1.860.000</td><td>~1.173</td></tr>
+                <tr><td>Hà Nam</td><td>861</td><td>853.000</td><td>~991</td></tr>
+                <tr><td>Nam Định</td><td>1.669</td><td>1.780.000</td><td>~1.067</td></tr>
+                <tr><td>Ninh Bình</td><td>1.387</td><td>982.000</td><td>~708</td></tr>
+            </tbody>
+        </table>
+        <p style="text-align: center; margin-top: 20px; font-style: italic;">Lưu ý: Dữ liệu dân số và diện tích mang tính tham khảo, có thể thay đổi nhẹ tùy nguồn. Hiện tại (tháng 12/2025) chưa có sáp nhập tỉnh ở miền Bắc, dữ liệu dựa trên cấu trúc hành chính hiện hành.</p>
+    </div>
+</body>
+</html>
