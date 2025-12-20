@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hẹn giờ</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #f0f4f8, #d9e2ec, #bcccdc); /* Gradient sáng, nhẹ nhàng */
+            color: #333333; /* Chữ tối để dễ đọc */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.7); /* Nền trắng mờ */
+            padding: 40px 60px;
+            border-radius: 20px;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 30px;
+            font-weight: 300;
+            letter-spacing: 2px;
+            color: #444444;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .units {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .unit {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 20px 25px;
+            border-radius: 15px;
+            min-width: 120px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .value {
+            font-size: 3.5rem;
+            font-weight: bold;
+            line-height: 1;
+            color: #222222;
+        }
+
+        .label {
+            text-transform: uppercase;
+            font-size: 1rem;
+            opacity: 0.8;
+            margin-top: 8px;
+            letter-spacing: 1.5px;
+            color: #555555;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.3rem;
+            }
+            .container {
+                padding: 30px 40px;
+            }
+            .value {
+                font-size: 3rem;
+            }
+            .units {
+                gap: 25px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .units {
+                flex-direction: column;
+                gap: 20px;
+            }
+            .unit {
+                min-width: auto;
+            }
+            .value {
+                font-size: 2.8rem;
+            }
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Timer 16h48 3/12/2024</h1>
+        <div class="units">
+            <div class="unit">
+                <div class="value" id="days">00</div>
+                <div class="label">Ngày</div>
+            </div>
+            <div class="unit">
+                <div class="value" id="hours">00</div>
+                <div class="label">Giờ</div>
+            </div>
+            <div class="unit">
+                <div class="value" id="minutes">00</div>
+                <div class="label">Phút</div>
+            </div>
+            <div class="unit">
+                <div class="value" id="seconds">00</div>
+                <div class="label">Giây</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Ngày bắt đầu: 3/11/2024 16:48:00
+        const startDate = new Date(2024, 10, 3, 16, 48, 0); // Tháng 10 = November
+
+        function updateTimer() {
+            const now = new Date();
+            let diff = now - startDate;
+
+            if (diff < 0) {
+                document.querySelectorAll('.value').forEach(el => el.textContent = '00');
+                return;
+            }
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            diff -= days * (1000 * 60 * 60 * 24);
+
+            const hours = Math.floor(diff / (1000 * 60 * 60));
+            diff -= hours * (1000 * 60 * 60);
+
+            const minutes = Math.floor(diff / (1000 * 60));
+            diff -= minutes * (1000 * 60);
+
+            const seconds = Math.floor(diff / 1000);
+
+            document.getElementById('days').textContent = days.toString().padStart(2, '0');
+            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+        }
+
+        updateTimer();
+        setInterval(updateTimer, 1000);
+    </script>
+</body>
+</html>
