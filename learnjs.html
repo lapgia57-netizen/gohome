@@ -4,7 +4,248 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Học JavaScript Hiệu Quả Nhất - 100 Bài Thực Hành</title>
-  <link rel="stylesheet" href="style.css">
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --success: #10b981;
+      --text: #1f2937;
+      --text-light: #6b7280;
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --border: #e2e8f0;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      background: var(--primary);
+      color: white;
+      text-align: center;
+      padding: 1.5rem 1rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    header h1 {
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+    }
+
+    header p {
+      font-size: 1rem;
+      opacity: 0.95;
+    }
+
+    .container {
+      flex: 1;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Danh sách bài tập - Mobile: Bottom navigation */
+    .exercise-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--card);
+      border-top: 1px solid var(--border);
+      padding: 0.75rem 0;
+      display: flex;
+      justify-content: space-around;
+      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+      z-index: 100;
+    }
+
+    .nav-item {
+      text-align: center;
+      color: var(--text-light);
+      font-size: 0.85rem;
+    }
+
+    .nav-item.active {
+      color: var(--primary);
+    }
+
+    .nav-item i {
+      font-size: 1.5rem;
+      display: block;
+      margin-bottom: 0.25rem;
+    }
+
+    /* Nội dung chính */
+    .main {
+      flex: 1;
+      padding: 1.5rem;
+      padding-bottom: 80px; /* Để không bị che bởi bottom nav */
+      overflow-y: auto;
+    }
+
+    .welcome {
+      text-align: center;
+      margin-top: 3rem;
+    }
+
+    .welcome h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+
+    .welcome p {
+      font-size: 1.1rem;
+      color: var(--text-light);
+      max-width: 90%;
+      margin: 0 auto;
+    }
+
+    /* Danh sách bài tập (khi mở) */
+    .exercise-list {
+      display: none; /* Ẩn mặc định, sẽ hiện khi bấm vào tab */
+    }
+
+    .exercise-list.active {
+      display: block;
+    }
+
+    .exercise-list h2 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: var(--primary);
+      text-align: center;
+    }
+
+    .progress {
+      text-align: center;
+      margin: 1.5rem 0;
+      font-size: 1.1rem;
+      color: var(--success);
+      font-weight: 600;
+    }
+
+    ol {
+      list-style: none;
+      counter-reset: item;
+    }
+
+    ol li {
+      counter-increment: item;
+      background: var(--card);
+      margin: 0.75rem 0;
+      padding: 1rem;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      border: 1px solid var(--border);
+      position: relative;
+      transition: all 0.2s;
+    }
+
+    ol li::before {
+      content: counter(item);
+      background: var(--primary);
+      color: white;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 0.9rem;
+      margin-right: 1rem;
+      flex-shrink: 0;
+    }
+
+    ol li.completed {
+      opacity: 0.7;
+    }
+
+    ol li.completed::after {
+      content: "✓";
+      position: absolute;
+      right: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      background: var(--success);
+      color: white;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+    }
+
+    /* Back button khi xem bài tập chi tiết */
+    .back-btn {
+      display: none;
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 50px;
+      font-size: 1rem;
+      margin: 1rem 0;
+      box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);
+    }
+
+    .back-btn.active {
+      display: inline-block;
+    }
+
+    /* Desktop: Hiển thị sidebar truyền thống */
+    @media (min-width: 768px) {
+      .container {
+        flex-direction: row;
+      }
+
+      .exercise-nav {
+        display: none; /* Ẩn bottom nav trên desktop */
+      }
+
+      .main {
+        padding: 2rem;
+        padding-bottom: 2rem;
+      }
+
+      aside.sidebar {
+        width: 320px;
+        background: var(--card);
+        border-right: 1px solid var(--border);
+        padding: 2rem 1.5rem;
+        height: 100vh;
+        position: sticky;
+        top: 0;
+        overflow-y: auto;
+      }
+
+      .exercise-list {
+        display: block !important;
+      }
+
+      .welcome {
+        margin-top: 5rem;
+      }
+    }
+  </style>
+  <!-- Font Awesome cho icon (có thể thay bằng text nếu không muốn load CDN) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
 
@@ -14,24 +255,107 @@
 </header>
 
 <div class="container">
-  <!-- Sidebar - Danh sách bài tập -->
+  <!-- Sidebar chỉ hiện trên desktop -->
   <aside class="sidebar">
     <h2>Danh sách bài tập</h2>
-    <ol id="exerciseList"></ol>
     <div class="progress">
-      Đã hoàn thành: <span id="completedCount">0</span> / <span id="totalCount">0</span>
+      Đã hoàn thành: <span id="completedCount">0</span> / <span id="totalCount">100</span>
     </div>
+    <ol id="exerciseList" class="exercise-list active"></ol>
   </aside>
 
-  <!-- Nội dung bài tập chính -->
+  <!-- Nội dung chính -->
   <main class="main" id="exerciseContent">
+    <button class="back-btn" id="backBtn">← Quay lại danh sách</button>
+    
     <div class="welcome">
       <h2>Xin chào!</h2>
-      <p>Chọn một bài tập bên trái để bắt đầu hành trình chinh phục JavaScript nào! 🚀</p>
+      <p>Chọn một bài tập để bắt đầu hành trình chinh phục JavaScript nào! 🚀</p>
+    </div>
+
+    <!-- Danh sách bài tập trên mobile sẽ hiện ở đây khi bấm tab -->
+    <div class="exercise-list" id="mobileExerciseList">
+      <h2>Danh sách bài tập</h2>
+      <div class="progress">
+        Đã hoàn thành: <span id="completedCountMobile">0</span> / <span id="totalCountMobile">100</span>
+      </div>
+      <ol id="exerciseListMobile"></ol>
     </div>
   </main>
 </div>
 
-<script src="script.js"></script>
+<!-- Bottom Navigation cho Mobile -->
+<nav class="exercise-nav">
+  <div class="nav-item active" data-view="list">
+    <i class="fas fa-list"></i>
+    <span>Danh sách</span>
+  </div>
+  <div class="nav-item" data-view="current">
+    <i class="fas fa-code"></i>
+    <span>Bài tập</span>
+  </div>
+</nav>
+
+<script>
+  // Xử lý chuyển tab trên mobile
+  const navItems = document.querySelectorAll('.nav-item');
+  const mobileList = document.getElementById('mobileExerciseList');
+  const welcome = document.querySelector('.welcome');
+  const backBtn = document.getElementById('backBtn');
+
+  navItems.forEach(item => {
+    item.addEventListener('click', () => {
+      // Active class
+      navItems.forEach(i => i.classList.remove('active'));
+      item.classList.add('active');
+
+      const view = item.getAttribute('data-view');
+
+      if (view === 'list') {
+        mobileList.classList.add('active');
+        welcome.style.display = 'none';
+        backBtn.classList.remove('active');
+      } else {
+        mobileList.classList.remove('active');
+        welcome.style.display = 'block';
+        backBtn.classList.add('active');
+      }
+    });
+  });
+
+  backBtn.addEventListener('click', () => {
+    document.querySelector('[data-view="list"]').click();
+  });
+
+  // Bạn sẽ fill danh sách bài tập ở đây (script.js)
+  // Ví dụ giả lập:
+  const exercises = Array.from({length: 100}, (_, i) => `Bài ${i+1}: Ví dụ về vòng lặp`);
+
+  const fillList = (ol) => {
+    ol.innerHTML = exercises.map((ex, i) => `
+      <li onclick="openExercise(${i+1})">
+        ${ex}
+      </li>
+    `).join('');
+  };
+
+  // Fill cho cả desktop và mobile
+  fillList(document.getElementById('exerciseList'));
+  fillList(document.getElementById('exerciseListMobile'));
+
+  // Hàm mở bài tập (bạn sẽ thay bằng logic thật)
+  function openExercise(id) {
+    document.querySelector('[data-view="current"]').click();
+    alert(`Đang mở bài tập ${id}`);
+    // Sau này bạn sẽ load nội dung bài tập vào đây
+  }
+
+  // Cập nhật tiến độ (demo)
+  document.getElementById('completedCount').textContent = 23;
+  document.getElementById('completedCountMobile').textContent = 23;
+  document.getElementById('totalCount').textContent = 100;
+  document.getElementById('totalCountMobile').textContent = 100;
+</script>
+
 </body>
 </html>
