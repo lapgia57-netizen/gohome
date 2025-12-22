@@ -175,8 +175,8 @@
             particlesContainer.appendChild(p);
         }
 
-        // Dữ liệu Can Chi
-        const can = ["Giáp", "Ất", "Bính", "Đinh", "Mậu", "Kỷ", "Canh", "Tân", "Nhâm", "Quý"];
+        // Dữ liệu Can Chi - ĐÃ SỬA ĐÚNG THỨ TỰ
+        const can = ["Canh", "Tân", "Nhâm", "Quý", "Giáp", "Ất", "Bính", "Đinh", "Mậu", "Kỷ"];
         const chi = ["Tý", "Sửu", "Dần", "Mão", "Thìn", "Tỵ", "Ngọ", "Mùi", "Thân", "Dậu", "Tuất", "Hợi"];
 
         // Dữ liệu Tam Tai CHUẨN 2025 (theo Tam Hợp)
@@ -248,8 +248,12 @@
             const group = tamTaiGroups.find(g => g.indices.includes(chiIndex));
 
             if (group) {
-                const yearInCycle = now - (now - (now % 12 - group.indices[0] + 12) % 12);
-                const pos = ["đầu", "giữa (nặng nhất)", "cuối"][now - yearInCycle];
+                const cycleStart = group.indices[0];
+                const offset = (now % 12 - cycleStart + 12) % 12;
+                const startYear = now - offset;
+                const posIndex = now - startYear;
+                const pos = ["đầu", "giữa (nặng nhất)", "cuối"][posIndex];
+
                 return `Năm <span class="highlight">${now} (Ất Tỵ)</span>: Nhóm <strong class="danger">${group.groupName}</strong> đang phạm Tam Tai năm ${pos} (${group.description})`;
             }
             return `Năm <span class="highlight">${now}</span>: <strong class="safe">Không nhóm tuổi nào phạm Tam Tai</strong>`;
@@ -257,7 +261,6 @@
 
         // Khởi tạo
         const currentYear = new Date().getFullYear();
-        document.getElementById('currentYear').textContent = currentYear;
         document.getElementById('currentYearTop').textContent = currentYear;
         document.getElementById('current-status').innerHTML = getCurrentYearStatus();
 
