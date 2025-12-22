@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tam Tai Thị Phi - Tra Cứu Tuổi Can Chi</title>
+    <title>Tam Tai Thị Phi - Tra Cứu Tuổi Can Chi 2025</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Roboto:wght@400;700&display=swap');
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -106,7 +106,7 @@
 
     <header>
         <h1>TAM TAI THỊ PHI</h1>
-        <p>Tra Cứu Tuổi Can Chi & Chu Kỳ Tam Tai</p>
+        <p>Tra Cứu Tuổi Can Chi & Chu Kỳ Tam Tai - Cập nhật 2025</p>
     </header>
 
     <div class="container">
@@ -128,7 +128,7 @@
 
         <section>
             <h2>Tam Tai Là Gì?</h2>
-            <p>Tam Tai là 3 năm hạn liên tiếp theo tuổi Can Chi, thường gặp khó khăn, thị phi, hao tài tốn của. Nên tránh:</p>
+            <p>Tam Tai là 3 năm hạn liên tiếp theo nhóm Tam Hợp, thường gặp khó khăn, thị phi, hao tài. Nên tránh:</p>
             <ul style="margin-left: 25px; line-height: 1.8;">
                 <li>Xây sửa, động thổ nhà cửa lớn</li>
                 <li>Đầu tư mạo hiểm, vay nợ lớn</li>
@@ -136,30 +136,30 @@
             </ul>
         </section>
 
-        <!-- Giữ nguyên các phần còn lại: Nhóm tuổi, Hóa giải... -->
-
         <section>
-            <h2>Các Nhóm Tuổi & Chu Kỳ Tam Tai</h2>
+            <h2>Các Nhóm Tuổi & Chu Kỳ Tam Tai (Chuẩn Phong Thủy)</h2>
             <table>
                 <thead>
                     <tr>
-                        <th>Nhóm tuổi</th>
-                        <th>Chu kỳ Tam Tai (3 năm liên tiếp)</th>
-                        <th>Đặc điểm chính</th>
+                        <th>Nhóm tuổi (Tam Hợp)</th>
+                        <th>Chu kỳ Tam Tai (3 năm)</th>
+                        <th>Đặc điểm hạn chính</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr><td>Hợi - Mão - Mùi</td><td>Dần - Mão - Thìn</td><td>Thị phi, tranh chấp, kiện tụng</td></tr>
-                    <tr><td>Dần - Ngọ - Tuất</td><td>Thân - Dậu - Tuất</td><td>Hao tài, phá sản, kiện cáo</td></tr>
-                    <tr><td>Tỵ - Dậu - Sửu</td><td>Hợi - Tý - Sửu</td><td>Sức khỏe, tài lộc, đường xa</td></tr>
+                    <tr><td>Thân - Tý - Thìn</td><td>Dần - Mão - Thìn</td><td>Thị phi, kiện tụng, công việc trục trặc, hao tài</td></tr>
+                    <tr><td>Dần - Ngọ - Tuất</td><td>Thân - Dậu - Tuất</td><td>Hao tài tốn của, phá sản, tai nạn đường xa</td></tr>
+                    <tr><td>Hợi - Mão - Mùi</td><td>Tỵ - Ngọ - Mùi</td><td>Thị phi, tranh chấp, sức khỏe suy giảm, đường xa trắc trở</td></tr>
+                    <tr><td>Tỵ - Dậu - Sửu</td><td>Hợi - Tý - Sửu</td><td>Tai nạn đường xa, sức khỏe kém, tài lộc hao hụt</td></tr>
                 </tbody>
             </table>
+            <p style="margin-top:15px; font-size:0.95em; color:#aaa;">Năm 2025 (Ất Tỵ): Nhóm Hợi - Mão - Mùi đang gặp năm đầu Tam Tai (vận hạn nhẹ, nhưng cần cẩn trọng).</p>
         </section>
 
     </div>
 
     <footer>
-        © 2025–<span id="currentYear"></span> | Tính toán động theo Can Chi - Blockchain Phong Thủy
+        © 2025 | Dữ liệu chuẩn phong thủy Việt Nam - Chỉ mang tính tham khảo
     </footer>
 
     <script>
@@ -179,143 +179,151 @@
         const can = ["Giáp", "Ất", "Bính", "Đinh", "Mậu", "Kỷ", "Canh", "Tân", "Nhâm", "Quý"];
         const chi = ["Tý", "Sửu", "Dần", "Mão", "Thìn", "Tỵ", "Ngọ", "Mùi", "Thân", "Dậu", "Tuất", "Hợi"];
 
-        // Nhóm Tam Tai theo chi (index 0-11)
+        // Dữ liệu Tam Tai CHUẨN 2025 (theo Tam Hợp)
         const tamTaiGroups = [
-            { indices: [2,3,4], name: "Dần - Mão - Thìn", group: "Hợi - Mão - Mùi" },
-            { indices: [8,9,10], name: "Thân - Dậu - Tuất", group: "Dần - Ngọ - Tuất" },
-            { indices: [11,0,1], name: "Hợi - Tý - Sửu", group: "Tỵ - Dậu - Sửu" }
+            {
+                groupName: "Thân - Tý - Thìn",
+                tamTaiChi: ["Dần", "Mão", "Thìn"],
+                indices: [2, 3, 4],
+                description: "Thị phi, kiện tụng, công việc trục trặc, hao tài"
+            },
+            {
+                groupName: "Dần - Ngọ - Tuất",
+                tamTaiChi: ["Thân", "Dậu", "Tuất"],
+                indices: [8, 9, 10],
+                description: "Hao tài tốn của, phá sản, tai nạn đường xa"
+            },
+            {
+                groupName: "Hợi - Mão - Mùi",
+                tamTaiChi: ["Tỵ", "Ngọ", "Mùi"],
+                indices: [5, 6, 7],
+                description: "Thị phi, tranh chấp, sức khỏe suy giảm, đường xa trắc trở"
+            },
+            {
+                groupName: "Tỵ - Dậu - Sửu",
+                tamTaiChi: ["Hợi", "Tý", "Sửu"],
+                indices: [11, 0, 1],
+                description: "Tai nạn đường xa, sức khỏe kém, tài lộc hao hụt"
+            }
         ];
 
         function getCanChi(year) {
             return `${can[year % 10]} ${chi[year % 12]}`;
         }
 
-        function getTamTaiCycle(birthChiIndex) {
-            for (const group of tamTaiGroups) {
-                if (group.indices.includes(birthChiIndex)) {
-                    return {
-                        tamTaiChiIndices: group.indices,
-                        tamTaiChiText: group.name,
-                        groupName: group.group
-                    };
-                }
-            }
-            return null;
+        function getTamTaiGroup(birthChiIndex) {
+            return tamTaiGroups.find(g => g.indices.includes(birthChiIndex));
         }
 
         function getTamTaiYears(currentYear, birthChiIndex) {
-            const cycleInfo = getTamTaiCycle(birthChiIndex);
-            if (!cycleInfo) return null;
+            const group = getTamTaiGroup(birthChiIndex);
+            if (!group) return null;
 
-            const { tamTaiChiIndices } = cycleInfo;
+            const cycleStartChi = group.indices[0];
+            let offset = (currentYear % 12 - cycleStartChi + 12) % 12;
+            let startYear = currentYear - offset;
 
-            // Tìm năm Tam Tai gần nhất (có thể đang diễn ra hoặc vừa qua)
-            let yearDiff = (currentYear % 12 - tamTaiChiIndices[0] + 12) % 12;
-            let tamTaiStartYear = currentYear - yearDiff;
+            // Điều chỉnh để lấy chu kỳ đang diễn ra hoặc gần nhất/sắp tới
+            if (startYear + 2 < currentYear - 1) startYear += 12;
+            if (startYear > currentYear + 3) startYear -= 12;
 
-            // Nếu chu kỳ vừa qua rồi thì lấy chu kỳ tiếp theo
-            if (tamTaiStartYear + 2 < currentYear) {
-                tamTaiStartYear += 12;
-            }
-
-            const years = [
-                tamTaiStartYear,
-                tamTaiStartYear + 1,
-                tamTaiStartYear + 2
-            ];
+            const years = [startYear, startYear + 1, startYear + 2];
 
             return {
                 years,
                 canChiYears: years.map(y => getCanChi(y)),
-                groupName: cycleInfo.groupName,
-                tamTaiChiText: cycleInfo.tamTaiChiText
+                groupName: group.groupName,
+                tamTaiChiText: group.tamTaiChi.join(" - "),
+                description: group.description
             };
         }
 
-        function isCurrentYearInTamTai(currentYear, tamTaiYears) {
+        function isInTamTai(currentYear, tamTaiYears) {
             return currentYear >= tamTaiYears[0] && currentYear <= tamTaiYears[2];
         }
 
-        function getCurrentYearTamTaiStatus() {
+        function getCurrentYearStatus() {
             const now = new Date().getFullYear();
-            const currentChiIndex = now % 12;
-            
-            const group = tamTaiGroups.find(g => g.indices.includes(currentChiIndex));
-            
+            const chiIndex = now % 12;
+            const group = tamTaiGroups.find(g => g.indices.includes(chiIndex));
+
             if (group) {
-                return `Năm <span class="highlight">${now}</span>: Tuổi <strong class="danger">${group.group}</strong> đang phạm Tam Tai`;
+                const yearInCycle = now - (now - (now % 12 - group.indices[0] + 12) % 12);
+                const pos = ["đầu", "giữa (nặng nhất)", "cuối"][now - yearInCycle];
+                return `Năm <span class="highlight">${now} (Ất Tỵ)</span>: Nhóm <strong class="danger">${group.groupName}</strong> đang phạm Tam Tai năm ${pos} (${group.description})`;
             }
-            return `Năm <span class="highlight">${now}</span>: <strong class="safe">Không tuổi nào phạm Tam Tai lớn</strong>`;
+            return `Năm <span class="highlight">${now}</span>: <strong class="safe">Không nhóm tuổi nào phạm Tam Tai</strong>`;
         }
 
         // Khởi tạo
         const currentYear = new Date().getFullYear();
         document.getElementById('currentYear').textContent = currentYear;
         document.getElementById('currentYearTop').textContent = currentYear;
-        document.getElementById('current-status').innerHTML = getCurrentYearTamTaiStatus();
+        document.getElementById('current-status').innerHTML = getCurrentYearStatus();
 
         function checkTamTai() {
             const input = document.getElementById('birthYear');
-            const result = document.getElementById('result');
+            const resultDiv = document.getElementById('result');
             const year = parseInt(input.value);
 
             if (!year || year < 1900 || year > 2100) {
-                result.innerHTML = "⚠️ Vui lòng nhập năm sinh từ 1900 đến 2100!";
-                result.style.color = "#ff5252";
-                result.style.display = "block";
+                resultDiv.innerHTML = "⚠️ Vui lòng nhập năm sinh từ 1900 đến 2100!";
+                resultDiv.style.color = "#ff5252";
+                resultDiv.style.display = "block";
                 return;
             }
 
             const canchi = getCanChi(year);
-            const birthChiIndex = year % 12;
-            const tamTaiInfo = getTamTaiYears(currentYear, birthChiIndex);
+            const chiIndex = year % 12;
+            const info = getTamTaiYears(currentYear, chiIndex);
 
-            if (!tamTaiInfo) {
-                result.innerHTML = "Không tìm thấy thông tin nhóm Tam Tai!";
-                result.style.color = "#ff5252";
-                result.style.display = "block";
+            if (!info) {
+                resultDiv.innerHTML = "Không tìm thấy nhóm Tam Tai!";
+                resultDiv.style.color = "#ff5252";
+                resultDiv.style.display = "block";
                 return;
             }
 
-            const { years, canChiYears, groupName, tamTaiChiText } = tamTaiInfo;
-            const isNow = isCurrentYearInTamTai(currentYear, years);
+            const { years, canChiYears, groupName, tamTaiChiText, description } = info;
+            const isNow = isInTamTai(currentYear, years);
+            const position = currentYear === years[0] ? "năm đầu" : currentYear === years[1] ? "năm giữa (nặng nhất)" : "năm cuối";
 
             let html = `
                 <div class="info-line"><strong>Tuổi:</strong> <span class="highlight">${canchi}</span> (${year})</div>
-                <div class="info-line"><strong>Nhóm tuổi:</strong> ${groupName}</div>
+                <div class="info-line"><strong>Nhóm:</strong> ${groupName}</div>
                 <div class="info-line"><strong>Tam Tai:</strong> ${tamTaiChiText}</div>
+                <div class="info-line"><strong>Đặc điểm:</strong> ${description}</div>
                 <div class="info-line"><strong>Chu kỳ gần nhất/sắp tới:</strong> ${years[0]} – ${years[2]}</div>
                 <hr style="border-color:rgba(0,255,255,0.3);margin:15px 0;">
             `;
 
-            html += '<div class="info-line"><strong>Chi tiết các năm:</strong></div>';
+            html += '<div class="info-line"><strong>Chi tiết:</strong></div>';
             years.forEach((y, i) => {
-                const isThisYear = y === currentYear;
-                const mark = isThisYear ? ' → <span class="danger">HIỆN TẠI</span>' : '';
+                const mark = y === currentYear ? ' → <span class="danger">HIỆN TẠI</span>' : '';
                 html += `<div class="info-line">• ${y} (${canChiYears[i]})${mark}</div>`;
             });
 
             html += '<br>';
 
             if (isNow) {
-                html += `<p class="danger" style="font-size:1.4em;margin-top:15px;">🚨 BẠN ĐANG PHẠM TAM TAI NĂM ${currentYear} !</p>
-                         <p style="color:#ff9800;">Nên cẩn trọng đầu tư, xây dựng, tranh chấp. Giữ tâm an, tránh nóng giận.</p>`;
+                html += `<p class="danger" style="font-size:1.4em;margin-top:15px;">🚨 BẠN ĐANG PHẠM TAM TAI ${position.toUpperCase()} NĂM ${currentYear} !</p>
+                         <p style="color:#ff9800;">Cẩn trọng đầu tư, xây dựng, tranh chấp. Giữ tâm an, tránh nóng giận. Nên cúng giải hạn hàng tháng.</p>`;
             } else {
-                html += `<p class="safe" style="font-size:1.3em;margin-top:15px;">✅ Năm nay (${currentYear}) bạn KHÔNG phạm Tam Tai</p>`;
+                html += `<p class="safe" style="font-size:1.3em;margin-top:15px;">✅ Năm ${currentYear} bạn KHÔNG phạm Tam Tai</p>`;
             }
 
-            result.innerHTML = html;
-            result.style.color = isNow ? "#ff5252" : "#64ff64";
-            result.style.display = "block";
+            resultDiv.innerHTML = html;
+            resultDiv.style.color = isNow ? "#ff5252" : "#64ff64";
+            resultDiv.style.display = "block";
 
-            // Hiệu ứng particle chớp nhoáng
-            const particleColor = isNow ? "rgba(255,80,80,0.8)" : "rgba(100,255,100,0.7)";
+            // Hiệu ứng particle
+            const color = isNow ? "rgba(255,80,80,0.8)" : "rgba(100,255,100,0.7)";
             for (let i = 0; i < 30; i++) {
                 const p = document.createElement('div');
                 p.classList.add('particle');
                 p.style.left = `${Math.random()*100}vw`;
                 p.style.top = `${Math.random()*100}vh`;
-                p.style.background = particleColor;
+                p.style.background = color;
                 p.style.animationDuration = "1.6s";
                 document.body.appendChild(p);
                 setTimeout(() => p.remove(), 2000);
