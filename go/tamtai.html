@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tam Tai Thị Phi - Tra Cứu Tuổi Can Chi</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Roboto:wght@400;700&display=swap');
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: #e0e0ff;
+            font-family: 'Roboto', sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        #particles {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+        }
+        .particle {
+            position: absolute;
+            background: rgba(0, 255, 255, 0.5);
+            border-radius: 50%;
+            box-shadow: 0 0 10px cyan;
+            animation: float 10s infinite linear;
+        }
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0.5; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+
+        header {
+            text-align: center;
+            padding: 50px 20px;
+            background: rgba(0, 0, 0, 0.5);
+            border-bottom: 2px solid cyan;
+        }
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3.5em;
+            text-shadow: 0 0 20px cyan, 0 0 40px magenta;
+            animation: neon 2s infinite alternate;
+        }
+        @keyframes neon {
+            from { text-shadow: 0 0 10px cyan; }
+            to { text-shadow: 0 0 30px cyan, 0 0 50px magenta; }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        section {
+            margin-bottom: 40px;
+            padding: 20px;
+            border: 1px solid rgba(0, 255, 255, 0.5);
+            border-radius: 10px;
+            background: rgba(0, 0, 0, 0.3);
+        }
+        h2 {
+            color: cyan;
+            text-shadow: 0 0 10px cyan;
+            margin-bottom: 15px;
+        }
+
+        .lookup-form {
+            text-align: center;
+            padding: 30px;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+        input[type="number"] {
+            padding: 12px;
+            width: 200px;
+            border: 2px solid cyan;
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            border-radius: 8px;
+            font-size: 1.1em;
+            text-align: center;
+        }
+        button {
+            margin-top: 15px;
+            padding: 12px 30px;
+            background: linear-gradient(45deg, cyan, magenta);
+            border: none;
+            color: black;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.6);
+            transition: 0.3s;
+        }
+        button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 30px rgba(255, 0, 255, 0.8);
+        }
+
+        #result {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            font-size: 1.3em;
+            font-weight: bold;
+            text-align: center;
+            min-height: 80px;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            animation: glow 1.5s infinite alternate;
+        }
+        @keyframes glow {
+            from { box-shadow: 0 0 10px cyan; }
+            to { box-shadow: 0 0 30px magenta; }
+        }
+
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { padding: 12px; border: 1px solid cyan; text-align: center; }
+        th { background: rgba(0, 255, 255, 0.2); }
+        tr:nth-child(even) { background: rgba(255, 255, 255, 0.05); }
+
+        ul { list-style: none; }
+        li { margin: 10px 0; padding-left: 30px; position: relative; }
+        li::before { content: "🔗"; position: absolute; left: 0; color: magenta; }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 0.9em;
+            color: #aaa;
+        }
+
+        .highlight-year { color: #ffeb3b; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div id="particles"></div>
+
+    <header>
+        <h1>TAM TAI THỊ PHI</h1>
+        <p>Tra Cứu Tuổi Can Chi - Blockchain Phong Thủy</p>
+    </header>
+
+    <div class="container">
+
+        <!-- Form Tra Cứu -->
+        <section>
+            <h2>🔍 Tra Cứu Tam Tai Theo Năm Sinh</h2>
+            <div class="lookup-form">
+                <input type="number" id="birthYear" placeholder="Nhập năm sinh (VD: 1990)" min="1900" max="2100">
+                <br>
+                <button onclick="checkTamTai()">TRA CỨU NGAY</button>
+                <div id="result"></div>
+            </div>
+        </section>
+
+        <section id="current-info">
+            <h2>Tình hình Tam Tai hiện tại</h2>
+            <p id="current-status">Đang tính toán...</p>
+        </section>
+
+        <section>
+            <h2>Tam Tai Là Gì?</h2>
+            <p>Tam Tai là 3 năm hạn liên tiếp theo tuổi (theo Can Chi), thường mang lại khó khăn, thị phi, hao tài. Trong 3 năm này nên:<br>
+            • Tránh xây sửa nhà cửa lớn<br>
+            • Hạn chế đầu tư mạo hiểm, vay nợ<br>
+            • Giữ lời nói cẩn trọng, tránh tranh chấp</p>
+        </section>
+
+        <section>
+            <h2>Các Nhóm Tuổi & Chu Kỳ Tam Tai</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nhóm tuổi</th>
+                        <th>Chu kỳ Tam Tai (mỗi 12 năm lặp lại)</th>
+                        <th>Đặc điểm</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Hợi - Mão - Mùi</td>
+                        <td>Dần - Mão - Thìn</td>
+                        <td>Tam Tai nặng về thị phi, tranh chấp</td>
+                    </tr>
+                    <tr>
+                        <td>Dần - Ngọ - Tuất</td>
+                        <td>Thân - Dậu - Tuất</td>
+                        <td>Dễ hao tài, kiện tụng</td>
+                    </tr>
+                    <tr>
+                        <td>Tỵ - Dậu - Sửu</td>
+                        <td>Hợi - Tý - Sửu</td>
+                        <td>Thường gặp trở ngại sức khỏe & tài lộc</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>Tránh Thị Phi - Hóa Giải</h2>
+            <ul>
+                <li>Giữ lời nói nhẹ nhàng, tránh tranh cãi không cần thiết</li>
+                <li>Đeo vòng/phong thủy: Mã não đỏ, thạch anh tóc, hổ phách (tùy mệnh)</li>
+                <li>Làm việc thiện, phóng sinh, tụng kinh trong năm hạn</li>
+                <li>Không khởi công, mua bán nhà đất lớn trong 3 năm Tam Tai</li>
+                <li>Giữ tâm an, tránh nóng giận</li>
+            </ul>
+        </section>
+    </div>
+
+    <footer>
+        © 2025–<span id="currentYear"></span> | Dữ liệu tính toán động theo Can Chi
+    </footer>
+
+    <script>
+        // Particle background
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 60; i++) {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            particle.style.width = `${Math.random() * 18 + 4}px`;
+            particle.style.height = particle.style.width;
+            particle.style.left = `${Math.random() * 100}vw`;
+            particle.style.animationDelay = `${Math.random() * 12}s`;
+            particle.style.animationDuration = `${Math.random() * 15 + 12}s`;
+            particlesContainer.appendChild(particle);
+        }
+
+        // Cập nhật năm hiện tại ở footer
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        // Dữ liệu Can Chi
+        const can = ["Giáp", "Ất", "Bính", "Đinh", "Mậu", "Kỷ", "Canh", "Tân", "Nhâm", "Quý"];
+        const chi = ["Tý", "Sửu", "Dần", "Mão", "Thìn", "Tỵ", "Ngọ", "Mùi", "Thân", "Dậu", "Tuất", "Hợi"];
+
+        // Xác định nhóm Tam Tai theo chỉ số chi (0-11)
+        const tamTaiGroups = [
+            { indices: [2, 3, 4], name: "Dần, Mão, Thìn", groupName: "Hợi - Mão - Mùi" },
+            { indices: [8, 9, 10], name: "Thân, Dậu, Tuất", groupName: "Dần - Ngọ - Tuất" },
+            { indices: [11, 0, 1], name: "Hợi, Tý, Sửu", groupName: "Tỵ - Dậu - Sửu" }
+        ];
+
+        function getCanChi(year) {
+            return `${can[year % 10]} ${chi[year % 12]}`;
+        }
+
+        function getTamTaiInfo(birthYear) {
+            const chiIndex = birthYear % 12;
+            let groupInfo = null;
+
+            for (const group of tamTaiGroups) {
+                if (group.indices.includes(chiIndex)) {
+                    groupInfo = group;
+                    break;
+                }
+            }
+
+            if (!groupInfo) return null;
+
+            // Tính 3 năm Tam Tai gần nhất & sắp tới
+            const currentYear = new Date().getFullYear();
+            const cycle = 12;
+            let offset = (chiIndex - group.indices[0] + cycle) % cycle;
+            let tamTaiStart = currentYear - offset;
+            if (tamTaiStart + 2 < currentYear) tamTaiStart += cycle;
+
+            const years = [
+                tamTaiStart,
+                tamTaiStart + 1,
+                tamTaiStart + 2
+            ];
+
+            const isCurrent = currentYear >= years[0] && currentYear <= years[2];
+
+            return {
+                group: groupInfo.groupName,
+                tamTaiYears: years,
+                tamTaiRange: `${years[0]} – ${years[2]}`,
+                isCurrentYearAffected: isCurrent && currentYear === years[0] + (chiIndex - group.indices[0] + cycle) % 3,
+                currentStatus: isCurrent ? "ĐANG PHẠM" : "KHÔNG PHẠM"
+            };
+        }
+
+        function updateCurrentStatus() {
+            const currentYear = new Date().getFullYear();
+            const affectedGroup = tamTaiGroups.find(g => 
+                g.indices.some(idx => (currentYear % 12) === idx)
+            );
+
+            const statusEl = document.getElementById('current-status');
+            if (affectedGroup) {
+                statusEl.innerHTML = `Năm <span class="highlight-year">${currentYear}</span>: 
+                    <strong style="color:#ff6b6b">Tuổi ${affectedGroup.groupName}</strong> đang phạm Tam Tai`;
+            } else {
+                statusEl.innerHTML = `Năm <span class="highlight-year">${currentYear}</span>: 
+                    <strong style="color:#90ff90">Không tuổi nào phạm Tam Tai lớn</strong>`;
+            }
+        }
+
+        function checkTamTai() {
+            const yearInput = document.getElementById('birthYear');
+            const resultDiv = document.getElementById('result');
+            const year = parseInt(yearInput.value);
+
+            if (!year || year < 1900 || year > 2100) {
+                resultDiv.innerHTML = "⚠️ Vui lòng nhập năm sinh hợp lệ (1900–2100)!";
+                resultDiv.style.display = "block";
+                resultDiv.style.color = "#ff6b6b";
+                return;
+            }
+
+            const canchi = getCanChi(year);
+            const info = getTamTaiInfo(year);
+
+            if (!info) {
+                resultDiv.innerHTML = "Dữ liệu lỗi - vui lòng thử lại!";
+                resultDiv.style.color = "#ff6b6b";
+                resultDiv.style.display = "block";
+                return;
+            }
+
+            const isNow = info.isCurrentYearAffected;
+            const color = isNow ? "#ff6b6b" : "#90ff90";
+
+            let message = `
+                <strong>Tuổi:</strong> ${canchi} (${year})<br>
+                <strong>Nhóm:</strong> ${info.group}<br>
+                <strong>Tam Tai:</strong> ${info.tamTaiRange}<br><br>
+            `;
+
+            if (isNow) {
+                message += `🚨 <strong style="color:#ff4444">NĂM ${new Date().getFullYear()} BẠN ĐANG PHẠM TAM TAI!</strong><br>
+                Tránh đầu tư lớn, xây sửa, tranh chấp. Giữ tâm bình an.`;
+            } else {
+                message += `✅ <strong>Bạn KHÔNG phạm Tam Tai năm nay</strong><br>
+                Tam Tai gần nhất/sắp tới: ${info.tamTaiRange}`;
+            }
+
+            resultDiv.innerHTML = message;
+            resultDiv.style.color = color;
+            resultDiv.style.display = "block";
+
+            // Particle effect
+            const colorParticle = isNow ? "rgba(255, 50, 50, 0.8)" : "rgba(80, 255, 80, 0.7)";
+            for (let i = 0; i < 24; i++) {
+                const p = document.createElement('div');
+                p.classList.add('particle');
+                p.style.left = `${Math.random() * 100}vw`;
+                p.style.top = `${Math.random() * 100}vh`;
+                p.style.animationDuration = "1.8s";
+                p.style.background = colorParticle;
+                document.body.appendChild(p);
+                setTimeout(() => p.remove(), 2200);
+            }
+        }
+
+        // Khởi tạo
+        updateCurrentStatus();
+    </script>
+</body>
+</html>
