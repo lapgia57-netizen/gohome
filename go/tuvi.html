@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>12 Cung Trong Tử Vi Đẩu Số</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #2c3e50, #8e44ad, #3498db);
+            color: #fff;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        header {
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px rgba(255,255,255,0.5);
+        }
+
+        p.subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .cung-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .cung-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.4s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cung-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .cung-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 5px;
+            background: linear-gradient(90deg, #e74c3c, #9b59b6, #3498db, #f39c12);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .cung-card:hover::before {
+            opacity: 1;
+        }
+
+        .cung-symbol {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+        }
+
+        .cung-name {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .cung-meaning {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+
+        .cung-description {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 12px;
+            border-radius: 12px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-top: 10px;
+        }
+
+        footer {
+            margin-top: 60px;
+            padding: 20px;
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            .cung-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>12 Cung Trong Tử Vi</h1>
+            <p class="subtitle">Khám phá ý nghĩa từng cung trong lá số Tử Vi Đẩu Số</p>
+        </header>
+
+        <div class="cung-grid">
+            <!-- Cung Mệnh -->
+            <div class="cung-card">
+                <div class="cung-symbol">命</div>
+                <div class="cung-name">Cung Mệnh</div>
+                <div class="cung-meaning">Tính cách, ngoại hình, số phận tổng quát</div>
+                <div class="cung-description">Đại diện cho bản thân, là trung tâm của lá số, ảnh hưởng đến toàn bộ cuộc đời.</div>
+            </div>
+
+            <!-- Cung Phụ Mẫu -->
+            <div class="cung-card">
+                <div class="cung-symbol">父母</div>
+                <div class="cung-name">Cung Phụ Mẫu</div>
+                <div class="cung-meaning">Cha mẹ, nguồn gốc gia đình</div>
+                <div class="cung-description">Luận về quan hệ với cha mẹ, sự hỗ trợ từ gia đình gốc.</div>
+            </div>
+
+            <!-- Cung Phúc Đức -->
+            <div class="cung-card">
+                <div class="cung-symbol">福德</div>
+                <div class="cung-name">Cung Phúc Đức</div>
+                <div class="cung-meaning">Tâm linh, phúc phận, tinh thần</div>
+                <div class="cung-description">Xét về phúc đức tổ tiên, sự bình an nội tâm và may mắn vô hình.</div>
+            </div>
+
+            <!-- Cung Điền Trạch -->
+            <div class="cung-card">
+                <div class="cung-symbol">田宅</div>
+                <div class="cung-name">Cung Điền Trạch</div>
+                <div class="cung-meaning">Nhà cửa, tài sản cố định</div>
+                <div class="cung-description">Luận về bất động sản, sự ổn định gia đình và di sản.</div>
+            </div>
+
+            <!-- Cung Quan Lộc -->
+            <div class="cung-card">
+                <div class="cung-symbol">官禄</div>
+                <div class="cung-name">Cung Quan Lộc</div>
+                <div class="cung-meaning">Sự nghiệp, công danh</div>
+                <div class="cung-description">Đại diện cho nghề nghiệp, địa vị xã hội và thành tựu công việc.</div>
+            </div>
+
+            <!-- Cung Nô Bộc -->
+            <div class="cung-card">
+                <div class="cung-symbol">奴仆</div>
+                <div class="cung-name">Cung Nô Bộc</div>
+                <div class="cung-meaning">Bạn bè, đồng nghiệp, cấp dưới</div>
+                <div class="cung-description">Xét về mối quan hệ xã hội, sự giúp đỡ từ người khác.</div>
+            </div>
+
+            <!-- Cung Thiên Di -->
+            <div class="cung-card">
+                <div class="cung-symbol">迁移</div>
+                <div class="cung-name">Cung Thiên Di</div>
+                <div class="cung-meaning">Di chuyển, ngoại giao, thay đổi môi trường</div>
+                <div class="cung-description">Luận về việc ra ngoài, du lịch, thích ứng với thay đổi.</div>
+            </div>
+
+            <!-- Cung Tật Ách -->
+            <div class="cung-card">
+                <div class="cung-symbol">疾厄</div>
+                <div class="cung-name">Cung Tật Ách</div>
+                <div class="cung-meaning">Sức khỏe, bệnh tật, tai nạn</div>
+                <div class="cung-description">Đại diện cho cơ thể, bệnh lý tiềm ẩn và rủi ro bất ngờ.</div>
+            </div>
+
+            <!-- Cung Tài Bạch -->
+            <div class="cung-card">
+                <div class="cung-symbol">财帛</div>
+                <div class="cung-name">Cung Tài Bạch</div>
+                <div class="cung-meaning">Tài chính, tiền bạc</div>
+                <div class="cung-description">Xét về thu nhập, chi tiêu và khả năng tích lũy của cải.</div>
+            </div>
+
+            <!-- Cung Tử Tức -->
+            <div class="cung-card">
+                <div class="cung-symbol">子女</div>
+                <div class="cung-name">Cung Tử Tức</div>
+                <div class="cung-meaning">Con cái, sự sinh sản</div>
+                <div class="cung-description">Luận về số lượng con cái, quan hệ cha mẹ - con cái.</div>
+            </div>
+
+            <!-- Cung Phu Thê -->
+            <div class="cung-card">
+                <div class="cung-symbol">夫妻</div>
+                <div class="cung-name">Cung Phu Thê</div>
+                <div class="cung-meaning">Hôn nhân, vợ chồng</div>
+                <div class="cung-description">Đại diện cho tình duyên, hạnh phúc lứa đôi và đối tác.</div>
+            </div>
+
+            <!-- Cung Huynh Đệ -->
+            <div class="cung-card">
+                <div class="cung-symbol">兄弟</div>
+                <div class="cung-name">Cung Huynh Đệ</div>
+                <div class="cung-meaning">Anh em, họ hàng</div>
+                <div class="cung-description">Xét về quan hệ anh chị em, sự hỗ trợ từ ruột thịt.</div>
+            </div>
+        </div>
+
+        <footer>
+            <p>© 2025 12 Cung Trong Tử Vi | Dữ liệu dựa trên Tử Vi Đẩu Số cổ điển</p>
+        </footer>
+    </div>
+
+    <script>
+        // Hiệu ứng nhẹ khi hover
+        document.querySelectorAll('.cung-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+    </script>
+</body>
+</html>
