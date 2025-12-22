@@ -1,153 +1,282 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Độc Quyền - Thực trạng & Hậu quả</title>
-    <meta name="description" content="Tìm hiểu về độc quyền trong kinh tế học: các loại độc quyền, ví dụ trên thế giới, tác động đến người tiêu dùng và giải pháp kiểm soát.">
+    <meta name="description" content="Tìm hiểu về độc quyền trong kinh tế học: định nghĩa, phân loại, ví dụ thực tế, tác hại và giải pháp kiểm soát."/>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+    
     <style>
         :root {
-            --primary: #1a73e8;
-            --dark: #212121;
-            --light: #f8f9fa;
-            --gray: #666;
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --bg: #f8fafc;
+            --card: #ffffff;
+            --text: #1e293b;
+            --text-light: #64748b;
+            --border: #e2e8f0;
         }
-        * { margin:0; padding:0; box-sizing:border-box; }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: 'Segoe UI', Arial, sans-serif;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--text);
             line-height: 1.6;
-            color: var(--dark);
-            background: #fff;
         }
-        header {
-            background: linear-gradient(135deg, #1a73e8, #1557b0);
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
             color: white;
             text-align: center;
-            padding: 4rem 1rem;
+            padding: 5rem 1rem 4rem;
+            position: relative;
+            overflow: hidden;
         }
-        header h1 {
-            font-size: 2.8rem;
-            margin-bottom: 0.5rem;
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 60%);
+            transform: rotate(30deg);
         }
-        header p {
-            font-size: 1.2rem;
-            opacity: 0.9;
+
+        .header h1 {
+            font-size: clamp(2.4rem, 7vw, 3.8rem);
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin-bottom: 0.6rem;
+            position: relative;
         }
-        nav {
-            background: var(--dark);
+
+        .header p {
+            font-size: clamp(1.1rem, 3vw, 1.35rem);
+            opacity: 0.92;
+            max-width: 640px;
+            margin: 0 auto;
+        }
+
+        /* Navigation */
+        .nav-container {
             position: sticky;
             top: 0;
             z-index: 100;
+            background: rgba(255,255,255,0.92);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            box-shadow: 0 4px 14px rgba(0,0,0,0.06);
         }
+
         nav ul {
             display: flex;
             justify-content: center;
-            list-style: none;
             flex-wrap: wrap;
+            gap: 0.4rem;
+            padding: 1rem;
+            list-style: none;
+            max-width: 1200px;
+            margin: 0 auto;
         }
+
         nav a {
-            color: white;
-            padding: 1rem 1.5rem;
-            display: block;
+            color: var(--text);
             text-decoration: none;
-            transition: background 0.3s;
+            padding: 0.75rem 1.4rem;
+            border-radius: 50px;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.25s ease;
+            white-space: nowrap;
         }
-        nav a:hover {
-            background: #333;
+
+        nav a:hover,
+        nav a.active {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
         }
+
+        /* Main content */
         main {
             max-width: 1100px;
-            margin: 2rem auto;
-            padding: 0 1rem;
+            margin: 0 auto;
+            padding: 2.5rem 1rem;
         }
+
         section {
-            margin-bottom: 4rem;
-            background: white;
-            padding: 2rem;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            margin-bottom: 5rem;
+            scroll-margin-top: 100px;
         }
+
         h2 {
-            color: var(--primary);
-            margin-bottom: 1rem;
-            font-size: 2rem;
-            border-bottom: 3px solid var(--primary);
-            padding-bottom: 0.5rem;
+            color: var(--primary-dark);
+            font-size: clamp(1.9rem, 4.5vw, 2.6rem);
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            position: relative;
+            display: inline-block;
         }
-        ul {
-            padding-left: 1.5rem;
+
+        h2::after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 4px;
+            background: var(--primary);
+            bottom: -10px;
+            left: 0;
+            border-radius: 2px;
         }
-        li {
-            margin: 0.8rem 0;
-        }
-        .card-container {
+
+        /* Cards */
+        .cards-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.6rem;
             margin-top: 2rem;
         }
+
         .card {
-            background: #f1f7ff;
-            padding: 1.5rem;
-            border-radius: 10px;
-            border-left: 5px solid var(--primary);
+            background: var(--card);
+            border-radius: 16px;
+            padding: 1.8rem;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(99,102,241,0.12);
+            border-color: var(--primary);
+        }
+
         .card h3 {
-            color: var(--primary);
-            margin-bottom: 0.8rem;
+            color: var(--primary-dark);
+            margin-bottom: 1rem;
+            font-size: 1.35rem;
         }
+
+        .card-icon {
+            font-size: 2.2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        /* Lists */
+        ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        ul li {
+            padding: 0.9rem 0;
+            padding-left: 2.2rem;
+            position: relative;
+            font-size: 1.05rem;
+        }
+
+        ul li::before {
+            content: '\f058';
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            color: var(--primary);
+            position: absolute;
+            left: 0;
+            font-size: 1.1rem;
+        }
+
+        /* Footer */
         footer {
-            background: var(--dark);
+            background: var(--primary-dark);
             color: white;
             text-align: center;
-            padding: 2rem 1rem;
-            margin-top: 3rem;
+            padding: 3rem 1rem;
+            margin-top: 4rem;
         }
+
+        footer p {
+            opacity: 0.85;
+            font-size: 0.95rem;
+        }
+
         @media (max-width: 768px) {
-            header h1 { font-size: 2.2rem; }
-            nav ul { flex-direction: column; }
+            .header {
+                padding: 4.5rem 1rem 3.5rem;
+            }
+
+            nav ul {
+                padding: 0.8rem;
+                gap: 0.3rem;
+            }
+
+            nav a {
+                padding: 0.65rem 1.1rem;
+                font-size: 0.9rem;
+            }
         }
     </style>
 </head>
 <body>
 
-    <header>
+    <header class="header">
         <h1>ĐỘC QUYỀN</h1>
-        <p>Monopoly trong kinh tế học – Các loại hình, ví dụ thực tế và hậu quả trên thế giới</p>
+        <p>Thực trạng, hậu quả và cách kiểm soát độc quyền trong nền kinh tế hiện đại</p>
     </header>
 
-    <nav>
-        <ul>
-            <li><a href="#dinh-nghia">Định nghĩa</a></li>
-            <li><a href="#phan-loai">Phân loại</a></li>
-            <li><a href="#vi-du">Ví dụ thực tế</a></li>
-            <li><a href="#tac-hai">Tác hại</a></li>
-            <li><a href="#giai-phap">Giải pháp</a></li>
-        </ul>
-    </nav>
+    <div class="nav-container">
+        <nav>
+            <ul>
+                <li><a href="#dinh-nghia">Định nghĩa</a></li>
+                <li><a href="#phan-loai">Phân loại</a></li>
+                <li><a href="#vi-du">Ví dụ thực tế</a></li>
+                <li><a href="#tac-hai">Tác hại</a></li>
+                <li><a href="#giai-phap">Giải pháp</a></li>
+            </ul>
+        </nav>
+    </div>
 
     <main>
 
         <section id="dinh-nghia">
             <h2>1. Độc quyền là gì?</h2>
-            <p>Độc quyền (monopoly) là tình trạng một doanh nghiệp, tổ chức hoặc chính phủ duy nhất (hoặc chiếm ưu thế áp đảo) cung cấp một loại hàng hóa/dịch vụ trên thị trường, hầu như không có đối thủ cạnh tranh đáng kể.</p>
-            <p>Nhiều quốc gia có luật cạnh tranh nghiêm cấm việc lạm dụng vị trí độc quyền để thao túng giá cả hoặc gây thiệt hại cho người tiêu dùng.</p>
+            <p>Độc quyền (monopoly) xảy ra khi chỉ có <strong>một nhà cung cấp duy nhất</strong> (hoặc chiếm ưu thế áp đảo) trên thị trường cho một sản phẩm/dịch vụ mà không có sự cạnh tranh đáng kể.</p>
+            <p>Hầu hết các quốc gia đều có luật cạnh tranh nhằm ngăn chặn hoặc kiểm soát việc lạm dụng vị thế độc quyền để thao túng giá cả và gây bất lợi cho người tiêu dùng.</p>
         </section>
 
         <section id="phan-loai">
-            <h2>2. Các loại độc quyền phổ biến trên thế giới</h2>
-            <div class="card-container">
+            <h2>2. Các loại hình độc quyền chính</h2>
+            <div class="cards-grid">
                 <div class="card">
-                    <h3>Độc quyền nhà nước (State monopoly)</h3>
-                    <p>Chính phủ trao quyền độc quyền cho một cơ quan nhà nước hoặc doanh nghiệp quốc doanh trong một số lĩnh vực chiến lược (rượu mạnh ở các nước Bắc Âu, bưu chính ở nhiều quốc gia, xổ số ở một số nước...).</p>
+                    <i class="fas fa-landmark card-icon"></i>
+                    <h3>Độc quyền nhà nước</h3>
+                    <p>Chính phủ trao quyền độc quyền cho doanh nghiệp quốc doanh hoặc cơ quan nhà nước trong các lĩnh vực chiến lược (rượu mạnh ở Bắc Âu, xổ số, bưu chính truyền thống…).</p>
                 </div>
+
                 <div class="card">
-                    <h3>Độc quyền tự nhiên (Natural monopoly)</h3>
-                    <p>Do đặc thù kinh tế (chi phí cố định rất lớn), chỉ một nhà cung cấp là hiệu quả nhất: cấp nước sạch, điện lực, đường sắt, hệ thống đường ống dẫn khí đốt...</p>
+                    <i class="fas fa-plug card-icon"></i>
+                    <h3>Độc quyền tự nhiên</h3>
+                    <p>Do chi phí cố định cực lớn và hiệu quả kinh tế theo quy mô, chỉ một nhà cung cấp là hợp lý nhất (điện, nước, đường sắt, khí đốt…).</p>
                 </div>
+
                 <div class="card">
-                    <h3>Độc quyền doanh nghiệp (Private monopoly)</h3>
-                    <p>Doanh nghiệp tư nhân chiếm lĩnh thị trường nhờ công nghệ vượt trội, bằng sáng chế, mạng lưới lớn hoặc hành vi hạn chế cạnh tranh (Google trong tìm kiếm, một số công ty tiện ích địa phương...).</p>
+                    <i class="fas fa-briefcase card-icon"></i>
+                    <h3>Độc quyền tư nhân</h3>
+                    <p>Doanh nghiệp tư nhân chiếm lĩnh thị trường nhờ công nghệ, bằng sáng chế, hiệu ứng mạng lưới hoặc hành vi hạn chế cạnh tranh (Google Search, một số nền tảng công nghệ…).</p>
                 </div>
             </div>
         </section>
@@ -155,41 +284,41 @@
         <section id="vi-du">
             <h2>3. Một số ví dụ điển hình trên thế giới</h2>
             <ul>
-                <li><strong>Điện lực & tiện ích</strong>: Nhiều quốc gia có độc quyền truyền tải điện (như ở một số bang Mỹ, châu Âu trước khi tự do hóa thị trường).</li>
-                <li><strong>Rượu mạnh & xổ số</strong>: Các công ty nhà nước độc quyền bán rượu ở Thụy Điển, Na Uy, Phần Lan, Iceland (Systembolaget, Vinmonopolet...).</li>
-                <li><strong>Bưu chính</strong>: Dịch vụ thư từ cơ bản thường là độc quyền nhà nước ở nhiều nước (USPS ở Mỹ, Royal Mail trước khi tư nhân hóa ở Anh...).</li>
-                <li><strong>Google (Alphabet)</strong>: Chiếm thị phần áp đảo trong tìm kiếm trực tuyến toàn cầu (thường >80-90% ở nhiều thị trường).</li>
-                <li><strong>Đường sắt & nước sạch</strong>: Thường được xem là độc quyền tự nhiên ở nhiều quốc gia do chi phí hạ tầng khổng lồ.</li>
+                <li>Systembolaget (Thụy Điển), Vinmonopolet (Na Uy) — độc quyền rượu mạnh</li>
+                <li>Google Search — chiếm ~90% thị phần tìm kiếm ở hầu hết các quốc gia</li>
+                <li>USPS (Mỹ) — dịch vụ thư tín cơ bản truyền thống</li>
+                <li>Nhiều công ty điện lực khu vực — độc quyền truyền tải & phân phối</li>
+                <li>Đường sắt quốc gia ở nhiều nước — đặc trưng của độc quyền tự nhiên</li>
             </ul>
         </section>
 
         <section id="tac-hai">
-            <h2>4. Tác hại của độc quyền</h2>
+            <h2>4. Tác hại chính của độc quyền</h2>
             <ul>
-                <li>Giá cả cao hơn nhiều so với thị trường cạnh tranh.</li>
-                <li>Chất lượng dịch vụ kém, ít đổi mới và cải tiến.</li>
-                <li>Người tiêu dùng gần như không có sự lựa chọn.</li>
-                <li>Dễ dẫn đến lợi ích nhóm, tham nhũng hoặc lạm dụng quyền lực (đặc biệt với độc quyền nhà nước).</li>
-                <li>Làm méo mó phân bổ nguồn lực kinh tế, giảm hiệu quả tổng thể.</li>
+                <li>Giá cao hơn đáng kể so với thị trường cạnh tranh</li>
+                <li>Chất lượng dịch vụ thường kém, ít đổi mới</li>
+                <li>Người tiêu dùng gần như không có lựa chọn thay thế</li>
+                <li>Dễ sinh ra lợi ích nhóm, tham nhũng, lạm quyền</li>
+                <li>Làm giảm hiệu quả phân bổ nguồn lực của nền kinh tế</li>
             </ul>
         </section>
 
         <section id="giai-phap">
-            <h2>5. Giải pháp hạn chế và kiểm soát độc quyền</h2>
+            <h2>5. Giải pháp kiểm soát độc quyền</h2>
             <ul>
-                <li>Hoàn thiện luật cạnh tranh và tăng cường thực thi (như luật chống độc quyền ở Mỹ, EU).</li>
-                <li>Tách biệt các khâu sản xuất – truyền tải – phân phối trong các ngành tiện ích (mô hình phổ biến ở nhiều nước phát triển).</li>
-                <li>Khuyến khích cạnh tranh bằng cách cho phép doanh nghiệp tư nhân tham gia các lĩnh vực trước đây bị hạn chế.</li>
-                <li>Minh bạch hóa giá cả, chi phí và lợi nhuận của các doanh nghiệp độc quyền.</li>
-                <li>Áp dụng công nghệ mới để giảm chi phí cố định và làm suy yếu tính chất độc quyền tự nhiên (năng lượng tái tạo, internet vệ tinh...).</li>
+                <li>Tăng cường thực thi luật chống độc quyền (Sherman Act – Mỹ, luật cạnh tranh EU…)</li>
+                <li>Tách biệt các khâu (sản xuất – truyền tải – phân phối) trong ngành tiện ích</li>
+                <li>Mở cửa thị trường cho tư nhân tham gia cạnh tranh</li>
+                <li>Giám sát, minh bạch giá thành & lợi nhuận của doanh nghiệp độc quyền</li>
+                <li>Ứng dụng công nghệ mới làm suy yếu tính chất độc quyền tự nhiên (năng lượng phân tán, internet vệ tinh…)</li>
             </ul>
         </section>
 
     </main>
 
     <footer>
-        <p>© 2025 - Tài liệu giáo dục về Độc quyền trong kinh tế học<br>
-        Được xây dựng chỉ với HTML & CSS thuần – mang tính phổ quát toàn cầu</p>
+        <p>© 2025 — Tài liệu giáo dục về Độc quyền trong Kinh tế học</p>
+        <p>Thiết kế tối giản • Responsive • Chỉ dùng HTML & CSS thuần</p>
     </footer>
 
 </body>
