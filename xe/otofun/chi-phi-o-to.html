@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Chi Phí Sở Hữu Ô Tô - Calculator 2025</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: linear-gradient(135deg, #e0e7ff 0%, #c3dafe 100%);
+      min-height: 100vh;
+      padding: 2rem 1rem;
+      color: #1e293b;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2.4rem;
+      margin-bottom: 0.5rem;
+      color: #1e40af;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #64748b;
+      margin-bottom: 2rem;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(12px);
+      border-radius: 24px;
+      padding: 2.5rem;
+      box-shadow: 
+        0 20px 40px rgba(0,0,0,0.1),
+        inset 0 0 0 1px rgba(255,255,255,0.4);
+      border: 1px solid rgba(255,255,255,0.3);
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.6rem;
+      margin-bottom: 2rem;
+    }
+
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    label {
+      font-weight: 600;
+      color: #475569;
+      font-size: 0.95rem;
+    }
+
+    input {
+      padding: 0.9rem 1rem;
+      border: none;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.9);
+      font-size: 1.1rem;
+      box-shadow: 
+        inset 3px 3px 6px rgba(0,0,0,0.06),
+        inset -3px -3px 6px rgba(255,255,255,0.8);
+      transition: all 0.2s;
+    }
+
+    input:focus {
+      outline: none;
+      box-shadow: 
+        inset 2px 2px 4px rgba(0,0,0,0.08),
+        0 0 0 3px rgba(59,130,246,0.3);
+    }
+
+    button {
+      grid-column: 1 / -1;
+      padding: 1.1rem;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: white;
+      background: linear-gradient(90deg, #3b82f6, #6366f1);
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: 0 8px 20px rgba(59,130,246,0.3);
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(59,130,246,0.4);
+    }
+
+    .result {
+      margin-top: 2.5rem;
+      padding: 1.8rem;
+      background: rgba(255,255,255,0.4);
+      border-radius: 16px;
+      display: none;
+    }
+
+    .result.show { display: block; }
+
+    .result-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 1rem 0;
+      border-bottom: 1px solid rgba(226,232,240,0.6);
+      font-size: 1.1rem;
+    }
+
+    .result-item:last-child { border-bottom: none; }
+
+    .highlight {
+      margin-top: 1rem;
+      padding-top: 1.5rem;
+      border-top: 2px solid #3b82f6;
+      font-size: 1.4rem;
+    }
+
+    .highlight strong {
+      color: #1e40af;
+      font-size: 1.8rem;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 2rem;
+      color: #64748b;
+      font-size: 0.9rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .card { padding: 1.8rem; }
+      h1 { font-size: 2rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Chi Phí Sở Hữu Ô Tô</h1>
+    <p class="subtitle">Tính nhanh chi phí hàng tháng & hàng năm (ước tính 2025 - Việt Nam)</p>
+
+    <div class="card">
+      <div class="form-grid">
+        <div class="input-group">
+          <label>Giá xe lăn bánh (triệu ₫)</label>
+          <input type="number" id="price" value="850" min="300" step="10"/>
+        </div>
+
+        <div class="input-group">
+          <label>Km đi mỗi năm</label>
+          <input type="number" id="km" value="12000" min="1000" step="1000"/>
+        </div>
+
+        <div class="input-group">
+          <label>Tiêu thụ nhiên liệu (lít/100km)</label>
+          <input type="number" id="fuel" value="7.5" min="4" max="15" step="0.1"/>
+        </div>
+
+        <div class="input-group">
+          <label>Giá xăng hiện tại (₫/lít)</label>
+          <input type="number" id="fuelPrice" value="21000" step="100"/>
+        </div>
+
+        <div class="input-group">
+          <label>Chi phí bảo dưỡng + bảo hiểm / năm (triệu ₫)</label>
+          <input type="number" id="maintenance" value="18" step="1"/>
+        </div>
+
+        <div class="input-group">
+          <label>Khấu hao xe/năm (%)</label>
+          <input type="number" id="depreciation" value="12" step="1"/>
+        </div>
+      </div>
+
+      <button id="calculate">TÍNH NGAY</button>
+
+      <div class="result" id="result">
+        <div class="result-item">
+          <span>Chi phí nhiên liệu/năm</span>
+          <strong id="fuelCost">—</strong>
+        </div>
+        <div class="result-item">
+          <span>Tổng chi phí/năm</span>
+          <strong id="totalYear">—</strong>
+        </div>
+        <div class="result-item highlight">
+          <span>Chi phí trung bình/tháng</span>
+          <strong id="totalMonth">—</strong>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <small>Ước tính tham khảo • Dữ liệu tháng 12/2025 • Chỉ mang tính chất tham khảo</small>
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById('calculate').addEventListener('click', () => {
+      const price         = Number(document.getElementById('price').value) * 1_000_000 || 0;
+      const kmPerYear     = Number(document.getElementById('km').value) || 0;
+      const fuelPer100km  = Number(document.getElementById('fuel').value) || 0;
+      const fuelPrice     = Number(document.getElementById('fuelPrice').value) || 0;
+      const maintenance   = Number(document.getElementById('maintenance').value) * 1_000_000 || 0;
+      const depreciation  = Number(document.getElementById('depreciation').value) / 100 || 0;
+
+      // Tính chi phí nhiên liệu / năm
+      const fuelLiters    = (kmPerYear / 100) * fuelPer100km;
+      const fuelCostYear  = fuelLiters * fuelPrice;
+
+      // Khấu hao / năm
+      const depYear       = price * depreciation;
+
+      // Tổng chi phí / năm
+      const totalYear     = fuelCostYear + maintenance + depYear;
+
+      // Trung bình / tháng
+      const totalMonth    = totalYear / 12;
+
+      // Hiển thị kết quả
+      document.getElementById('fuelCost').textContent   = fuelCostYear.toLocaleString('vi-VN') + ' ₫';
+      document.getElementById('totalYear').textContent  = totalYear.toLocaleString('vi-VN') + ' ₫';
+      document.getElementById('totalMonth').textContent = totalMonth.toLocaleString('vi-VN', {minimumFractionDigits: 0}) + ' ₫ / tháng';
+
+      document.getElementById('result').classList.add('show');
+    });
+  </script>
+</body>
+</html>
