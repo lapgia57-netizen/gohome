@@ -1,89 +1,266 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trang Backup - Đang bảo trì</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
-        
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: #fff;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-        }
-        .container {
-            max-width: 600px;
-            padding: 40px;
-            background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 16px;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-        }
-        h1 {
-            font-size: 2.8rem;
-            margin-bottom: 16px;
-        }
-        p {
-            font-size: 1.2rem;
-            opacity: 0.9;
-            margin-bottom: 40px;
-        }
-        .links {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 16px;
-            justify-content: center;
-            margin-top: 30px;
-        }
-        .links a {
-            padding: 12px 24px;
-            background: rgba(255, 255, 255, 0.2);
-            color: #fff;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-        .links a:hover {
-            background: rgba(255, 255, 255, 0.4);
-            transform: translateY(-3px);
-        }
-        footer {
-            margin-top: 60px;
-            font-size: 0.9rem;
-            opacity: 0.7;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Truy Vết Dữ Liệu - COVID Tracker</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacC, "Segoe UI", Roboto, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background-color: #f5f7fa;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 16px;
+    }
+
+    header {
+      background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+      color: white;
+      padding: 1.5rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+
+    header .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .logo {
+      font-size: 1.6rem;
+      font-weight: bold;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      color: #00d4ff;
+    }
+
+    /* Hero */
+    .hero {
+      background: #fff;
+      padding: 4rem 0 3rem;
+      text-align: center;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      margin-bottom: 1rem;
+      color: #d32f2f;
+    }
+
+    .status-badges {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+
+    .badge {
+      padding: 0.6rem 1.4rem;
+      border-radius: 50px;
+      font-weight: bold;
+      font-size: 0.95rem;
+    }
+
+    .danger { background: #ffebee; color: #c62828; }
+    .warning { background: #fff3e0; color: #e65100; }
+    .safe    { background: #e8f5e9; color: #2e7d32; }
+
+    /* Timeline */
+    .timeline {
+      position: relative;
+      max-width: 900px;
+      margin: 3rem auto;
+      padding: 0 1rem;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      width: 4px;
+      background: #bbb;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      margin-left: -2px;
+      z-index: 1;
+    }
+
+    .event {
+      position: relative;
+      width: 50%;
+      padding: 1.5rem 2rem;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      margin: 2rem 0;
+    }
+
+    .event.left  { left: 0; text-align: right; }
+    .event.right { left: 50%; }
+
+    .event::after {
+      content: '';
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      background: #1976d2;
+      border-radius: 50%;
+      top: 30px;
+      z-index: 2;
+    }
+
+    .event.left::after  { right: -8px; }
+    .event.right::after { left: -8px; }
+
+    .event h3 {
+      margin-bottom: 0.5rem;
+      color: #1976d2;
+    }
+
+    .event .date {
+      font-size: 0.9rem;
+      color: #777;
+      margin-bottom: 0.6rem;
+    }
+
+    .event .location {
+      font-weight: 600;
+      color: #e65100;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .timeline::before {
+        left: 30px;
+      }
+
+      .event {
+        width: 100%;
+        left: 0 !important;
+      }
+
+      .event::after {
+        left: 22px !important;
+      }
+
+      nav ul {
+        flex-direction: column;
+        gap: 1rem;
+      }
+    }
+
+    footer {
+      background: #1e3c72;
+      color: white;
+      text-align: center;
+      padding: 2rem 0;
+      margin-top: 3rem;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Trang chủ đang bảo trì</h1>
-        <p>Chúng tôi đang nâng cấp hệ thống để mang đến trải nghiệm tốt hơn. 
-           Vui lòng sử dụng các liên kết backup dưới đây trong thời gian chờ đợi.</p>
 
-        <div class="links">
-            <!-- Thay đổi các link này thành link backup thực tế của bạn -->
-            <a href="https://backup1.example.com" target="_blank">Backup 1</a>
-            <a href="https://backup2.example.com" target="_blank">Backup 2</a>
-            <a href="https://mirror.example.com" target="_blank">Mirror Site</a>
-            <a href="https://t.me/yourchannel" target="_blank">Telegram</a>
-            <a href="https://discord.gg/yourinvite" target="_blank">Discord</a>
-            <a href="https://twitter.com/yourhandle" target="_blank">Twitter / X</a>
-            <a href="mailto:support@yourdomain.com">Email hỗ trợ</a>
-        </div>
+<header>
+  <div class="container">
+    <div class="logo">TRUY VẾT DỮ LIỆU</div>
+    <nav>
+      <ul>
+        <li><a href="#home">Trang chủ</a></li>
+        <li><a href="#trace">Truy vết</a></li>
+        <li><a href="#stats">Thống kê</a></li>
+        <li><a href="#contact">Liên hệ</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
 
-        <footer>
-            © 2025 YourWebsite.com – Trang backup tạm thời<br>
-            Cập nhật lần cuối: 12/12/2025
-        </footer>
+<section class="hero">
+  <div class="container">
+    <h1>Truy vết chuỗi lây nhiễm</h1>
+    <p style="font-size:1.2rem; max-width:720px; margin:0 auto 2rem;">
+      Cập nhật thông tin tiếp xúc F0 mới nhất - Giúp cộng đồng phòng ngừa hiệu quả
+    </p>
+
+    <div class="status-badges">
+      <div class="badge danger">F0 - Xác nhận ngày 23/12/2025</div>
+      <div class="badge warning">F1 - Tiếp xúc gần</div>
+      <div class="badge safe">F2, F3, F4 - Theo dõi</div>
     </div>
+  </div>
+</section>
+
+<section class="timeline" id="trace">
+  <div class="container">
+
+    <div class="event left">
+      <h3>Ca 1472 (F0)</h3>
+      <div class="date">23/12/2025 - 14:30</div>
+      <p class="location">Quán cafe The Coffee House - Nguyễn Huệ, Q.1</p>
+      <p>Thời gian lưu trú: 13:45 – 15:20</p>
+    </div>
+
+    <div class="event right">
+      <h3>Ca 1472 (F0)</h3>
+      <div class="date">23/12/2025 - 18:10</div>
+      <p class="location">Tầng 3 - Vincom Đồng Khởi</p>
+      <p>Thời gian lưu trú: 18:00 – 19:40</p>
+    </div>
+
+    <div class="event left">
+      <h3>Ca 1472 (F0)</h3>
+      <div class="date">24/12/2025 - 09:20</div>
+      <p class="location">Chuyến bay VN214 - Ghế 25A</p>
+      <p>Sân bay Tân Sơn Nhất → Đà Nẵng</p>
+    </div>
+
+    <div class="event right">
+      <h3>Ca nghi ngờ 0891 (F1)</h3>
+      <div class="date">23/12/2025 - 14:55</div>
+      <p class="location">Quán cafe The Coffee House - Nguyễn Huệ</p>
+      <p>Ngồi bàn cách F0 khoảng 1.5m</p>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <p>© 2025 Hệ thống Truy vết Dữ liệu - Dữ liệu chỉ mang tính tham khảo</p>
+    <p>Thông tin được cập nhật lần cuối: 24/12/2025 11:45</p>
+  </div>
+</footer>
+
 </body>
 </html>
