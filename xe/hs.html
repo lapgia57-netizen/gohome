@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Harry Potter Collection</title>
+
+<style>
+:root{
+  --bg:#0d1117;
+  --card:#161b22;
+  --accent:#f7c873;
+  --text:#e6edf3;
+}
+
+*{
+  box-sizing:border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+body{
+  margin:0;
+  background:linear-gradient(180deg,#0d1117,#020409);
+  color:var(--text);
+}
+
+header{
+  padding:40px 20px;
+  text-align:center;
+}
+
+header h1{
+  font-size:2.4em;
+  color:var(--accent);
+  letter-spacing:1px;
+}
+
+header p{
+  opacity:.8;
+}
+
+.container{
+  max-width:1200px;
+  margin:auto;
+  padding:20px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:20px;
+}
+
+.card{
+  background:var(--card);
+  border-radius:16px;
+  overflow:hidden;
+  box-shadow:0 10px 30px rgba(0,0,0,.4);
+  transition:.3s;
+}
+
+.card:hover{
+  transform:translateY(-8px);
+  box-shadow:0 20px 40px rgba(0,0,0,.6);
+}
+
+.card img{
+  width:100%;
+  height:360px;
+  object-fit:cover;
+}
+
+.card-content{
+  padding:16px;
+}
+
+.card-content h3{
+  margin:0;
+  color:var(--accent);
+  font-size:1.1em;
+}
+
+.card-content span{
+  font-size:.85em;
+  opacity:.7;
+}
+
+.card-content p{
+  font-size:.9em;
+  line-height:1.5;
+  margin-top:10px;
+  opacity:.85;
+}
+
+footer{
+  text-align:center;
+  padding:30px;
+  opacity:.5;
+  font-size:.85em;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>⚡ Harry Potter – 7 Phần ⚡</h1>
+  <p>Hành trình phép thuật của cậu bé sống sót</p>
+</header>
+
+<div class="container">
+
+  <div class="card">
+    <img src="https://m.media-amazon.com/images/I/81YOuOGFCJL.jpg">
+    <div class="card-content">
+      <h3>1. Hòn đá Phù thủy</h3>
+      <span>2001</span>
+      <p>Harry phát hiện mình là phù thủy và bắt đầu hành trình tại Hogwarts.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="https://m.media-amazon.com/images/I/81E79p6u8PL.jpg">
+    <div class="card-content">
+      <h3>2. Phòng chứa Bí mật</h3>
+      <span>2002</span>
+      <p>Một thế lực hắc ám cổ xưa thức tỉnh trong Hogwarts.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="https://m.media-amazon.com/images/I/81M1Wz3T0YL.jpg">
+    <div class="card-content">
+      <h3>3. Tên tù nhân ngục Azkaban</h3>
+      <span>2004</span>
+      <p>Sirius Black trốn thoát, quá khứ dần được hé lộ.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="https://m.media-amazon.com/images/I/91ocU8970hL.jpg">
+    <div class="card-content">
+      <h3>4. Chiếc cốc Lửa</h3>
+      <span>2005</span>
+      <p>Giải đấu Tam Pháp Thuật và sự trở lại của Voldemort.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="https://m.media-amazon.com/images/I/81j2jJ6xZNL.jpg">
+    <div class="card-content">
+      <h3>5. Hội Phượng hoàng</h3>
+      <span>2007</span>
+      <p>Cuộc chiến chống lại Bộ Pháp Thuật và Chúa tể Hắc ám.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="https://m.media-amazon.com/images/I/81Zb1pL9tWL.jpg">
+    <div class="card-content">
+      <h3>6. Hoàng tử Lai</h3>
+      <span>2009</span>
+      <p>Quá khứ của Voldemort và bi kịch tại Hogwarts.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="https://m.media-amazon.com/images/I/91ZKX6N6YpL.jpg">
+    <div class="card-content">
+      <h3>7. Bảo bối Tử thần</h3>
+      <span>2010–2011</span>
+      <p>Trận chiến cuối cùng quyết định số phận thế giới phù thủy.</p>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  © Wizarding World UI Demo
+</footer>
+
+</body>
+</html>
