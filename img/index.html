@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Hướng dẫn xử lý ảnh cá nhân bị phát tán trái phép</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/7PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    :root {
+      --primary: #1e3a8a;       /* xanh navy đậm */
+      --primary-light: #3b82f6;
+      --danger: #dc2626;
+      --bg: #f8fafc;
+      --text: #1f2937;
+      --gray: #4b5563;
+      --light: #e5e7eb;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacC, "Segoe UI", Roboto, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 20px 15px;
+    }
+
+    .container {
+      max-width: 820px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+      overflow: hidden;
+    }
+
+    .header {
+      background: var(--primary);
+      color: white;
+      padding: 2.5rem 2rem;
+      text-align: center;
+    }
+
+    .header h1 {
+      font-size: 1.85rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .header p {
+      font-size: 1.1rem;
+      opacity: 0.95;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    .warning-banner {
+      background: #fef2f2;
+      border-left: 5px solid var(--danger);
+      padding: 1.2rem 1.5rem;
+      margin: 1.5rem;
+      border-radius: 8px;
+      font-weight: 500;
+    }
+
+    .content {
+      padding: 2rem 2.2rem;
+    }
+
+    .step {
+      margin-bottom: 2.5rem;
+    }
+
+    .step-title {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.1rem;
+      font-size: 1.45rem;
+      color: var(--primary);
+      font-weight: 700;
+    }
+
+    .step-number {
+      background: var(--primary);
+      color: white;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      flex-shrink: 0;
+    }
+
+    .platforms-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+      font-size: 0.98rem;
+    }
+
+    .platforms-table th, .platforms-table td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--light);
+      text-align: left;
+    }
+
+    .platforms-table th {
+      background: #f1f5f9;
+      font-weight: 600;
+      color: var(--primary);
+    }
+
+    .platforms-table tr:hover {
+      background: #f8fafc;
+    }
+
+    .tip {
+      background: #ecfdf5;
+      border-left: 4px solid #10b981;
+      padding: 1rem 1.3rem;
+      margin: 1.3rem 0;
+      border-radius: 8px;
+    }
+
+    .conclusion {
+      background: #eff6ff;
+      padding: 1.8rem;
+      border-radius: 10px;
+      margin-top: 2.5rem;
+      text-align: center;
+      font-size: 1.1rem;
+      color: #1e40af;
+    }
+
+    @media (max-width: 600px) {
+      .header h1 { font-size: 1.6rem; }
+      .content { padding: 1.6rem; }
+      .step-title { font-size: 1.3rem; }
+      .step-number { width: 42px; height: 42px; font-size: 1.25rem; }
+      .platforms-table { font-size: 0.92rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <h1>Xử lý ảnh cá nhân bị phát tán trái phép</h1>
+    <p>Việc ảnh riêng tư, nhạy cảm bị phát tán là hành vi vi phạm pháp luật nghiêm trọng ở Việt Nam. Bạn có quyền được bảo vệ danh dự, nhân phẩm và đời sống riêng tư.</p>
+  </div>
+
+  <div class="warning-banner">
+    <strong>Quan trọng:</strong> Giữ bình tĩnh. Đừng chuyển tiền nếu bị tống tiền – đó là tội phạm hình sự. Hành động càng sớm càng tốt vì nội dung có thể bị xóa nhanh.
+  </div>
+
+  <div class="content">
+
+    <div class="step">
+      <div class="step-title">
+        <span class="step-number">1</span>
+        Giữ bình tĩnh & Thu thập chứng cứ ngay lập tức
+      </div>
+      <p>Đây là bước quan trọng nhất:</p>
+      <ul>
+        <li>Chụp màn hình toàn bộ: link bài đăng, ảnh/video, tên tài khoản, thời gian, bình luận, lượt chia sẻ</li>
+        <li>Lưu tin nhắn đe dọa (nếu có)</li>
+        <li>Cân nhắc sử dụng <strong>thừa phát lại</strong> để lập vi bằng (có giá trị pháp lý cao)</li>
+        <li>Lưu càng sớm càng tốt vì nội dung có thể bị xóa</li>
+      </ul>
+    </div>
+
+    <div class="step">
+      <div class="step-title">
+        <span class="step-number">2</span>
+        Yêu cầu gỡ bỏ nội dung trên các nền tảng (báo cáo nhanh)
+      </div>
+
+      <table class="platforms-table">
+        <thead>
+          <tr>
+            <th>Nền tảng</th>
+            <th>Cách báo cáo chính</th>
+            <th>Thời gian xử lý</th>
+            <th>Gợi ý lý do hiệu quả</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Facebook</td><td>Bài đăng → ba chấm → Báo cáo → "Ảnh khỏa thân..." hoặc "Xâm phạm quyền riêng tư"</td><td>1-48 giờ</td><td>Chọn "Ảnh khỏa thân" nếu nhạy cảm</td></tr>
+          <tr><td>Instagram</td><td>Tương tự Facebook</td><td>Nhanh</td><td>Báo cáo nhiều lần nếu cần</td></tr>
+          <tr><td>TikTok</td><td>Báo cáo video → "Nội dung nhạy cảm" hoặc "Quấy rối"</td><td>24-72 giờ</td><td>Nhấn mạnh "xâm phạm đời tư"</td></tr>
+          <tr><td>Google</td><td>Form: <a href="https://support.google.com/legal/answer/3110420" target="_blank">Remove non-consensual images</a></td><td>3-14 ngày</td><td>Dành riêng cho ảnh riêng tư không đồng thuận</td></tr>
+          <tr><td>Twitter/X</td><td>Báo cáo tweet → "Sensitive media" hoặc "Harassment"</td><td>1-7 ngày</td><td>Chọn "Intimate media without consent"</td></tr>
+        </tbody>
+      </table>
+
+      <div class="tip">
+        <strong>Mẹo tăng hiệu quả:</strong> Nhờ nhiều người thân/bạn bè cùng báo cáo. Báo cáo cả các tài khoản chia sẻ lại nếu ảnh lan rộng.
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-title">
+        <span class="step-number">3</span>
+        Tố cáo cơ quan chức năng (xử lý triệt để)
+      </div>
+      <p>Bạn có quyền yêu cầu: gỡ bỏ/tiêu hủy hình ảnh, xin lỗi công khai, bồi thường thiệt hại.</p>
+      <p><strong>Nơi tố cáo (ưu tiên):</strong></p>
+      <ul>
+        <li>Phòng An ninh mạng & phòng, chống tội phạm công nghệ cao (A05) – Công an tỉnh/thành phố</li>
+        <li>Công an phường/xã gần nhất</li>
+        <li>Cục A05 Bộ Công an (nếu nghiêm trọng, lan rộng)</li>
+      </ul>
+      <p><strong>Các tội danh có thể áp dụng (cập nhật 2025):</strong></p>
+      <ul>
+        <li>Phạt hành chính: 10–30 triệu đồng</li>
+        <li>Tội làm nhục người khác (Điều 155 BLHS): tù đến 3–7 năm</li>
+        <li>Tội đưa sử dụng trái phép thông tin mạng (Điều 288): tù đến 7 năm</li>
+        <li>Tội truyền bá văn hóa phẩm đồi trụy (Điều 326)</li>
+      </ul>
+    </div>
+
+    <div class="step">
+      <div class="step-title">
+        <span class="step-number">4</span>
+        Hỗ trợ tinh thần & bảo vệ lâu dài
+      </div>
+      <ul>
+        <li>Nói chuyện với người thân hoặc chuyên gia tâm lý (bạn không hề cô đơn, không phải lỗi của bạn)</li>
+        <li>Đổi mật khẩu, bật xác thực 2 lớp tất cả tài khoản</li>
+        <li>Tránh đăng ảnh nhạy cảm trong tương lai (kể cả tin nhắn riêng)</li>
+        <li>Liên hệ luật sư chuyên quyền riêng tư/công nghệ số nếu cần (có hỗ trợ miễn phí ban đầu)</li>
+      </ul>
+    </div>
+
+    <div class="conclusion">
+      <strong>Bạn không sai khi tin tưởng ai đó hoặc bị hack.</strong><br>
+      Người sai là kẻ phát tán. Hãy hành động nhanh, quyết liệt để bảo vệ chính mình.<br><br>
+      Nếu cần hướng dẫn cụ thể hơn (nền tảng nào, mức độ lan rộng...), hãy chia sẻ thêm nhé. Chúc bạn sớm vượt qua!
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>
