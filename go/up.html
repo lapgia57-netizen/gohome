@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Transformer - "Bố già" của các mô hình AI ngôn ngữ lớn</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    :root {
+      --primary: #6366f1;
+      --primary-dark: #4f46e5;
+      --bg: #f8fafc;
+      --text: #1e293b;
+      --card: #ffffff;
+      --border: #e2e8f0;
+    }
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2rem 1rem;
+    }
+    header {
+      text-align: center;
+      padding: 3rem 0 2rem;
+      background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+      color: white;
+      clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+    }
+    h1, h2, h3 {
+      margin: 0.5em 0;
+    }
+    .intro {
+      font-size: 1.2rem;
+      max-width: 800px;
+      margin: 1rem auto;
+    }
+    .card {
+      background: var(--card);
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+      padding: 1.8rem;
+      margin: 2rem 0;
+      border: 1px solid var(--border);
+    }
+    .highlight {
+      background: #eef2ff;
+      padding: 0.2em 0.5em;
+      border-radius: 4px;
+      color: var(--primary-dark);
+      font-weight: 600;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+    }
+    th, td {
+      padding: 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+    th {
+      background: var(--primary);
+      color: white;
+    }
+    .comparison-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+    .model-card {
+      background: white;
+      border-radius: 10px;
+      padding: 1.5rem;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      transition: transform 0.2s;
+    }
+    .model-card:hover {
+      transform: translateY(-5px);
+    }
+    .icon {
+      font-size: 1.8rem;
+      color: var(--primary);
+      margin-right: 0.8rem;
+    }
+    .attention-img {
+      max-width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      margin: 1.5rem 0;
+    }
+    .conclusion {
+      background: #ecfdf5;
+      border-left: 5px solid #10b981;
+      padding: 1.5rem;
+      margin: 3rem 0;
+      border-radius: 8px;
+    }
+    @media (max-width: 768px) {
+      header { padding: 2rem 0; }
+      .container { padding: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <h1>Transformer</h1>
+    <p class="intro">"Attention Is All You Need" – Kiến trúc thay đổi hoàn toàn thế giới AI ngôn ngữ</p>
+  </div>
+</header>
+
+<div class="container">
+
+  <div class="card">
+    <h2><i class="fas fa-brain icon"></i>Ý nghĩa cốt lõi của Transformer</h2>
+    <p>Trước năm 2017: Hầu hết mô hình chuỗi dùng <strong>RNN / LSTM / GRU</strong> → gặp 2 vấn đề lớn:</p>
+    <ul>
+      <li>Xử lý <strong>tuần tự</strong> → rất khó song song hóa → train <strong>chậm</strong></li>
+      <li>Khó nhớ thông tin từ rất xa (<strong>long-range dependency</strong>)</li>
+    </ul>
+    <p><strong>Transformer giải quyết triệt để bằng cách:</strong></p>
+    <ul>
+      <li>Bỏ hoàn toàn RNN → thay bằng <span class="highlight">cơ chế Attention</span></li>
+      <li>Tính toán <strong>song song toàn bộ chuỗi</strong></li>
+      <li>Nhìn được <strong>mọi vị trí cùng lúc</strong> (global context)</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2><i class="fas fa-sitemap icon"></i>Cấu trúc cơ bản: Encoder-Decoder</h2>
+    <p>Đây là sơ đồ kiến trúc Transformer gốc (Attention Is All You Need – 2017):</p>
+
+    <img src="https://jalammar.github.io/images/t/transformer_resideual_layer_norm_3.png" alt="Transformer Architecture Diagram" class="attention-img">
+
+    <img src="https://aiml.com/wp-content/uploads/2023/09/Annotated-Transformers-Architecture.png" alt="Annotated Transformer Architecture" class="attention-img">
+
+    <p><strong>Luồng chính:</strong> Input → Embedding + Positional Encoding → Encoder (N layers) → Decoder (N layers) → Output</p>
+  </div>
+
+  <div class="card">
+    <h2><i class="fas fa-star icon"></i>Các thành phần "ngôi sao" trong Transformer</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Thành phần</th>
+          <th>Vai trò chính</th>
+          <th>Tại sao quan trọng</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Self-Attention</td>
+          <td>Mỗi từ "nhìn" tất cả các từ khác</td>
+          <td>Hiểu ngữ cảnh toàn cục</td>
+        </tr>
+        <tr>
+          <td>Multi-Head Attention</td>
+          <td>Chú ý đến nhiều khía cạnh cùng lúc</td>
+          <td>Học nhiều mối quan hệ ngữ nghĩa</td>
+        </tr>
+        <tr>
+          <td>Scaled Dot-Product Attention</td>
+          <td>Công thức tính attention (có scale √dₖ)</td>
+          <td>Ổn định gradient khi dimension lớn</td>
+        </tr>
+        <tr>
+          <td>Positional Encoding</td>
+          <td>Thêm thông tin vị trí (sine + cosine)</td>
+          <td>Biết thứ tự từ – vì không còn RNN</td>
+        </tr>
+        <tr>
+          <td>Residual Connection + LayerNorm</td>
+          <td>Add & Norm (skip connection)</td>
+          <td>Giúp train sâu hàng trăm layer</td>
+        </tr>
+        <tr>
+          <td>Feed-Forward Network</td>
+          <td>Xử lý độc lập từng vị trí</td>
+          <td>Tăng khả năng biểu diễn phi tuyến</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p><strong>Minh họa Multi-Head Attention:</strong></p>
+    <img src="https://substackcdn.com/image/fetch/$s_!57T6!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Ff406d55e-990a-4e3b-be82-d966eb74a3e7_1766x1154.png" alt="Multi-Head Attention Illustration" class="attention-img">
+
+    <p><strong>Positional Encoding visualization:</strong></p>
+    <img src="https://miro.medium.com/1*j_1EaEnGOipCR83CaolYOA.png" alt="Positional Encoding Sine Cosine" class="attention-img">
+
+    <p><strong>Scaled Dot-Product Attention:</strong></p>
+    <img src="https://miro.medium.com/v2/resize:fit:1200/1*ghTcbZ_FAGqwLxNMpYKaAQ.png" alt="Scaled Dot-Product Attention Formula" class="attention-img">
+  </div>
+
+  <div class="card">
+    <h2><i class="fas fa-robot icon"></i>So sánh các biến thể Transformer phổ biến (2025)</h2>
+    <div class="comparison-grid">
+      <div class="model-card">
+        <h3>Original Transformer</h3>
+        <p><strong>Loại:</strong> Encoder-Decoder</p>
+        <p><strong>Đặc điểm:</strong> Kiến trúc gốc 2017</p>
+        <p><strong>Ứng dụng:</strong> Machine Translation</p>
+      </div>
+      <div class="model-card">
+        <h3>BERT</h3>
+        <p><strong>Loại:</strong> Chỉ Encoder</p>
+        <p><strong>Đặc điểm:</strong> Bidirectional, Masked LM</p>
+        <p><strong>Ứng dụng:</strong> Hiểu ngôn ngữ, classification</p>
+      </div>
+      <div class="model-card">
+        <h3>GPT series</h3>
+        <p><strong>Loại:</strong> Chỉ Decoder</p>
+        <p><strong>Đặc điểm:</strong> Autoregressive (left-to-right)</p>
+        <p><strong>Ứng dụng:</strong> Sinh văn bản, chat, code</p>
+      </div>
+      <div class="model-card">
+        <h3>LLaMA / LLaMA-3</h3>
+        <p><strong>Loại:</strong> Chỉ Decoder</p>
+        <p><strong>Đặc điểm:</strong> Rất hiệu quả, open-weight</p>
+        <p><strong>Ứng dụng:</strong> Nghiên cứu & fine-tune lớn</p>
+      </div>
+      <div class="model-card">
+        <h3>Grok (xAI)</h3>
+        <p><strong>Loại:</strong> Decoder-only</p>
+        <p><strong>Đặc điểm:</strong> Tối ưu reasoning & truth-seeking</p>
+        <p><strong>Ứng dụng:</strong> Trợ lý AI tổng quát</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="conclusion">
+    <h2>Tóm lại ngắn gọn nhất</h2>
+    <p style="font-size: 1.3rem; font-weight: bold; margin: 1rem 0;">
+      Transformer = <span style="color:#10b981">Attention</span> + <span style="color:#10b981">Positional Encoding</span> + <span style="color:#10b981">Residual + LayerNorm</span>
+    </p>
+    <p>→ Bỏ RNN/LSTM → Train nhanh hơn <strong>gấp nhiều lần</strong><br>
+       → Hiểu ngữ cảnh xa cực tốt<br>
+       → Dễ scale lên hàng tỷ → hàng trăm tỷ parameter</p>
+    <p style="margin-top: 2rem; font-style: italic;">Đây chính là lý do từ 2018 đến 2025, gần như <strong>toàn bộ LLM</strong> đều dựa trên nền tảng Transformer hoặc các biến thể cải tiến của nó.</p>
+  </div>
+
+</div>
+
+</body>
+</html>
