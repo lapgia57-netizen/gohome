@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cầu Đường | Kỹ thuật Hạ tầng Giao thông</title>
+
+<style>
+:root{
+  --main:#0d6efd;
+  --soft:#f4f8ff;
+  --dark:#1f2937;
+  --gray:#6b7280;
+  --card:#ffffff;
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  background:var(--soft);
+  color:var(--dark);
+  line-height:1.6;
+}
+
+/* HEADER */
+header{
+  background:linear-gradient(135deg,#0d6efd,#38bdf8);
+  color:#fff;
+  padding:60px 20px;
+}
+
+.header-box{
+  max-width:1100px;
+  margin:auto;
+}
+
+header h1{
+  font-size:36px;
+  margin-bottom:10px;
+}
+
+header p{
+  max-width:650px;
+  opacity:.95;
+}
+
+/* CONTAINER */
+.container{
+  max-width:1100px;
+  margin:auto;
+  padding:40px 20px;
+}
+
+/* SECTION */
+.section{
+  margin-bottom:50px;
+}
+
+.section h2{
+  color:var(--main);
+  margin-bottom:10px;
+}
+
+.section p{
+  color:var(--gray);
+}
+
+/* GRID */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:20px;
+  margin-top:25px;
+}
+
+/* CARD */
+.card{
+  background:var(--card);
+  padding:22px;
+  border-radius:14px;
+  box-shadow:0 8px 25px rgba(0,0,0,.06);
+  transition:.25s;
+}
+
+.card:hover{
+  transform:translateY(-4px);
+}
+
+.card h3{
+  margin-top:0;
+  color:var(--main);
+}
+
+.icon{
+  font-size:36px;
+  margin-bottom:10px;
+}
+
+/* LIST */
+ul{
+  padding-left:18px;
+}
+
+/* FOOTER */
+footer{
+  background:#eaf1ff;
+  padding:25px;
+  text-align:center;
+  color:#475569;
+  font-size:14px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="header-box">
+    <h1>Ngành Cầu Đường</h1>
+    <p>Kỹ thuật hạ tầng giao thông – thiết kế, thi công và quản lý các công trình
+       đường bộ, cầu, hầm và nút giao hiện đại.</p>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- CẦU ĐƯỜNG LÀ GÌ -->
+  <div class="section">
+    <h2>1️⃣ Cầu đường là gì?</h2>
+    <p>Thuộc lĩnh vực <b>kỹ thuật xây dựng giao thông</b>, tập trung vào quy hoạch,
+       thiết kế và thi công hạ tầng giao thông.</p>
+
+    <div class="grid">
+      <div class="card">
+        <div class="icon">🛣️</div>
+        <h3>Đường bộ</h3>
+        <p>Quốc lộ, tỉnh lộ, cao tốc, đường đô thị.</p>
+      </div>
+
+      <div class="card">
+        <div class="icon">🌉</div>
+        <h3>Cầu</h3>
+        <p>Cầu bê tông, cầu thép, cầu dây văng, cầu treo.</p>
+      </div>
+
+      <div class="card">
+        <div class="icon">🚦</div>
+        <h3>Hạ tầng phụ trợ</h3>
+        <p>Cống rãnh, taluy, lan can, biển báo giao thông.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CÔNG VIỆC -->
+  <div class="section">
+    <h2>2️⃣ Công việc chính</h2>
+
+    <div class="grid">
+      <div class="card">
+        <h3>🔍 Khảo sát</h3>
+        <ul>
+          <li>Địa hình – địa chất</li>
+          <li>Lưu lượng giao thông</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>📐 Thiết kế</h3>
+        <ul>
+          <li>Bình đồ – trắc dọc – trắc ngang</li>
+          <li>Kết cấu mặt đường, dầm cầu</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>🏗️ Thi công</h3>
+        <ul>
+          <li>Nền – móng – mặt đường</li>
+          <li>Đổ bê tông, lắp dầm, thảm nhựa</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>🛠️ Bảo trì</h3>
+        <ul>
+          <li>Sửa ổ gà, nứt mặt đường</li>
+          <li>Gia cố cầu, thay khe co giãn</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- HỌC & LÀM -->
+  <div class="section">
+    <h2>3️⃣ Học & làm cầu đường</h2>
+
+    <div class="grid">
+      <div class="card">
+        <h3>📘 Kiến thức</h3>
+        <p>Cơ học đất, kết cấu, vật liệu xây dựng, thủy lực.</p>
+      </div>
+
+      <div class="card">
+        <h3>💻 Phần mềm</h3>
+        <p>AutoCAD, Civil 3D, SAP2000, Midas.</p>
+      </div>
+
+      <div class="card">
+        <h3>🌤️ Môi trường</h3>
+        <p>Đi công trình, làm việc ngoài trời, kỹ thuật thực tế.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- VIỆT NAM -->
+  <div class="section">
+    <h2>4️⃣ Cầu đường tại Việt Nam</h2>
+    <p>Nhu cầu cao với các dự án cao tốc, vành đai, khu công nghiệp.</p>
+
+    <div class="grid">
+      <div class="card">👷 Kỹ sư hiện trường</div>
+      <div class="card">📊 Kỹ sư thiết kế</div>
+      <div class="card">🏢 Ban QLDA – Tư vấn giám sát</div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  © 2025 | UI/UX Cầu Đường – Kỹ thuật Hạ tầng Giao thông
+</footer>
+
+</body>
+</html>
