@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kết Thúc Lưng Chừng - Lời đầy đủ</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+      color: #e0e0e0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .container {
+      text-align: center;
+      max-width: 800px;
+      padding: 2rem;
+      position: relative;
+      z-index: 2;
+    }
+    h1 {
+      font-size: 3.5rem;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(90deg, #ff6b6b, #feca57, #ff9f43);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: 2px;
+    }
+    .subtitle {
+      font-size: 1.3rem;
+      opacity: 0.8;
+      margin-bottom: 2rem;
+    }
+    .lyrics {
+      font-size: 1.3rem;
+      line-height: 2.1;
+      background: rgba(255,255,255,0.06);
+      backdrop-filter: blur(10px);
+      border-radius: 16px;
+      padding: 2.5rem;
+      border: 1px solid rgba(255,255,255,0.1);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+      transition: all 0.6s ease;
+      text-align: left;
+    }
+    .lyrics:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+    }
+    .highlight {
+      color: #ffca28;
+      font-weight: bold;
+    }
+    .rain {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .rain span {
+      position: absolute;
+      width: 2px;
+      height: 80px;
+      background: linear-gradient(transparent, #ffffff44);
+      animation: fall linear infinite;
+    }
+    @keyframes fall {
+      0% { transform: translateY(-100vh); }
+      100% { transform: translateY(100vh); }
+    }
+  </style>
+</head>
+<body>
+  <div class="rain" id="rain"></div>
+
+  <div class="container">
+    <h1>Kết Thúc Lưng Chừng</h1>
+    <p class="subtitle">Văn Võ Ngọc Nhân • Sáng tác: DC Tâm</p>
+
+    <div class="lyrics">
+      Dưới mưa có người cười bản thân mình<br>
+      Lụy sâu tình đầu vỡ mau<br>
+      Thôi thì hãy cứ ướt bước một mình<br>
+      Rồi khi muộn phiền tan biến đi...<br><br>
+
+      Mai gặp nhau một lời nói câu chào<br>
+      Vậy thôi còn gì nữa đâu<br>
+      Ly rượu cay trên tay uống say sầu<br>
+      Vùi sâu tình buồn theo năm tháng<br><br>
+
+      <span class="highlight">Giọt nước tràn ly mua vui làm chi</span><br>
+      <span class="highlight">Trách móc càng đau thêm em ơi được gì?</span><br>
+      Thôi không hoài nghi thôi không cần nghĩ<br>
+      Xé nát tâm can tan hoang anh ngỡ ngàng<br><br>
+
+      <span class="highlight">Như hai người dưng anh sẽ dừng chân</span><br>
+      <span class="highlight">Yêu em đến mấy kết thúc mãi lưng chừng</span><br>
+      Thôi không hối hận vì em vốn dĩ<br>
+      Chưa từng yêu chân thật...<br><br>
+
+      <span style="opacity:0.7; font-style:italic;">(Phần giữa / Verse 2)</span><br>
+      Giữa thành phố chật hẹp lối đi nhiều<br>
+      Lạc nhau tìm em ở đâu?<br>
+      Trách ai đó trách trước bản thân mình<br>
+      Vì đã yêu người đến quên mình<br><br>
+
+      <span class="highlight">Giọt nước tràn ly mua vui làm chi</span><br>
+      <span class="highlight">Trách móc càng đau thêm em ơi được gì?</span><br>
+      Thôi không hoài nghi thôi không cần nghĩ<br>
+      Xé nát tâm can tan hoang anh ngỡ ngàng<br><br>
+
+      <span class="highlight">Như hai người dưng anh sẽ dừng chân</span><br>
+      <span class="highlight">Yêu em đến mấy kết thúc mãi lưng chừng</span><br>
+      Thôi không hối hận vì em vốn dĩ<br>
+      Chưa từng yêu chân thật...<br><br>
+
+      <span class="highlight">Giọt nước tràn ly mua vui làm chi</span><br>
+      <span class="highlight">Trách móc càng đau thêm em ơi được gì?</span><br>
+      Thôi không hoài nghi thôi không cần nghĩ<br>
+      Xé nát tâm can tan hoang anh ngỡ ngàng<br><br>
+
+      <span class="highlight">Như hai người dưng anh sẽ dừng chân</span><br>
+      <span class="highlight">Yêu em đến mấy kết thúc mãi lưng chừng</span><br>
+      Thôi không hối hận vì em vốn dĩ<br>
+      Chưa từng yêu chân thật...
+    </div>
+  </div>
+
+  <script>
+    // Rain effect
+    function createRain() {
+      const rain = document.getElementById('rain');
+      for(let i = 0; i < 80; i++) {
+        const drop = document.createElement('span');
+        const size = Math.random() * 2 + 1;
+        drop.style.width = size + 'px';
+        drop.style.height = (size * 40) + 'px';
+        drop.style.left = Math.random() * 100 + 'vw';
+        drop.style.animationDuration = (Math.random() * 0.8 + 0.4) + 's';
+        drop.style.animationDelay = Math.random() * 5 + 's';
+        rain.appendChild(drop);
+      }
+    }
+    createRain();
+  </script>
+</body>
+</html>
