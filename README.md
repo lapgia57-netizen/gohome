@@ -1,65 +1,77 @@
-# gohome
-Tháng về một lần
-# Làm việc và trở về nhà – Hai nửa của một cuộc đời
+# 🌙 Go Home – Tháng về một lần
 
-Có những ngày ta rời nhà lúc trời còn tờ mờ sáng,  
+<p align="center">
+  <i>Làm việc và trở về nhà – Hai nửa của một cuộc đời</i>
+</p>
+
+<div align="center">
+  <img src="https://img.shields.io/badge/GoHome-Tháng_về_một_lần-6B7280?style=for-the-badge" alt="GoHome"/>
+  <img src="https://img.shields.io/badge/Work_Life-Real_talk-orange?style=for-the-badge" alt="Work Life"/>
+</div>
+
+## Những điều ta thường quên khi chạy theo deadline
+
+Có những ngày ta rời nhà lúc trời còn tờ mờ sáng  
 và chỉ trở về khi thành phố đã lên đèn.
 
-Công việc cuốn ta đi như một cơn lũ.  
-Deadline, họp hành, email, con số, áp lực, thành tích…  
-Ta chạy không ngừng, đôi khi quên cả thở.  
-Ta tự nhủ: “Cố thêm chút nữa, cố thêm tháng này thôi, rồi sẽ nhẹ nhàng hơn.”  
-Nhưng “tháng này” lại nối tiếp “tháng sau”, năm này nối tiếp năm kia.
+Công việc cuốn ta đi như một cơn lũ:  
+- Deadline dồn dập  
+- Họp hành liên miên  
+- Email không ngừng  
+- Con số, áp lực, thành tích  
 
-Rồi một buổi chiều muộn, trên chuyến xe buýt cuối ngày,  
-hay trên con đường cao tốc kẹt cứng,  
+Ta tự nhủ:  
+“Cố thêm chút nữa… tháng này thôi, rồi sẽ nhẹ nhàng hơn.”  
+Nhưng tháng này lại nối tiếp tháng sau,  
+năm này nối tiếp năm kia.
+
+Rồi một buổi chiều muộn,  
+trên chuyến xe buýt cuối ngày  
+hay giữa dòng kẹt cứng trên cao tốc,  
 ta chợt nhìn ra cửa sổ và tự hỏi:  
-“Mình đang đi đâu? Nhà… ở đâu nhỉ?”
 
-Nhà không chỉ là bốn bức tường và một chiếc giường.  
-Nhà là nơi có người đợi cơm,  
-là mùi hương quen thuộc từ bếp,  
-là tiếng trẻ con í ới gọi “Ba/Mẹ về rồi!”,  
-là con mèo dụi đầu vào chân,  
-là cái ôm không cần lý do của người thương.
+**“Mình đang đi đâu? Nhà… ở đâu nhỉ?”**
 
-Nhà là nơi ta được tháo bỏ chiếc mặt nạ “nhân viên gương mẫu”,  
-được thở ra một hơi thật dài,  
-được khóc, được cười, được… là chính mình.
+## Nhà không chỉ là nơi ở
 
-Nhưng nhiều người trong chúng ta đang đánh đổi:  
-- 8–12 tiếng cho công việc,  
-- còn lại vài tiếng ngắn ngủi (và mệt nhoài) cho gia đình, cho bản thân.
+Nhà là:  
+- Người đang đợi cơm dù đã 9 giờ tối  
+- Mùi cơm mẹ nấu, mùi áo quần của con  
+- Tiếng cười nhỏ của đứa trẻ đang chờ bố/mẹ về  
+- Khoảnh khắc ngồi xuống ghế sofa mà không cần mở laptop nữa  
 
-Ta sợ bị tụt lại, sợ không đủ tiền, sợ bị đánh giá.  
-Nhưng ta quên mất rằng:  
-Thời gian không chờ đợi ai.  
-Con cái lớn lên từng ngày, cha mẹ già đi từng ngày,  
-và chính ta cũng đang trôi qua tuổi trẻ mà không kịp ngoảnh lại.
+Nhà là nơi ta **thuộc về**,  
+nơi ta được phép **thả lỏng** và **là chính mình**  
+không cần phải “performance” 24/7.
 
-Tôi không cổ vũ bỏ việc, cũng không kêu gọi “nằm phẳng”.  
-Tôi chỉ muốn nhắc nhở chính mình và bạn rằng:
+## Thông điệp của repo này
 
-> Hãy làm việc để sống,  
-> chứ đừng sống chỉ để làm việc.
+Chúng ta không chống lại công việc.  
+Chúng ta chỉ nhắc nhau:  
+**Đừng để công việc chiếm hết cuộc đời.**  
 
-Hãy về nhà đúng giờ khi có thể.  
-Hãy dành một buổi tối không điện thoại, không laptop.  
-Hãy ăn cơm cùng nhau, hỏi han nhau, nhìn vào mắt nhau.  
-Hãy ôm con, hôn vợ/chồng, gọi điện cho bố mẹ dù chỉ 5 phút.
+Hãy cố gắng hết mình khi đang làm việc,  
+nhưng cũng hãy **cho phép mình về nhà** – thật sự về nhà,  
+không chỉ về để ngủ.
 
-Vì một ngày nào đó, khi ta đã thành công rực rỡ,  
-tiền đầy túi, chức cao vọng trọng,  
-nhưng con thì gọi người khác là “ba gần gũi nhất”,  
-vợ/chồng đã quen với sự vắng mặt,  
-bố mẹ đã không còn nữa…  
-thì mọi thứ còn lại có thực sự đáng không?
+**Tháng về một lần** đã là quá ít.  
+Đừng để nó thành **năm về một lần**, rồi **cả đời chỉ nhìn thấy nhà qua khung cửa sổ xe**.
 
-Công việc quan trọng, nhưng nhà mới là nơi trái tim ta thuộc về.
+## Cách tham gia repo
 
-Hôm nay, nếu có thể, hãy về nhà sớm một chút.  
-Dù chỉ 30 phút thôi.  
-Bạn sẽ thấy cả thế giới dịu dàng hơn rất nhiều.
+- Chia sẻ câu chuyện thật của bạn về “go home”  
+- Đăng ảnh, status, note nhỏ khi bạn thực sự “về nhà”  
+- Viết những câu nhắc nhở nhẹ nhàng cho chính mình và người khác  
+- Meme, thơ, status, checklist “signs bạn đang quên nhà”… đều được chào đón  
 
-Về nhà đi, người ơi.  
-Nhà đang chờ.
+**Quy tắc duy nhất**: chân thật, không toxic, không phán xét.
+
+> “Đừng để ngày về nhà trở thành ngày xa nhà nhất.”  
+> – Một câu nói lặng lẽ của rất nhiều người
+
+Nếu bạn cũng đang cố gắng cân bằng giữa **làm việc** và **về nhà**,  
+hãy star repo để cùng nhau nhắc nhở:  
+
+**Nhà vẫn đang đợi.**
+
+⭐ **Go Home. Đừng để tháng nào cũng chỉ về một lần.**
