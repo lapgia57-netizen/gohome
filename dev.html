@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>GO HOME</title>
+<title>GO HOME - Net Explorer</title>
 <link rel="icon" href="https://raw.githubusercontent.com/lapgia57-netizen/gohome/main/favicon.ico">
 <style>
 :root{
@@ -12,272 +12,347 @@
   --border:#30363d;
   --red:#f85149;
   --green:#238636;
+  --blue:#58a6ff;
   --text:#c9d1d9;
+  --muted:#8b949e;
 }
-*{box-sizing:border-box}
+*{box-sizing:border-box;margin:0;padding:0;}
 body{
-  margin:0;
-  font-family:system-ui;
+  font-family:system-ui,sans-serif;
   background:var(--bg);
   color:var(--text);
+  min-height:100vh;
 }
 
-/* ===== LOADING ===== */
+/* LOADING */
 #loading{
   position:fixed;
   inset:0;
-  background:rgba(13,17,23,.96);
+  background:rgba(13,17,23,0.98);
   display:flex;
   flex-direction:column;
   align-items:center;
   justify-content:center;
   z-index:9999;
+  transition:opacity 0.4s;
 }
 .loader{
-  width:55px;
-  height:55px;
-  border:4px solid var(--border);
-  border-top:4px solid var(--red);
+  width:60px;height:60px;
+  border:5px solid var(--border);
+  border-top:5px solid var(--red);
   border-radius:50%;
   animation:spin 1s linear infinite;
 }
 @keyframes spin{to{transform:rotate(360deg)}}
-#loading p{
-  margin-top:15px;
-  color:#8b949e;
-  font-size:14px;
-}
+#loading p{margin-top:20px;color:var(--muted);font-size:15px;}
 
-/* ===== HEADER ===== */
+/* HEADER */
 .header{
   background:#010409;
-  padding:18px;
+  padding:16px 20px;
   text-align:center;
   border-bottom:3px solid var(--red);
 }
 .header h1{
   margin:0;
   color:var(--red);
+  font-size:2.1rem;
 }
-.header small{
-  color:#8b949e;
-}
+.header small{color:var(--muted);}
 
-/* ===== LAYOUT ===== */
-.container{
+/* MAIN LAYOUT */
+main{
   display:flex;
-  height:calc(100vh - 96px);
+  height:calc(100vh - 110px);
 }
 .sidebar{
-  width:35%;
+  width:320px;
   background:var(--panel);
   border-right:1px solid var(--border);
   overflow:auto;
+  padding:12px;
 }
 .content{
-  width:65%;
+  flex:1;
   padding:20px;
   overflow:auto;
 }
 
-/* ===== TREE ===== */
+/* SEARCH & TREE */
 .search{
   width:100%;
-  padding:12px;
+  padding:10px 12px;
+  margin-bottom:12px;
   background:var(--bg);
   border:1px solid var(--border);
-  color:white;
+  color:var(--text);
+  border-radius:6px;
 }
-.tree ul{
-  list-style:none;
-  padding-left:18px;
-}
+.tree ul{list-style:none;padding-left:16px;}
 .tree li{
-  padding:6px;
+  padding:6px 8px;
   border-radius:6px;
   cursor:pointer;
+  transition:0.15s;
 }
-.tree li:hover{background:#30363d}
-.folder::before{content:"📁 "}
-.file::before{content:"📄 "}
+.tree li:hover{background:#21262d;}
+.folder::before{content:"📁 ";}
+.file::before{content:"📄 ";}
 
-/* ===== CONTENT ===== */
-#file-content{
-  background:var(--bg);
-  padding:20px;
-  border-radius:10px;
+/* FILE CARDS - NEW UI */
+#html-files{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+  gap:16px;
+  margin-top:20px;
+}
+.card{
+  background:var(--panel);
   border:1px solid var(--border);
+  border-radius:10px;
+  padding:16px;
+  cursor:pointer;
+  transition:all 0.2s;
+  position:relative;
+  overflow:hidden;
 }
-.instructions{
-  background:#21262d;
-  padding:15px;
-  border-radius:8px;
-  margin:15px 0;
+.card:hover{
+  transform:translateY(-4px);
+  border-color:var(--blue);
+  box-shadow:0 8px 24px rgba(0,0,0,0.4);
 }
+.card h3{
+  margin:0 0 8px;
+  font-size:1.1rem;
+  color:var(--blue);
+}
+.card .path{
+  font-size:0.85rem;
+  color:var(--muted);
+  word-break:break-all;
+}
+.card .title{
+  margin-top:10px;
+  font-size:0.95rem;
+  color:var(--text);
+  font-style:italic;
+}
+.card .loading-title{font-style:normal;color:var(--muted);}
 
-/* ===== FLOAT INFO ===== */
-.online-count{
+/* STATUS BAR */
+.status-bar{
   position:fixed;
-  bottom:12px;
-  right:12px;
+  bottom:16px;
+  left:16px;
+  right:16px;
+  display:flex;
+  justify-content:space-between;
+  font-size:13px;
+  color:var(--muted);
+  pointer-events:none;
+}
+.online-count{
   background:var(--green);
   color:white;
-  padding:10px 16px;
-  border-radius:50px;
+  padding:8px 14px;
+  border-radius:999px;
   font-weight:bold;
 }
-.clock{
-  position:fixed;
-  bottom:12px;
-  left:12px;
+.clock,.refresh{
   background:#21262d;
-  padding:10px 16px;
-  border-radius:50px;
+  padding:8px 14px;
+  border-radius:999px;
   border:1px solid var(--border);
-  font-size:13px;
 }
-.refresh{
-  text-align:center;
-  font-size:12px;
-  color:#8b949e;
-  margin:6px 0;
+
+@media (max-width:900px){
+  main{flex-direction:column;height:auto;}
+  .sidebar{width:100%;height:40vh;border-right:none;border-bottom:1px solid var(--border);}
+  .content{padding:16px;}
 }
 </style>
 </head>
 <body>
 
-<!-- LOADING -->
 <div id="loading">
   <div class="loader"></div>
-  <p>GO HOME đang mở cửa quán net...</p>
+  <p>GO HOME đang quét quán net... chờ tí nhé anh em</p>
 </div>
 
 <div class="header">
   <h1>GO HOME</h1>
-  <small>
-    Online <span id="online">0</span> anh em • Auto cập nhật 2 phút
-  </small>
+  <small>Online <span id="online">0</span> anh em • Auto refresh 2 phút</small>
 </div>
 
-<div class="container">
+<main>
   <div class="sidebar">
-    <input class="search" id="search" placeholder="Tìm file, nick, tin nhắn...">
-    <div class="tree" id="tree">Đang load repo...</div>
+    <input class="search" id="search" placeholder="Tìm file, nick, tên profile...">
+    <div class="tree" id="tree">Đang load danh sách file...</div>
   </div>
 
   <div class="content">
-    <div id="file-content">
-      <h2>🖥️ Explorer Control Panel</h2>
-      <div class="instructions">
-        <b>✨ UI/UX mới:</b><br>
-        • HTML → mở trực tiếp trên <code>back.iq920.fun</code><br>
-        • File khác → mở raw GitHub<br><br>
-        <b>Mẹo:</b> <code>online/nick.html</code> = profile cá nhân online
-      </div>
-      <em>Chọn file bên trái để mở tab mới.</em>
+    <h2>🖥️ Các profile HTML đang online</h2>
+    <p id="html-count" style="color:var(--muted);margin:8px 0;">Đang tải danh sách...</p>
+    <div id="html-files"></div>
+
+    <div id="file-content" style="display:none;margin-top:32px;">
+      <h3>Chọn file bên trái hoặc card bên trên để mở</h3>
     </div>
   </div>
+</main>
+
+<div class="status-bar">
+  <div class="online-count">Online: <span id="online2">0</span></div>
+  <div class="clock" id="clock">⏰ --:--:--</div>
+  <div class="refresh">Cập nhật: <span id="time"></span></div>
 </div>
 
-<div class="online-count">Online: <span id="online2">0</span></div>
-<div class="clock" id="clock">⏰ --:--:--</div>
-<div class="refresh">Cập nhật: <span id="time"></span></div>
-
 <script>
-const owner="lapgia57-netizen";
-const repo="gohome";
-const api=`https://api.github.com/repos/${owner}/${repo}/git/trees/main?recursive=1`;
-const customDomain="https://back.iq920.fun/";
+const owner = "lapgia57-netizen";
+const repo = "gohome";
+const api = `https://api.github.com/repos/${owner}/${repo}/git/trees/main?recursive=1`;
+const customDomain = "https://back.iq920.fun/";
 
-async function loadRepo(){
-  document.getElementById("loading").style.display="flex";
-  try{
-    const res=await fetch(api);
-    const data=await res.json();
-    const files=data.tree.filter(f=>f.type==="blob");
-    const online=files.filter(f=>f.path.startsWith("online/")).length;
+const treeEl = document.getElementById("tree");
+const htmlFilesEl = document.getElementById("html-files");
+const htmlCountEl = document.getElementById("html-count");
+const onlineEl = document.getElementById("online");
+const online2El = document.getElementById("online2");
+const timeEl = document.getElementById("time");
+const clockEl = document.getElementById("clock");
+const loading = document.getElementById("loading");
+const search = document.getElementById("search");
 
-    onlineEl(online);
+async function loadRepo() {
+  loading.style.display = "flex";
+  try {
+    const res = await fetch(api);
+    if (!res.ok) throw new Error("GitHub API error");
+    const data = await res.json();
+
+    const allFiles = data.tree.filter(f => f.type === "blob");
+    const htmlFiles = allFiles.filter(f => 
+      f.path.endsWith(".html") && 
+      !f.path.includes("CNAME") && 
+      !f.path.includes("LICENSE") && 
+      !f.path.startsWith(".github/")
+    );
+
+    const online = allFiles.filter(f => f.path.startsWith("online/")).length;
+
+    onlineEl.textContent = online;
+    online2El.textContent = online;
+    htmlCountEl.innerHTML = `Tìm thấy <b>${htmlFiles.length}</b> file HTML • Tổng ${allFiles.length} file`;
+
     renderTree(data.tree);
+    renderHtmlCards(htmlFiles);
+
     updateTime();
-  }catch(e){
-    tree.innerHTML="❌ Lỗi GitHub API";
+  } catch (e) {
+    treeEl.innerHTML = "❌ Lỗi kết nối GitHub API";
+    htmlCountEl.textContent = "Không tải được danh sách";
   }
-  setTimeout(()=>loading.style.display="none",600);
+  setTimeout(() => loading.style.display = "none", 400);
 }
 
-function onlineEl(n){
-  online.textContent=n;
-  online2.textContent=n;
-}
+function renderTree(items) {
+  const ul = document.createElement("ul");
+  const folders = {};
 
-function renderTree(items){
-  const ul=document.createElement("ul");
-  const folders={};
+  items.filter(i => i.type === "blob").forEach(item => {
+    // Ẩn file không muốn hiển thị
+    if (item.path.includes("CNAME") || item.path.includes("LICENSE") || item.path.startsWith(".github/")) return;
 
-  items.filter(i=>i.type==="blob").forEach(item=>{
-    const parts=item.path.split('/');
-    let current=ul;
+    const parts = item.path.split('/');
+    let current = ul;
 
-    for(let i=0;i<parts.length-1;i++){
-      const name=parts.slice(0,i+1).join('/');
-      if(!folders[name]){
-        const li=document.createElement("li");
-        li.className="folder";
-        li.textContent=parts[i]+"/";
-        const sub=document.createElement("ul");
-        sub.style.display="none";
-        li.onclick=e=>{
+    for (let i = 0; i < parts.length - 1; i++) {
+      const name = parts.slice(0, i + 1).join('/');
+      if (!folders[name]) {
+        const li = document.createElement("li");
+        li.className = "folder";
+        li.textContent = parts[i] + "/";
+        const sub = document.createElement("ul");
+        sub.style.display = "none";
+        li.onclick = e => {
           e.stopPropagation();
-          sub.style.display=sub.style.display==="none"?"block":"none";
+          sub.style.display = sub.style.display === "none" ? "block" : "none";
         };
         li.appendChild(sub);
-        folders[name]={ul:sub};
-        (i===0?ul:folders[parts.slice(0,i).join('/')].ul).appendChild(li);
+        folders[name] = { ul: sub };
+        (i === 0 ? ul : folders[parts.slice(0, i).join('/')].ul).appendChild(li);
       }
-      current=folders[name].ul;
+      current = folders[name].ul;
     }
 
-    const file=document.createElement("li");
-    file.className="file";
-    file.textContent=parts.at(-1);
-    file.onclick=e=>{
+    const file = document.createElement("li");
+    file.className = "file";
+    file.textContent = parts.at(-1);
+    file.onclick = e => {
       e.stopPropagation();
       openFile(item.path);
     };
     current.appendChild(file);
   });
 
-  tree.innerHTML="";
-  tree.appendChild(ul);
+  treeEl.innerHTML = "";
+  treeEl.appendChild(ul);
 }
 
-function openFile(path){
-  const url=path.endsWith(".html")
-    ? customDomain+path
+async function renderHtmlCards(htmlFiles) {
+  htmlFilesEl.innerHTML = "";
+  for (const file of htmlFiles) {
+    const card = document.createElement("div");
+    card.className = "card";
+    card.innerHTML = `
+      <h3>${file.path.split('/').pop()}</h3>
+      <div class="path">${file.path}</div>
+      <div class="title loading-title">Đang lấy title...</div>
+    `;
+    card.onclick = () => openFile(file.path);
+    htmlFilesEl.appendChild(card);
+
+    // Lấy title từ raw HTML
+    try {
+      const rawUrl = `https://raw.githubusercontent.com/${owner}/${repo}/main/${file.path}`;
+      const res = await fetch(rawUrl);
+      const text = await res.text();
+      const match = text.match(/<title[^>]*>(.*?)<\/title>/is);
+      const title = match ? match[1].trim() : "Không có title";
+      card.querySelector(".title").textContent = title;
+      card.querySelector(".title").classList.remove("loading-title");
+    } catch {
+      card.querySelector(".title").textContent = "(không lấy được title)";
+    }
+  }
+}
+
+function openFile(path) {
+  const url = path.endsWith(".html")
+    ? customDomain + path
     : `https://raw.githubusercontent.com/${owner}/${repo}/main/${path}`;
-  window.open(url,"_blank");
+  window.open(url, "_blank");
 }
 
-function updateTime(){
-  time.textContent=new Date().toLocaleString("vi-VN");
+function updateTime() {
+  timeEl.textContent = new Date().toLocaleString("vi-VN");
 }
 
-/* ===== CLOCK VN REALTIME ===== */
-setInterval(()=>{
-  clock.textContent="⏰ "+new Date().toLocaleTimeString("vi-VN",{hour12:false});
-},1000);
+// Clock realtime VN
+setInterval(() => {
+  clockEl.textContent = "⏰ " + new Date().toLocaleTimeString("vi-VN", {hour12: false});
+}, 1000);
 
-/* SEARCH */
-search.oninput=e=>{
-  const t=e.target.value.toLowerCase();
-  document.querySelectorAll(".file,.folder").forEach(el=>{
-    el.style.display=el.textContent.toLowerCase().includes(t)?"":"none";
+// Search filter (áp dụng cho cả tree và cards)
+search.oninput = e => {
+  const t = e.target.value.toLowerCase();
+  document.querySelectorAll(".file,.folder,.card").forEach(el => {
+    el.style.display = el.textContent.toLowerCase().includes(t) ? "" : "none";
   });
 };
 
 loadRepo();
-setInterval(loadRepo,120000);
+setInterval(loadRepo, 120000);
 </script>
 </body>
 </html>
