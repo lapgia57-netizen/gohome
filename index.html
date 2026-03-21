@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lịch Trở Về Nhà 2026 - 1 Tháng/Lần</title>
+    <title>Nhật Ký Phiền Phức Công Việc Bảo Vệ Xa Nhà 2026</title>
 
-    <!-- Favicon con cua -->
-    <link rel="icon" href="crab.png" type="image/png">
+    <!-- Favicon (có thể thay bằng icon bảo vệ hoặc công trình) -->
+    <link rel="icon" href="https://img.icons8.com/fluency/48/000000/security-guard.png" type="image/png">
 
     <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
@@ -15,13 +15,13 @@
     <style>
         body {
             font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
-            background: linear-gradient(135deg, #e0f7fa, #ffffff);
+            background: linear-gradient(135deg, #e6f0fa, #ffffff);
             margin: 0;
             padding: 20px;
             min-height: 100vh;
         }
         .container {
-            max-width: 1000px;
+            max-width: 1100px;
             margin: 0 auto;
             background: white;
             border-radius: 16px;
@@ -29,7 +29,7 @@
             overflow: hidden;
         }
         header {
-            background: #e91e63;
+            background: #1e88e5;
             color: white;
             text-align: center;
             padding: 30px 20px;
@@ -50,7 +50,7 @@
             font-size: 0.95em;
         }
         th {
-            background: #e91e63;
+            background: #1e88e5;
             color: white;
             padding: 16px 10px;
             font-weight: 600;
@@ -64,17 +64,17 @@
             vertical-align: middle;
         }
         tr:nth-child(even) {
-            background-color: #fdf2f8;
+            background-color: #e3f2fd;
         }
         tr:hover {
-            background-color: #fce4ec;
+            background-color: #bbdefb;
             transition: 0.3s;
         }
         .note {
             margin: 30px;
             padding: 20px;
             background: #fff3cd;
-            border-left: 6px solid #ffc107;
+            border-left: 6px solid #ffb300;
             border-radius: 8px;
             font-size: 0.95em;
         }
@@ -82,7 +82,7 @@
             position: fixed;
             bottom: 30px;
             right: 30px;
-            background: #e91e63;
+            background: #1e88e5;
             color: white;
             width: 60px;
             height: 60px;
@@ -90,7 +90,7 @@
             font-size: 30px;
             line-height: 60px;
             text-align: center;
-            box-shadow: 0 6px 20px rgba(233,30,99,0.4);
+            box-shadow: 0 6px 20px rgba(30,136,229,0.4);
             cursor: pointer;
             z-index: 100;
             transition: 0.3s;
@@ -109,7 +109,7 @@
         }
         @media (max-width: 480px) {
             table { display: block; overflow-x: auto; white-space: nowrap; }
-            th, td { min-width: 100px; }
+            th, td { min-width: 110px; }
         }
         @media print {
             body { background: white; }
@@ -122,104 +122,112 @@
 
 <div class="container">
     <header>
-        <h1>LỊCH TRỞ VỀ NHÀ NĂM 2026
-            <small>1 tháng về 1 lần – cố định cuối tuần</small>
+        <h1>NHẬT KÝ PHIỀN PHỨC CÔNG VIỆC BẢO VỆ XA NHÀ 2026
+            <small>làm xa – ghi lại mỗi tháng những khó khăn, sự cố, áp lực gặp phải</small>
         </h1>
     </header>
 
-    <table id="lichTable">
+    <table id="phienPhucTable">
         <thead>
             <tr>
                 <th>Tháng</th>
-                <th>Ngày về</th>
-                <th>Ngày quay lại</th>
-                <th>Phương tiện</th>
-                <th>Ghi chú</th>
+                <th>Ngày ghi</th>
+                <th>Loại phiền phức</th>
+                <th>Mô tả chi tiết</th>
+                <th>Mức độ</th>
+                <th>Ghi chú / cảm xúc</th>
             </tr>
         </thead>
         <tbody>
-            <!-- Dữ liệu sẽ được load từ Firebase -->
+            <!-- Dữ liệu load từ Firebase -->
         </tbody>
     </table>
 
     <div class="note">
         <strong>Lưu ý:</strong><br>
-        • Lịch được lấy tự động từ cơ sở dữ liệu, bạn có thể thêm/sửa trực tiếp bằng nút “+” ở góc dưới.<br>
-        • In trang này ra giấy để dán tủ lạnh hoặc lưu PDF đều rất đẹp!<br>
-        • Dữ liệu được đồng bộ realtime – mở trên nhiều thiết bị cũng thấy cùng một lịch.
+        • Ghi lại những chuyện phiền phức trong ca làm (xa nhà, ca đêm, thời tiết, đồng nghiệp, khách hàng, an ninh, sức khỏe...).<br>
+        • Dùng nút “+” để thêm nhanh. Dữ liệu đồng bộ realtime trên mọi thiết bị.<br>
+        • Cuối năm xem lại để rút kinh nghiệm hoặc chia sẻ với anh em cùng nghề.<br>
+        • In ra giấy hoặc lưu PDF để theo dõi lâu dài.
     </div>
 </div>
 
-<!-- Nút thêm chuyến mới -->
+<!-- Nút thêm mới -->
 <div class="add-btn" onclick="openAddForm()">+</div>
 
 <script>
-  // ================== CẤU HÌNH FIREBASE CỦA BẠN ==================
+  // ================== CẤU HÌNH FIREBASE (thay bằng của bạn nếu cần) ==================
   const firebaseConfig = {
     databaseURL: "https://project-doidoi-default-rtdb.asia-southeast1.firebasedatabase.app/"
   };
 
-  // Khởi tạo Firebase
   firebase.initializeApp(firebaseConfig);
   const db = firebase.database();
-  const lichRef = db.ref("lich2026"); // bạn có thể đổi tên node nếu muốn
+  const phienPhucRef = db.ref("phienPhucBaoVe2026"); // node lưu dữ liệu
 
-  // Load dữ liệu và hiển thị
+  // Render bảng
   function renderTable(snapshot) {
-    const tbody = document.querySelector("#lichTable tbody");
-    tbody.innerHTML = ""; // xóa cũ
+    const tbody = document.querySelector("#phienPhucTable tbody");
+    tbody.innerHTML = "";
 
     const data = snapshot.val();
     if (!data) {
-      tbody.innerHTML = `<tr><td colspan="5">Chưa có dữ liệu. Hãy thêm chuyến đầu tiên!</td></tr>`;
+      tbody.innerHTML = `<tr><td colspan="6">Chưa có ghi chép nào. Thêm phiền phức đầu tiên đi nào!</td></tr>`;
       return;
     }
 
-    // Sắp xếp theo tháng (nếu key là số tháng)
-    Object.keys(data).sort((a,b) => a - b).forEach(key => {
+    // Sắp xếp theo tháng (key là số tháng dạng 01,02...)
+    Object.keys(data).sort((a,b) => a.localeCompare(b)).forEach(key => {
       const item = data[key];
       const tr = document.createElement("tr");
       tr.innerHTML = `
         <td><strong>${item.thang || ''}</strong></td>
-        <td>${item.ngayVe || ''}</td>
-        <td>${item.ngayQuay || ''}</td>
-        <td>${item.phuongTien || ''}</td>
+        <td>${item.ngayGhi || ''}</td>
+        <td>${item.loaiPhienPhuc || ''}</td>
+        <td>${item.moTa || ''}</td>
+        <td>${item.mucDo || ''}</td>
         <td>${item.ghiChu || ''}</td>
       `;
       tbody.appendChild(tr);
     });
   }
 
-  // Lắng nghe thay đổi realtime
-  lichRef.on("value", renderTable);
+  // Lắng nghe realtime
+  phienPhucRef.on("value", renderTable);
 
-  // ================== FORM THÊM MỚI ==================
+  // Form thêm mới (dùng prompt cho đơn giản)
   function openAddForm() {
-    const thang = prompt("Tháng (ví dụ: Tháng 1/2026):");
+    const thang = prompt("Tháng (ví dụ: Tháng 3/2026 hoặc 03/2026):");
     if (!thang) return;
 
-    const ngayVe = prompt("Ngày về (ví dụ: Thứ 6, 23/01/2026):");
-    const ngayQuay = prompt("Ngày quay lại:");
-    const phuongTien = prompt("Phương tiện (Xe khách / Máy bay...):", "Xe khách");
-    const ghiChu = prompt("Ghi chú (có thể để trống):", "");
+    const ngayGhi = prompt("Ngày ghi (ví dụ: 15/03/2026 hoặc hôm nay):", new Date().toLocaleDateString('vi-VN'));
+    const loai = prompt("Loại phiền phức (chọn hoặc tự điền):\n- Ca đêm mệt mỏi\n- Thời tiết nắng/mưa\n- Khách/đồng nghiệp khó chịu\n- Sự cố an ninh\n- Xa nhà nhớ gia đình\n- Sức khỏe giảm sút\n- Khác", "Ca đêm mệt mỏi");
+    const moTa = prompt("Mô tả chi tiết chuyện gì xảy ra:");
+    const mucDo = prompt("Mức độ (Nhẹ / Trung bình / Nặng / Rất nặng):", "Trung bình");
+    const ghiChu = prompt("Ghi chú thêm / cảm xúc lúc đó (có thể để trống):", "");
 
-    if (ngayVe && ngayQuay) {
-      // Lấy số tháng làm key để dễ sắp xếp
-      const monthNum = thang.match(/\d+/) ? thang.match(/\d+/)[0].padStart(2, '0') : Date.now();
-      const newRef = lichRef.push();
+    if (moTa && thang) {
+      // Key dạng 01,02,... để dễ sort
+      const monthKey = thang.match(/\d+\/\d+/) 
+        ? thang.match(/\d+\/\d+/)[0].replace('/', '') 
+        : Date.now().toString();
+
+      const newRef = phienPhucRef.child(monthKey.padStart(6,'0') + '_' + Date.now());
       newRef.set({
         thang: thang.trim(),
-        ngayVe: ngayVe.trim(),
-        ngayQuay: ngayQuay.trim(),
-        phuongTien: phuongTien.trim(),
+        ngayGhi: ngayGhi.trim(),
+        loaiPhienPhuc: loai.trim(),
+        moTa: moTa.trim(),
+        mucDo: mucDo.trim(),
         ghiChu: ghiChu.trim()
-      }).then(() => alert("Đã thêm thành công!"))
-       .catch(err => alert("Lỗi: " + err.message));
+      })
+      .then(() => alert("Đã ghi lại phiền phức! Cố lên anh em bảo vệ! 💪"))
+      .catch(err => alert("Lỗi: " + err.message));
     }
   }
 
   // Load lần đầu
-  lichRef.once("value").then(renderTable);
+  phienPhucRef.once("value").then(renderTable);
 </script>
 
 </body>
