@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <title>Vendor Manager — Bảo Vệ</title>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0a0c0f;
+      --surface: #12151a;
+      --card: #181c24;
+      --border: #252b36;
+      --accent: #e8b84b;
+      --accent2: #c8392b;
+      --text: #e4e8f0;
+      --muted: #6b7585;
+      --green: #2ecc71;
+      --red: #e74c3c;
+      --blue: #3498db;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+    body {
+      font-family: 'Barlow', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      max-width: 480px;
+      margin: 0 auto;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* TOP BAR */
+    .topbar {
+      background: var(--surface);
+      border-bottom: 2px solid var(--accent);
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .topbar-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .shield-icon {
+      width: 32px; height: 32px;
+      background: var(--accent);
+      clip-path: polygon(50% 0%, 100% 20%, 100% 60%, 50% 100%, 0% 60%, 0% 20%);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; color: #000; font-weight: 700; flex-shrink: 0;
+    }
+    .topbar-title { font-family: 'Oswald', sans-serif; font-size: 18px; letter-spacing: 1px; color: var(--accent); }
+    .topbar-sub { font-size: 10px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; }
+    .count-badge {
+      background: var(--accent);
+      color: #000;
+      font-family: 'Oswald', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 20px;
+    }
+
+    /* SEARCH BAR */
+    .search-area {
+      padding: 14px 16px;
+      background: var(--surface);
+      display: flex;
+      gap: 10px;
+    }
+    .search-wrap {
+      flex: 1;
+      position: relative;
+    }
+    .search-wrap svg {
+      position: absolute;
+      left: 12px; top: 50%; transform: translateY(-50%);
+      color: var(--muted);
+    }
+    .search-input {
+      width: 100%;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 12px 10px 38px;
+      color: var(--text);
+      font-family: 'Barlow', sans-serif;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .search-input:focus { border-color: var(--accent); }
+    .search-input::placeholder { color: var(--muted); }
+    .btn-add {
+      background: var(--accent);
+      color: #000;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 16px;
+      font-family: 'Oswald', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      display: flex; align-items: center; gap: 6px;
+      transition: background 0.2s, transform 0.1s;
+    }
+    .btn-add:active { transform: scale(0.96); background: #d4a43a; }
+
+    /* FILTER TABS */
+    .filter-tabs {
+      display: flex;
+      padding: 0 16px;
+      gap: 8px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      background: var(--surface);
+      padding-bottom: 12px;
+    }
+    .filter-tabs::-webkit-scrollbar { display: none; }
+    .tab {
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--muted);
+      border-radius: 20px;
+      padding: 5px 14px;
+      font-family: 'Barlow', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+    .tab.active {
+      background: var(--accent);
+      color: #000;
+      border-color: var(--accent);
+      font-weight: 600;
+    }
+
+    /* MAIN LIST */
+    .main-content {
+      padding: 12px 16px 120px;
+    }
+
+    /* VENDOR CARD */
+    .vendor-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      margin-bottom: 12px;
+      overflow: hidden;
+      animation: slideUp 0.3s ease forwards;
+      transition: border-color 0.2s;
+    }
+    .vendor-card:active { border-color: var(--accent); }
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .card-header {
+      padding: 14px 14px 10px;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    .avatar {
+      width: 44px; height: 44px;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Oswald', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: #000;
+      flex-shrink: 0;
+    }
+    .card-info { flex: 1; min-width: 0; }
+    .vendor-name {
+      font-family: 'Oswald', sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .vendor-type {
+      font-size: 11px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-top: 2px;
+    }
+    .status-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      margin-top: 6px;
+      flex-shrink: 0;
+    }
+    .status-dot.active { background: var(--green); box-shadow: 0 0 6px var(--green); }
+    .status-dot.inactive { background: var(--muted); }
+
+    .card-details {
+      padding: 0 14px 12px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+    .detail-item {
+      display: flex; align-items: center; gap: 6px;
+    }
+    .detail-item svg { color: var(--muted); flex-shrink: 0; }
+    .detail-text { font-size: 12px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .detail-text span { color: var(--text); }
+
+    .card-footer {
+      border-top: 1px solid var(--border);
+      display: flex;
+    }
+    .card-action {
+      flex: 1;
+      padding: 10px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center; gap: 5px;
+      font-family: 'Barlow', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--muted);
+      transition: all 0.2s;
+    }
+    .card-action:not(:last-child) { border-right: 1px solid var(--border); }
+    .card-action.edit:active { background: rgba(232,184,75,0.1); color: var(--accent); }
+    .card-action.call:active { background: rgba(46,204,113,0.1); color: var(--green); }
+    .card-action.delete:active { background: rgba(231,76,60,0.1); color: var(--red); }
+
+    /* EMPTY STATE */
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+    }
+    .empty-icon { font-size: 48px; margin-bottom: 12px; opacity: 0.3; }
+    .empty-text { color: var(--muted); font-size: 14px; }
+
+    /* MODAL OVERLAY */
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(4px);
+      z-index: 200;
+      display: none;
+      align-items: flex-end;
+    }
+    .overlay.show { display: flex; animation: fadeIn 0.2s ease; }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+    .modal {
+      background: var(--surface);
+      border-radius: 20px 20px 0 0;
+      border-top: 3px solid var(--accent);
+      width: 100%;
+      max-height: 92vh;
+      overflow-y: auto;
+      animation: slideModal 0.3s ease;
+    }
+    @keyframes slideModal {
+      from { transform: translateY(100%); }
+      to { transform: translateY(0); }
+    }
+    .modal-handle {
+      width: 36px; height: 4px;
+      background: var(--border);
+      border-radius: 2px;
+      margin: 12px auto 0;
+    }
+    .modal-header {
+      padding: 16px 20px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+    }
+    .modal-title {
+      font-family: 'Oswald', sans-serif;
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--accent);
+      letter-spacing: 0.5px;
+    }
+    .modal-close {
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      width: 32px; height: 32px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px;
+    }
+
+    .modal-body { padding: 18px 20px; }
+
+    .field-group { margin-bottom: 16px; }
+    .field-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 6px;
+      display: block;
+    }
+    .field-input, .field-select, .field-textarea {
+      width: 100%;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 11px 14px;
+      color: var(--text);
+      font-family: 'Barlow', sans-serif;
+      font-size: 15px;
+      outline: none;
+      transition: border-color 0.2s;
+      -webkit-appearance: none;
+    }
+    .field-input:focus, .field-select:focus, .field-textarea:focus { border-color: var(--accent); }
+    .field-textarea { resize: none; height: 80px; }
+    .field-select option { background: var(--card); }
+
+    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+    .color-picker-row {
+      display: flex; gap: 8px; flex-wrap: wrap;
+    }
+    .color-opt {
+      width: 32px; height: 32px;
+      border-radius: 8px;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: border-color 0.2s, transform 0.1s;
+    }
+    .color-opt.selected { border-color: white; transform: scale(1.15); }
+
+    .btn-save {
+      width: 100%;
+      background: var(--accent);
+      color: #000;
+      border: none;
+      border-radius: 12px;
+      padding: 14px;
+      font-family: 'Oswald', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      cursor: pointer;
+      margin-top: 8px;
+      transition: background 0.2s, transform 0.1s;
+    }
+    .btn-save:active { transform: scale(0.98); background: #d4a43a; }
+    .btn-save:disabled { background: var(--border); color: var(--muted); cursor: not-allowed; }
+
+    /* TOAST */
+    .toast {
+      position: fixed;
+      bottom: 90px;
+      left: 50%; transform: translateX(-50%);
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 18px;
+      font-size: 13px;
+      font-weight: 500;
+      display: flex; align-items: center; gap: 8px;
+      z-index: 300;
+      opacity: 0;
+      transition: opacity 0.3s;
+      white-space: nowrap;
+      max-width: 90vw;
+    }
+    .toast.show { opacity: 1; }
+    .toast.success { border-color: var(--green); color: var(--green); }
+    .toast.error { border-color: var(--red); color: var(--red); }
+    .toast.info { border-color: var(--accent); color: var(--accent); }
+
+    /* LOADING */
+    .spinner {
+      width: 18px; height: 18px;
+      border: 2px solid rgba(232,184,75,0.2);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      display: inline-block;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .loading-state {
+      display: flex; align-items: center; justify-content: center;
+      padding: 48px; gap: 12px; color: var(--muted);
+    }
+
+    /* CONFIRM DIALOG */
+    .confirm-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.8);
+      z-index: 400;
+      display: none;
+      align-items: center; justify-content: center;
+      padding: 20px;
+    }
+    .confirm-overlay.show { display: flex; }
+    .confirm-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      width: 100%; max-width: 320px;
+      text-align: center;
+    }
+    .confirm-icon { font-size: 32px; margin-bottom: 12px; }
+    .confirm-title { font-family: 'Oswald', sans-serif; font-size: 18px; margin-bottom: 8px; }
+    .confirm-text { font-size: 13px; color: var(--muted); margin-bottom: 20px; }
+    .confirm-btns { display: flex; gap: 10px; }
+    .btn-cancel-c {
+      flex: 1; padding: 11px;
+      background: var(--card); border: 1px solid var(--border);
+      color: var(--text); border-radius: 10px;
+      font-family: 'Barlow', sans-serif; font-size: 14px; font-weight: 500;
+      cursor: pointer;
+    }
+    .btn-confirm-c {
+      flex: 1; padding: 11px;
+      background: var(--red); border: none;
+      color: white; border-radius: 10px;
+      font-family: 'Oswald', sans-serif; font-size: 14px; font-weight: 600;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="topbar-brand">
+    <div class="shield-icon">🛡</div>
+    <div>
+      <div class="topbar-title">VENDOR MANAGER</div>
+      <div class="topbar-sub">Hệ thống bảo vệ</div>
+    </div>
+  </div>
+  <div class="count-badge" id="vendorCount">0</div>
+</div>
+
+<!-- SEARCH + ADD -->
+<div class="search-area">
+  <div class="search-wrap">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <input class="search-input" id="searchInput" type="text" placeholder="Tìm vendor..." />
+  </div>
+  <button class="btn-add" onclick="openModal()">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+    Thêm
+  </button>
+</div>
+
+<!-- FILTER TABS -->
+<div class="filter-tabs" id="filterTabs">
+  <button class="tab active" data-cat="all">Tất cả</button>
+  <button class="tab" data-cat="thiet_bi">Thiết bị</button>
+  <button class="tab" data-cat="dong_phuc">Đồng phục</button>
+  <button class="tab" data-cat="vu_khi">Vũ khí / Csp</button>
+  <button class="tab" data-cat="xe">Phương tiện</button>
+  <button class="tab" data-cat="cong_nghe">Công nghệ</button>
+  <button class="tab" data-cat="khac">Khác</button>
+</div>
+
+<!-- MAIN LIST -->
+<div class="main-content" id="vendorList">
+  <div class="loading-state">
+    <div class="spinner"></div>
+    <span>Đang tải dữ liệu...</span>
+  </div>
+</div>
+
+<!-- ADD/EDIT MODAL -->
+<div class="overlay" id="modalOverlay" onclick="handleOverlayClick(event)">
+  <div class="modal" id="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-header">
+      <span class="modal-title" id="modalTitle">THÊM VENDOR MỚI</span>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="editId" />
+
+      <div class="field-group">
+        <label class="field-label">Tên công ty / Vendor *</label>
+        <input class="field-input" id="fName" placeholder="VD: Công ty TNHH ABC" />
+      </div>
+
+      <div class="field-row">
+        <div class="field-group">
+          <label class="field-label">Danh mục *</label>
+          <select class="field-select" id="fCategory">
+            <option value="thiet_bi">Thiết bị</option>
+            <option value="dong_phuc">Đồng phục</option>
+            <option value="vu_khi">Vũ khí / Csp</option>
+            <option value="xe">Phương tiện</option>
+            <option value="cong_nghe">Công nghệ</option>
+            <option value="khac">Khác</option>
+          </select>
+        </div>
+        <div class="field-group">
+          <label class="field-label">Trạng thái</label>
+          <select class="field-select" id="fStatus">
+            <option value="active">Hoạt động</option>
+            <option value="inactive">Ngừng HĐ</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">Người liên hệ</label>
+        <input class="field-input" id="fContact" placeholder="Họ và tên" />
+      </div>
+
+      <div class="field-row">
+        <div class="field-group">
+          <label class="field-label">Số điện thoại</label>
+          <input class="field-input" id="fPhone" type="tel" placeholder="0xxx xxx xxx" />
+        </div>
+        <div class="field-group">
+          <label class="field-label">Email</label>
+          <input class="field-input" id="fEmail" type="email" placeholder="@" />
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">Địa chỉ</label>
+        <input class="field-input" id="fAddress" placeholder="Số nhà, đường, quận..." />
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">Dịch vụ / Sản phẩm cung cấp</label>
+        <textarea class="field-textarea" id="fServices" placeholder="Mô tả ngắn gọn..."></textarea>
+      </div>
+
+      <div class="field-row">
+        <div class="field-group">
+          <label class="field-label">Hợp đồng từ</label>
+          <input class="field-input" id="fContractStart" type="date" />
+        </div>
+        <div class="field-group">
+          <label class="field-label">Đến ngày</label>
+          <input class="field-input" id="fContractEnd" type="date" />
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">Màu nhận diện</label>
+        <div class="color-picker-row" id="colorPicker">
+          <div class="color-opt selected" data-color="#e8b84b" style="background:#e8b84b"></div>
+          <div class="color-opt" data-color="#e74c3c" style="background:#e74c3c"></div>
+          <div class="color-opt" data-color="#3498db" style="background:#3498db"></div>
+          <div class="color-opt" data-color="#2ecc71" style="background:#2ecc71"></div>
+          <div class="color-opt" data-color="#9b59b6" style="background:#9b59b6"></div>
+          <div class="color-opt" data-color="#e67e22" style="background:#e67e22"></div>
+          <div class="color-opt" data-color="#1abc9c" style="background:#1abc9c"></div>
+          <div class="color-opt" data-color="#e91e63" style="background:#e91e63"></div>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">Ghi chú</label>
+        <textarea class="field-textarea" id="fNote" placeholder="Ghi chú thêm..."></textarea>
+      </div>
+
+      <button class="btn-save" id="btnSave" onclick="saveVendor()">
+        LƯU VENDOR
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- CONFIRM DELETE -->
+<div class="confirm-overlay" id="confirmOverlay">
+  <div class="confirm-box">
+    <div class="confirm-icon">🗑️</div>
+    <div class="confirm-title">Xóa Vendor?</div>
+    <div class="confirm-text" id="confirmText">Thao tác này không thể hoàn tác.</div>
+    <div class="confirm-btns">
+      <button class="btn-cancel-c" onclick="closeConfirm()">Hủy</button>
+      <button class="btn-confirm-c" onclick="confirmDelete()">Xóa</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import { getDatabase, ref, set, push, remove, onValue, update } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+  const firebaseConfig = {
+    databaseURL: "https://bankvanhungbian-default-rtdb.asia-southeast1.firebasedatabase.app/"
+  };
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
+  const vendorsRef = ref(db, 'vendors');
+
+  let allVendors = [];
+  let selectedColor = '#e8b84b';
+  let currentFilter = 'all';
+  let deleteTargetId = null;
+
+  const CATEGORY_MAP = {
+    thiet_bi: 'Thiết bị',
+    dong_phuc: 'Đồng phục',
+    vu_khi: 'Vũ khí / Csp',
+    xe: 'Phương tiện',
+    cong_nghe: 'Công nghệ',
+    khac: 'Khác'
+  };
+
+  // ── REALTIME LISTENER ──────────────────────────────────────
+  onValue(vendorsRef, (snapshot) => {
+    const data = snapshot.val();
+    allVendors = data ? Object.entries(data).map(([id, v]) => ({ id, ...v })) : [];
+    allVendors.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+    renderList();
+    document.getElementById('vendorCount').textContent = allVendors.length;
+  });
+
+  // ── RENDER LIST ────────────────────────────────────────────
+  function renderList() {
+    const q = document.getElementById('searchInput').value.toLowerCase();
+    let list = allVendors;
+    if (currentFilter !== 'all') list = list.filter(v => v.category === currentFilter);
+    if (q) list = list.filter(v =>
+      v.name?.toLowerCase().includes(q) ||
+      v.contact?.toLowerCase().includes(q) ||
+      v.phone?.includes(q)
+    );
+
+    const container = document.getElementById('vendorList');
+    if (list.length === 0) {
+      container.innerHTML = `
+        <div class="empty-state">
+          <div class="empty-icon">🔍</div>
+          <div class="empty-text">Không tìm thấy vendor nào</div>
+        </div>`;
+      return;
+    }
+    container.innerHTML = list.map(v => renderCard(v)).join('');
+  }
+
+  function renderCard(v) {
+    const initials = (v.name || '?').split(' ').map(w => w[0]).slice(-2).join('').toUpperCase();
+    const color = v.color || '#e8b84b';
+    const cat = CATEGORY_MAP[v.category] || 'Khác';
+    const statusClass = v.status === 'active' ? 'active' : 'inactive';
+    const contractEnd = v.contractEnd ? `<div class="detail-item">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      <div class="detail-text"><span>${v.contractEnd}</span></div>
+    </div>` : '';
+
+    return `<div class="vendor-card">
+      <div class="card-header">
+        <div class="avatar" style="background:${color}">${initials}</div>
+        <div class="card-info">
+          <div class="vendor-name">${esc(v.name || '')}</div>
+          <div class="vendor-type">${cat}</div>
+        </div>
+        <div class="status-dot ${statusClass}"></div>
+      </div>
+      <div class="card-details">
+        ${v.contact ? `<div class="detail-item">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <div class="detail-text"><span>${esc(v.contact)}</span></div>
+        </div>` : ''}
+        ${v.phone ? `<div class="detail-item">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          <div class="detail-text"><span>${esc(v.phone)}</span></div>
+        </div>` : ''}
+        ${v.address ? `<div class="detail-item" style="grid-column:span 2">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <div class="detail-text"><span>${esc(v.address)}</span></div>
+        </div>` : ''}
+        ${contractEnd}
+      </div>
+      <div class="card-footer">
+        <button class="card-action edit" onclick="openEditModal('${v.id}')">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+          Sửa
+        </button>
+        ${v.phone ? `<button class="card-action call" onclick="callVendor('${esc(v.phone)}')">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          Gọi
+        </button>` : ''}
+        <button class="card-action delete" onclick="promptDelete('${v.id}', '${esc(v.name || '')}')">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
+          Xóa
+        </button>
+      </div>
+    </div>`;
+  }
+
+  // ── SAVE ───────────────────────────────────────────────────
+  window.saveVendor = async function() {
+    const name = document.getElementById('fName').value.trim();
+    if (!name) { showToast('Vui lòng nhập tên vendor!', 'error'); return; }
+
+    const btn = document.getElementById('btnSave');
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner"></span> Đang lưu...';
+
+    const editId = document.getElementById('editId').value;
+    const payload = {
+      name,
+      category: document.getElementById('fCategory').value,
+      status: document.getElementById('fStatus').value,
+      contact: document.getElementById('fContact').value.trim(),
+      phone: document.getElementById('fPhone').value.trim(),
+      email: document.getElementById('fEmail').value.trim(),
+      address: document.getElementById('fAddress').value.trim(),
+      services: document.getElementById('fServices').value.trim(),
+      contractStart: document.getElementById('fContractStart').value,
+      contractEnd: document.getElementById('fContractEnd').value,
+      color: selectedColor,
+      note: document.getElementById('fNote').value.trim(),
+    };
+
+    try {
+      if (editId) {
+        await update(ref(db, `vendors/${editId}`), payload);
+        showToast('✅ Đã cập nhật vendor!', 'success');
+      } else {
+        payload.createdAt = Date.now();
+        await push(vendorsRef, payload);
+        showToast('✅ Đã thêm vendor mới!', 'success');
+      }
+      closeModal();
+    } catch (e) {
+      showToast('❌ Lỗi: ' + e.message, 'error');
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'LƯU VENDOR';
+    }
+  };
+
+  // ── EDIT ───────────────────────────────────────────────────
+  window.openEditModal = function(id) {
+    const v = allVendors.find(x => x.id === id);
+    if (!v) return;
+    document.getElementById('editId').value = id;
+    document.getElementById('fName').value = v.name || '';
+    document.getElementById('fCategory').value = v.category || 'khac';
+    document.getElementById('fStatus').value = v.status || 'active';
+    document.getElementById('fContact').value = v.contact || '';
+    document.getElementById('fPhone').value = v.phone || '';
+    document.getElementById('fEmail').value = v.email || '';
+    document.getElementById('fAddress').value = v.address || '';
+    document.getElementById('fServices').value = v.services || '';
+    document.getElementById('fContractStart').value = v.contractStart || '';
+    document.getElementById('fContractEnd').value = v.contractEnd || '';
+    document.getElementById('fNote').value = v.note || '';
+    setColor(v.color || '#e8b84b');
+    document.getElementById('modalTitle').textContent = 'CHỈNH SỬA VENDOR';
+    document.getElementById('modalOverlay').classList.add('show');
+  };
+
+  // ── DELETE ─────────────────────────────────────────────────
+  window.promptDelete = function(id, name) {
+    deleteTargetId = id;
+    document.getElementById('confirmText').textContent = `Xóa "${name}"? Không thể hoàn tác.`;
+    document.getElementById('confirmOverlay').classList.add('show');
+  };
+  window.closeConfirm = () => document.getElementById('confirmOverlay').classList.remove('show');
+  window.confirmDelete = async function() {
+    if (!deleteTargetId) return;
+    try {
+      await remove(ref(db, `vendors/${deleteTargetId}`));
+      showToast('🗑️ Đã xóa vendor', 'info');
+    } catch(e) { showToast('❌ Lỗi xóa', 'error'); }
+    deleteTargetId = null;
+    closeConfirm();
+  };
+
+  // ── MODAL ─────────────────────────────────────────────────
+  window.openModal = function() {
+    document.getElementById('editId').value = '';
+    document.getElementById('fName').value = '';
+    document.getElementById('fCategory').value = 'thiet_bi';
+    document.getElementById('fStatus').value = 'active';
+    document.getElementById('fContact').value = '';
+    document.getElementById('fPhone').value = '';
+    document.getElementById('fEmail').value = '';
+    document.getElementById('fAddress').value = '';
+    document.getElementById('fServices').value = '';
+    document.getElementById('fContractStart').value = '';
+    document.getElementById('fContractEnd').value = '';
+    document.getElementById('fNote').value = '';
+    setColor('#e8b84b');
+    document.getElementById('modalTitle').textContent = 'THÊM VENDOR MỚI';
+    document.getElementById('modalOverlay').classList.add('show');
+  };
+  window.closeModal = () => document.getElementById('modalOverlay').classList.remove('show');
+  window.handleOverlayClick = (e) => { if (e.target === document.getElementById('modalOverlay')) closeModal(); };
+
+  // ── CALL ──────────────────────────────────────────────────
+  window.callVendor = (phone) => { window.location.href = `tel:${phone}`; };
+
+  // ── COLOR PICKER ──────────────────────────────────────────
+  function setColor(color) {
+    selectedColor = color;
+    document.querySelectorAll('.color-opt').forEach(el => {
+      el.classList.toggle('selected', el.dataset.color === color);
+    });
+  }
+  document.getElementById('colorPicker').addEventListener('click', (e) => {
+    const opt = e.target.closest('.color-opt');
+    if (opt) setColor(opt.dataset.color);
+  });
+
+  // ── SEARCH / FILTER ───────────────────────────────────────
+  document.getElementById('searchInput').addEventListener('input', renderList);
+  document.getElementById('filterTabs').addEventListener('click', (e) => {
+    const tab = e.target.closest('.tab');
+    if (!tab) return;
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    currentFilter = tab.dataset.cat;
+    renderList();
+  });
+
+  // ── TOAST ─────────────────────────────────────────────────
+  function showToast(msg, type = 'info') {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.className = `toast show ${type}`;
+    setTimeout(() => t.classList.remove('show'), 2800);
+  }
+
+  function esc(str) {
+    return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+</script>
+</body>
+</html>
