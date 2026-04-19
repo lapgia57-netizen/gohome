@@ -33,6 +33,192 @@
       overflow-x: hidden;
     }
 
+    /* ── LOGIN SCREEN ───────────────────────────────────── */
+    #loginScreen {
+      position: fixed;
+      inset: 0;
+      background: var(--bg);
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 24px;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+    #loginScreen.hidden { display: none; }
+
+    .login-bg-pattern {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+    .login-bg-pattern::before {
+      content: '';
+      position: absolute;
+      top: -120px; left: -80px;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(232,184,75,0.06) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    .login-bg-pattern::after {
+      content: '';
+      position: absolute;
+      bottom: -100px; right: -60px;
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(200,57,43,0.05) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    .login-logo {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 40px;
+      position: relative;
+      z-index: 1;
+    }
+    .login-shield {
+      width: 72px; height: 72px;
+      background: linear-gradient(135deg, var(--accent), #c8932b);
+      clip-path: polygon(50% 0%, 100% 20%, 100% 60%, 50% 100%, 0% 60%, 0% 20%);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 28px;
+      box-shadow: 0 0 40px rgba(232,184,75,0.25);
+      animation: shieldPulse 3s ease-in-out infinite;
+    }
+    @keyframes shieldPulse {
+      0%, 100% { box-shadow: 0 0 30px rgba(232,184,75,0.2); }
+      50% { box-shadow: 0 0 60px rgba(232,184,75,0.4); }
+    }
+    .login-title {
+      font-family: 'Oswald', sans-serif;
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      color: var(--accent);
+      text-align: center;
+    }
+    .login-subtitle {
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      text-align: center;
+      margin-top: -8px;
+    }
+
+    .login-card {
+      width: 100%;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 28px 24px;
+      position: relative;
+      z-index: 1;
+      border-top: 3px solid var(--accent);
+    }
+
+    .login-field {
+      margin-bottom: 18px;
+    }
+    .login-label {
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      display: block;
+      margin-bottom: 8px;
+    }
+    .login-input-wrap {
+      position: relative;
+    }
+    .login-input-icon {
+      position: absolute;
+      left: 14px; top: 50%; transform: translateY(-50%);
+      color: var(--muted);
+      display: flex; align-items: center;
+    }
+    .login-input {
+      width: 100%;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 13px 14px 13px 42px;
+      color: var(--text);
+      font-family: 'Barlow', sans-serif;
+      font-size: 15px;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      -webkit-appearance: none;
+    }
+    .login-input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(232,184,75,0.1);
+    }
+    .login-input.error { border-color: var(--red); box-shadow: 0 0 0 3px rgba(231,76,60,0.1); }
+    .login-input::placeholder { color: var(--muted); }
+
+    .toggle-pw {
+      position: absolute;
+      right: 14px; top: 50%; transform: translateY(-50%);
+      background: none; border: none; cursor: pointer;
+      color: var(--muted); display: flex; align-items: center;
+      padding: 4px;
+    }
+    .toggle-pw:active { color: var(--accent); }
+
+    .login-error-msg {
+      display: none;
+      color: var(--red);
+      font-size: 12px;
+      margin-top: 6px;
+      padding: 8px 12px;
+      background: rgba(231,76,60,0.08);
+      border-radius: 8px;
+      border: 1px solid rgba(231,76,60,0.2);
+      align-items: center;
+      gap: 6px;
+    }
+    .login-error-msg.show { display: flex; }
+
+    .btn-login {
+      width: 100%;
+      background: linear-gradient(135deg, var(--accent), #c8932b);
+      color: #000;
+      border: none;
+      border-radius: 12px;
+      padding: 15px;
+      font-family: 'Oswald', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      cursor: pointer;
+      margin-top: 8px;
+      transition: opacity 0.2s, transform 0.1s;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+    }
+    .btn-login:active { transform: scale(0.98); opacity: 0.9; }
+    .btn-login:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .login-footer {
+      margin-top: 24px;
+      text-align: center;
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 1px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ── MAIN APP ─────────────────────────────────────── */
+    #appScreen { display: none; }
+    #appScreen.visible { display: block; }
+
     /* TOP BAR */
     .topbar {
       background: var(--surface);
@@ -59,6 +245,7 @@
     }
     .topbar-title { font-family: 'Oswald', sans-serif; font-size: 18px; letter-spacing: 1px; color: var(--accent); }
     .topbar-sub { font-size: 10px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; }
+    .topbar-right { display: flex; align-items: center; gap: 8px; }
     .count-badge {
       background: var(--accent);
       color: #000;
@@ -68,6 +255,17 @@
       padding: 4px 10px;
       border-radius: 20px;
     }
+    .btn-logout {
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      width: 32px; height: 32px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.2s;
+    }
+    .btn-logout:active { border-color: var(--red); color: var(--red); }
 
     /* SEARCH BAR */
     .search-area {
@@ -147,9 +345,7 @@
     }
 
     /* MAIN LIST */
-    .main-content {
-      padding: 12px 16px 120px;
-    }
+    .main-content { padding: 12px 16px 120px; }
 
     /* VENDOR CARD */
     .vendor-card {
@@ -212,17 +408,12 @@
       grid-template-columns: 1fr 1fr;
       gap: 8px;
     }
-    .detail-item {
-      display: flex; align-items: center; gap: 6px;
-    }
+    .detail-item { display: flex; align-items: center; gap: 6px; }
     .detail-item svg { color: var(--muted); flex-shrink: 0; }
     .detail-text { font-size: 12px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .detail-text span { color: var(--text); }
 
-    .card-footer {
-      border-top: 1px solid var(--border);
-      display: flex;
-    }
+    .card-footer { border-top: 1px solid var(--border); display: flex; }
     .card-action {
       flex: 1;
       padding: 10px;
@@ -241,18 +432,27 @@
     .card-action.call:active { background: rgba(46,204,113,0.1); color: var(--green); }
     .card-action.delete:active { background: rgba(231,76,60,0.1); color: var(--red); }
 
-    /* EMPTY STATE */
-    .empty-state {
-      text-align: center;
-      padding: 60px 20px;
-    }
+    /* EMPTY / LOADING STATE */
+    .empty-state { text-align: center; padding: 60px 20px; }
     .empty-icon { font-size: 48px; margin-bottom: 12px; opacity: 0.3; }
     .empty-text { color: var(--muted); font-size: 14px; }
+    .spinner {
+      width: 18px; height: 18px;
+      border: 2px solid rgba(232,184,75,0.2);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      display: inline-block;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .loading-state {
+      display: flex; align-items: center; justify-content: center;
+      padding: 48px; gap: 12px; color: var(--muted);
+    }
 
     /* MODAL OVERLAY */
     .overlay {
-      position: fixed;
-      inset: 0;
+      position: fixed; inset: 0;
       background: rgba(0,0,0,0.7);
       backdrop-filter: blur(4px);
       z-index: 200;
@@ -271,10 +471,7 @@
       overflow-y: auto;
       animation: slideModal 0.3s ease;
     }
-    @keyframes slideModal {
-      from { transform: translateY(100%); }
-      to { transform: translateY(0); }
-    }
+    @keyframes slideModal { from { transform: translateY(100%); } to { transform: translateY(0); } }
     .modal-handle {
       width: 36px; height: 4px;
       background: var(--border);
@@ -283,40 +480,27 @@
     }
     .modal-header {
       padding: 16px 20px 14px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+      display: flex; align-items: center; justify-content: space-between;
       border-bottom: 1px solid var(--border);
     }
     .modal-title {
       font-family: 'Oswald', sans-serif;
-      font-size: 18px;
-      font-weight: 600;
-      color: var(--accent);
-      letter-spacing: 0.5px;
+      font-size: 18px; font-weight: 600;
+      color: var(--accent); letter-spacing: 0.5px;
     }
     .modal-close {
-      background: var(--card);
-      border: 1px solid var(--border);
-      color: var(--muted);
-      width: 32px; height: 32px;
-      border-radius: 8px;
-      cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 16px;
+      background: var(--card); border: 1px solid var(--border);
+      color: var(--muted); width: 32px; height: 32px;
+      border-radius: 8px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; font-size: 16px;
     }
-
     .modal-body { padding: 18px 20px; }
 
     .field-group { margin-bottom: 16px; }
     .field-label {
-      font-size: 11px;
-      font-weight: 600;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      margin-bottom: 6px;
-      display: block;
+      font-size: 11px; font-weight: 600;
+      color: var(--muted); text-transform: uppercase;
+      letter-spacing: 1.5px; margin-bottom: 6px; display: block;
     }
     .field-input, .field-select, .field-textarea {
       width: 100%;
@@ -334,12 +518,9 @@
     .field-input:focus, .field-select:focus, .field-textarea:focus { border-color: var(--accent); }
     .field-textarea { resize: none; height: 80px; }
     .field-select option { background: var(--card); }
-
     .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 
-    .color-picker-row {
-      display: flex; gap: 8px; flex-wrap: wrap;
-    }
+    .color-picker-row { display: flex; gap: 8px; flex-wrap: wrap; }
     .color-opt {
       width: 32px; height: 32px;
       border-radius: 8px;
@@ -357,8 +538,7 @@
       border-radius: 12px;
       padding: 14px;
       font-family: 'Oswald', sans-serif;
-      font-size: 16px;
-      font-weight: 700;
+      font-size: 16px; font-weight: 700;
       letter-spacing: 1px;
       cursor: pointer;
       margin-top: 8px;
@@ -370,16 +550,14 @@
     /* TOAST */
     .toast {
       position: fixed;
-      bottom: 90px;
-      left: 50%; transform: translateX(-50%);
+      bottom: 90px; left: 50%; transform: translateX(-50%);
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: 10px;
       padding: 10px 18px;
-      font-size: 13px;
-      font-weight: 500;
+      font-size: 13px; font-weight: 500;
       display: flex; align-items: center; gap: 8px;
-      z-index: 300;
+      z-index: 500;
       opacity: 0;
       transition: opacity 0.3s;
       white-space: nowrap;
@@ -389,22 +567,6 @@
     .toast.success { border-color: var(--green); color: var(--green); }
     .toast.error { border-color: var(--red); color: var(--red); }
     .toast.info { border-color: var(--accent); color: var(--accent); }
-
-    /* LOADING */
-    .spinner {
-      width: 18px; height: 18px;
-      border: 2px solid rgba(232,184,75,0.2);
-      border-top-color: var(--accent);
-      border-radius: 50%;
-      animation: spin 0.7s linear infinite;
-      display: inline-block;
-    }
-    @keyframes spin { to { transform: rotate(360deg); } }
-
-    .loading-state {
-      display: flex; align-items: center; justify-content: center;
-      padding: 48px; gap: 12px; color: var(--muted);
-    }
 
     /* CONFIRM DIALOG */
     .confirm-overlay {
@@ -432,62 +594,118 @@
       flex: 1; padding: 11px;
       background: var(--card); border: 1px solid var(--border);
       color: var(--text); border-radius: 10px;
-      font-family: 'Barlow', sans-serif; font-size: 14px; font-weight: 500;
-      cursor: pointer;
+      font-family: 'Barlow', sans-serif; font-size: 14px; font-weight: 500; cursor: pointer;
     }
     .btn-confirm-c {
       flex: 1; padding: 11px;
       background: var(--red); border: none;
       color: white; border-radius: 10px;
-      font-family: 'Oswald', sans-serif; font-size: 14px; font-weight: 600;
-      cursor: pointer;
+      font-family: 'Oswald', sans-serif; font-size: 14px; font-weight: 600; cursor: pointer;
     }
   </style>
 </head>
 <body>
 
-<!-- TOP BAR -->
-<div class="topbar">
-  <div class="topbar-brand">
-    <div class="shield-icon">🛡</div>
-    <div>
-      <div class="topbar-title">VENDOR MANAGER</div>
-      <div class="topbar-sub">Hệ thống bảo vệ</div>
+<!-- ══════════════ LOGIN SCREEN ══════════════ -->
+<div id="loginScreen">
+  <div class="login-bg-pattern"></div>
+
+  <div class="login-logo">
+    <div class="login-shield">🛡</div>
+    <div class="login-title">VENDOR MANAGER</div>
+    <div class="login-subtitle">Hệ thống quản lý bảo vệ</div>
+  </div>
+
+  <div class="login-card">
+    <div class="login-field">
+      <label class="login-label">Tên đăng nhập</label>
+      <div class="login-input-wrap">
+        <span class="login-input-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </span>
+        <input class="login-input" id="loginUser" type="text" placeholder="Nhập tên đăng nhập" autocomplete="username" />
+      </div>
+    </div>
+
+    <div class="login-field">
+      <label class="login-label">Mật khẩu</label>
+      <div class="login-input-wrap">
+        <span class="login-input-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        </span>
+        <input class="login-input" id="loginPass" type="password" placeholder="Nhập mật khẩu" autocomplete="current-password" />
+        <button class="toggle-pw" id="togglePw" type="button" aria-label="Hiện/ẩn mật khẩu">
+          <svg id="eyeIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="login-error-msg" id="loginError">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      <span id="loginErrorMsg">Tên đăng nhập hoặc mật khẩu không đúng</span>
+    </div>
+
+    <button class="btn-login" id="btnLogin">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+      ĐĂNG NHẬP
+    </button>
+  </div>
+
+  <div class="login-footer">© 2025 Hệ thống bảo vệ nội bộ</div>
+</div>
+
+<!-- ══════════════ APP SCREEN ══════════════ -->
+<div id="appScreen">
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <div class="topbar-brand">
+      <div class="shield-icon">🛡</div>
+      <div>
+        <div class="topbar-title">VENDOR MANAGER</div>
+        <div class="topbar-sub">Hệ thống bảo vệ</div>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="count-badge" id="vendorCount">0</div>
+      <button class="btn-logout" id="btnLogout" title="Đăng xuất">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+      </button>
     </div>
   </div>
-  <div class="count-badge" id="vendorCount">0</div>
-</div>
 
-<!-- SEARCH + ADD -->
-<div class="search-area">
-  <div class="search-wrap">
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-    <input class="search-input" id="searchInput" type="text" placeholder="Tìm vendor..." />
+  <!-- SEARCH + ADD -->
+  <div class="search-area">
+    <div class="search-wrap">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input class="search-input" id="searchInput" type="text" placeholder="Tìm vendor..." />
+    </div>
+    <button class="btn-add" onclick="openModal()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      Thêm
+    </button>
   </div>
-  <button class="btn-add" onclick="openModal()">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-    Thêm
-  </button>
-</div>
 
-<!-- FILTER TABS -->
-<div class="filter-tabs" id="filterTabs">
-  <button class="tab active" data-cat="all">Tất cả</button>
-  <button class="tab" data-cat="thiet_bi">Thiết bị</button>
-  <button class="tab" data-cat="dong_phuc">Đồng phục</button>
-  <button class="tab" data-cat="vu_khi">Vũ khí / Csp</button>
-  <button class="tab" data-cat="xe">Phương tiện</button>
-  <button class="tab" data-cat="cong_nghe">Công nghệ</button>
-  <button class="tab" data-cat="khac">Khác</button>
-</div>
-
-<!-- MAIN LIST -->
-<div class="main-content" id="vendorList">
-  <div class="loading-state">
-    <div class="spinner"></div>
-    <span>Đang tải dữ liệu...</span>
+  <!-- FILTER TABS -->
+  <div class="filter-tabs" id="filterTabs">
+    <button class="tab active" data-cat="all">Tất cả</button>
+    <button class="tab" data-cat="thiet_bi">Thiết bị</button>
+    <button class="tab" data-cat="dong_phuc">Đồng phục</button>
+    <button class="tab" data-cat="vu_khi">Vũ khí / Csp</button>
+    <button class="tab" data-cat="xe">Phương tiện</button>
+    <button class="tab" data-cat="cong_nghe">Công nghệ</button>
+    <button class="tab" data-cat="khac">Khác</button>
   </div>
-</div>
+
+  <!-- MAIN LIST -->
+  <div class="main-content" id="vendorList">
+    <div class="loading-state">
+      <div class="spinner"></div>
+      <span>Đang tải dữ liệu...</span>
+    </div>
+  </div>
+
+</div><!-- /#appScreen -->
 
 <!-- ADD/EDIT MODAL -->
 <div class="overlay" id="modalOverlay" onclick="handleOverlayClick(event)">
@@ -582,9 +800,7 @@
         <textarea class="field-textarea" id="fNote" placeholder="Ghi chú thêm..."></textarea>
       </div>
 
-      <button class="btn-save" id="btnSave" onclick="saveVendor()">
-        LƯU VENDOR
-      </button>
+      <button class="btn-save" id="btnSave" onclick="saveVendor()">LƯU VENDOR</button>
     </div>
   </div>
 </div>
@@ -609,13 +825,82 @@
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
   import { getDatabase, ref, set, push, remove, onValue, update } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
-  const firebaseConfig = {
-    databaseURL: "https://bankvanhungbian-default-rtdb.asia-southeast1.firebasedatabase.app/"
-  };
-  const app = initializeApp(firebaseConfig);
-  const db = getDatabase(app);
-  const vendorsRef = ref(db, 'vendors');
+  // ── AUTH ──────────────────────────────────────────────────
+  const CREDENTIALS = { user: 'xuathangdi', pass: 'xuathangdi' };
+  const SESSION_KEY = 'vm_auth';
 
+  const loginScreen = document.getElementById('loginScreen');
+  const appScreen   = document.getElementById('appScreen');
+  const loginUser   = document.getElementById('loginUser');
+  const loginPass   = document.getElementById('loginPass');
+  const loginError  = document.getElementById('loginError');
+  const loginErrorMsg = document.getElementById('loginErrorMsg');
+  const btnLogin    = document.getElementById('btnLogin');
+  const togglePw    = document.getElementById('togglePw');
+  const eyeIcon     = document.getElementById('eyeIcon');
+
+  // Check existing session
+  if (sessionStorage.getItem(SESSION_KEY) === '1') showApp();
+
+  // Toggle password visibility
+  togglePw.addEventListener('click', () => {
+    const isHidden = loginPass.type === 'password';
+    loginPass.type = isHidden ? 'text' : 'password';
+    eyeIcon.innerHTML = isHidden
+      ? `<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/>`
+      : `<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>`;
+  });
+
+  // Handle login
+  function doLogin() {
+    const u = loginUser.value.trim();
+    const p = loginPass.value;
+    loginError.classList.remove('show');
+    loginUser.classList.remove('error');
+    loginPass.classList.remove('error');
+
+    if (!u || !p) {
+      loginErrorMsg.textContent = 'Vui lòng nhập đầy đủ thông tin.';
+      loginError.classList.add('show');
+      return;
+    }
+    if (u === CREDENTIALS.user && p === CREDENTIALS.pass) {
+      sessionStorage.setItem(SESSION_KEY, '1');
+      loginScreen.style.transition = 'opacity 0.4s';
+      loginScreen.style.opacity = '0';
+      setTimeout(() => { loginScreen.classList.add('hidden'); showApp(); }, 400);
+    } else {
+      loginUser.classList.add('error');
+      loginPass.classList.add('error');
+      loginErrorMsg.textContent = 'Tên đăng nhập hoặc mật khẩu không đúng.';
+      loginError.classList.add('show');
+      loginPass.value = '';
+      loginPass.focus();
+    }
+  }
+
+  btnLogin.addEventListener('click', doLogin);
+  loginPass.addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
+  loginUser.addEventListener('keydown', e => { if (e.key === 'Enter') loginPass.focus(); });
+
+  function showApp() {
+    appScreen.classList.add('visible');
+    initFirebase();
+  }
+
+  // Logout
+  document.getElementById('btnLogout').addEventListener('click', () => {
+    sessionStorage.removeItem(SESSION_KEY);
+    appScreen.classList.remove('visible');
+    loginScreen.classList.remove('hidden');
+    loginScreen.style.opacity = '1';
+    loginUser.value = '';
+    loginPass.value = '';
+    loginError.classList.remove('show');
+  });
+
+  // ── FIREBASE ───────────────────────────────────────────────
+  let db, vendorsRef;
   let allVendors = [];
   let selectedColor = '#e8b84b';
   let currentFilter = 'all';
@@ -630,16 +915,34 @@
     khac: 'Khác'
   };
 
-  // ── REALTIME LISTENER ──────────────────────────────────────
-  onValue(vendorsRef, (snapshot) => {
-    const data = snapshot.val();
-    allVendors = data ? Object.entries(data).map(([id, v]) => ({ id, ...v })) : [];
-    allVendors.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
-    renderList();
-    document.getElementById('vendorCount').textContent = allVendors.length;
-  });
+  function initFirebase() {
+    const firebaseConfig = {
+      databaseURL: "https://bankvanhungbian-default-rtdb.asia-southeast1.firebasedatabase.app/"
+    };
+    const app = initializeApp(firebaseConfig);
+    db = getDatabase(app);
+    vendorsRef = ref(db, 'vendors');
 
-  // ── RENDER LIST ────────────────────────────────────────────
+    onValue(vendorsRef, (snapshot) => {
+      const data = snapshot.val();
+      allVendors = data ? Object.entries(data).map(([id, v]) => ({ id, ...v })) : [];
+      allVendors.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+      renderList();
+      document.getElementById('vendorCount').textContent = allVendors.length;
+    });
+
+    document.getElementById('searchInput').addEventListener('input', renderList);
+    document.getElementById('filterTabs').addEventListener('click', (e) => {
+      const tab = e.target.closest('.tab');
+      if (!tab) return;
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      currentFilter = tab.dataset.cat;
+      renderList();
+    });
+  }
+
+  // ── RENDER ─────────────────────────────────────────────────
   function renderList() {
     const q = document.getElementById('searchInput').value.toLowerCase();
     let list = allVendors;
@@ -652,11 +955,7 @@
 
     const container = document.getElementById('vendorList');
     if (list.length === 0) {
-      container.innerHTML = `
-        <div class="empty-state">
-          <div class="empty-icon">🔍</div>
-          <div class="empty-text">Không tìm thấy vendor nào</div>
-        </div>`;
+      container.innerHTML = `<div class="empty-state"><div class="empty-icon">🔍</div><div class="empty-text">Không tìm thấy vendor nào</div></div>`;
       return;
     }
     container.innerHTML = list.map(v => renderCard(v)).join('');
@@ -667,10 +966,6 @@
     const color = v.color || '#e8b84b';
     const cat = CATEGORY_MAP[v.category] || 'Khác';
     const statusClass = v.status === 'active' ? 'active' : 'inactive';
-    const contractEnd = v.contractEnd ? `<div class="detail-item">
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-      <div class="detail-text"><span>${v.contractEnd}</span></div>
-    </div>` : '';
 
     return `<div class="vendor-card">
       <div class="card-header">
@@ -694,7 +989,10 @@
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
           <div class="detail-text"><span>${esc(v.address)}</span></div>
         </div>` : ''}
-        ${contractEnd}
+        ${v.contractEnd ? `<div class="detail-item">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          <div class="detail-text"><span>${v.contractEnd}</span></div>
+        </div>` : ''}
       </div>
       <div class="card-footer">
         <button class="card-action edit" onclick="openEditModal('${v.id}')">
@@ -797,17 +1095,11 @@
   // ── MODAL ─────────────────────────────────────────────────
   window.openModal = function() {
     document.getElementById('editId').value = '';
-    document.getElementById('fName').value = '';
+    ['fName','fContact','fPhone','fEmail','fAddress','fServices','fContractStart','fContractEnd','fNote'].forEach(id => {
+      document.getElementById(id).value = '';
+    });
     document.getElementById('fCategory').value = 'thiet_bi';
     document.getElementById('fStatus').value = 'active';
-    document.getElementById('fContact').value = '';
-    document.getElementById('fPhone').value = '';
-    document.getElementById('fEmail').value = '';
-    document.getElementById('fAddress').value = '';
-    document.getElementById('fServices').value = '';
-    document.getElementById('fContractStart').value = '';
-    document.getElementById('fContractEnd').value = '';
-    document.getElementById('fNote').value = '';
     setColor('#e8b84b');
     document.getElementById('modalTitle').textContent = 'THÊM VENDOR MỚI';
     document.getElementById('modalOverlay').classList.add('show');
@@ -828,17 +1120,6 @@
   document.getElementById('colorPicker').addEventListener('click', (e) => {
     const opt = e.target.closest('.color-opt');
     if (opt) setColor(opt.dataset.color);
-  });
-
-  // ── SEARCH / FILTER ───────────────────────────────────────
-  document.getElementById('searchInput').addEventListener('input', renderList);
-  document.getElementById('filterTabs').addEventListener('click', (e) => {
-    const tab = e.target.closest('.tab');
-    if (!tab) return;
-    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-    tab.classList.add('active');
-    currentFilter = tab.dataset.cat;
-    renderList();
   });
 
   // ── TOAST ─────────────────────────────────────────────────
